@@ -1,0 +1,3 @@
+ Quantum mechanics is the branch of physics relating to the very small. 
+
+It results in what may appear to be some very strange conclusions about the physical world. At the scale of atoms and electrons, many of the equations of classical mechanics, which describe how things move at everyday sizes and speeds, cease to be useful. In classical mechanics, objects exist in a specific place at a specific time. However, in quantum mechanics, objects instead exist in a haze of probability; they have a certain chance of being at point A, another chance of being at point B and so on.
