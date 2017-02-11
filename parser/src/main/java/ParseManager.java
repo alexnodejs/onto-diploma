@@ -6,8 +6,8 @@ import java.util.Properties;
 
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import xmi.model.root.elements.ModelItem;
-import xmi.root.elements.XMI;
+import legacy.xmi.model.root.elements.ModelItem;
+import legacy.xmi.root.elements.XMI;
 
 
 import java.io.BufferedReader;
@@ -25,10 +25,10 @@ import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.trees.GrammaticalRelation;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
-import xmi.model.elements.ofGeneralization.Generalization;
-import xmi.model.elements.ofassociation.Association;
-import xmi.model.elements.ofclass.Class;
-import xmi.model.root.elements.AbstractModelElement;
+import legacy.xmi.model.elements.ofGeneralization.Generalization;
+import legacy.xmi.model.elements.ofassociation.Association;
+import legacy.xmi.model.elements.ofclass.Class;
+import legacy.xmi.model.root.elements.AbstractModelElement;
 
 public class ParseManager {
 	static StanfordCoreNLP pipeline;
