@@ -4,10 +4,29 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
+import edu.stanford.nlp.ling.IndexedWord;
+import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
+import edu.stanford.nlp.semgraph.SemanticGraphEdge;
+import edu.stanford.nlp.trees.GrammaticalRelation;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.util.CoreMap;
+import xmi.model.elements.ofGeneralization.Generalization;
+import xmi.model.elements.ofassociation.Association;
+import xmi.model.elements.ofclass.Class;
+import xmi.model.root.elements.AbstractModelElement;
+import xmi.model.root.elements.ModelItem;
+import xmi.root.elements.XMI;
 
 
 public class TextParser {
@@ -16,7 +35,7 @@ public class TextParser {
 		
 		Properties props = new Properties();
 		//This props maybe should be configurable?
-        props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
+        props.setProperty("annotators", "tokenize, ssplit, pos, lemma,parse"); //"tokenize, ssplit, pos, lemma, ner, parse, dcoref");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
         
         // create an empty Annotation just with the given text
@@ -25,7 +44,7 @@ public class TextParser {
         // run all Annotators on this text
         pipeline.annotate(document);
         System.out.println("document annotation:  " + document);
-        saveToDisk(pipeline, document);
+        //saveToDisk(pipeline, document);
 	}
 	
 	public String readFile(String filename) {
@@ -91,4 +110,6 @@ public class TextParser {
 	       e.printStackTrace(); 
 	     }
 	}
+	
+	
 }

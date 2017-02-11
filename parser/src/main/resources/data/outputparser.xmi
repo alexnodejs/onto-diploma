@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XMI xmlns:UML="org.omg.xmi.namespace.UML" xmi.version="1.2">
+    <XMI.header>
+        <XMI.metamodel xmi.name="UML" xmi.version="1.4"/>
+    </XMI.header>
+    <XMI.content>
+        <UML:Model xmi.id="UML_model_1" name="NewModelUML" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+            <UML:Namespace.ownedElement>
+                <UML:Class visibility="public" isActive="false" xmi.id="Mechanics_ClassID0" name="Mechanics" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Branch_ClassID0" name="Branch" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            </UML:Namespace.ownedElement>
+        </UML:Model>
+    </XMI.content>
+</XMI>
