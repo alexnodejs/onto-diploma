@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import legacy.xmi.model.elements.ofassociation.AssociationParticipantClass;
 
 public class ClassGeneralizableElementGeneralization implements Serializable {
+
 	@XmlElement(name="Generalization", namespace="org.omg.xmi.namespace.UML")
 	private ClassGeneralizableElementGeneralizationGeneralization _generalization;
 

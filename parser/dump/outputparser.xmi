@@ -6,8 +6,21 @@
     <XMI.content>
         <UML:Model xmi.id="UML_model_1" name="NewModelUML" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
             <UML:Namespace.ownedElement>
-                <UML:Class visibility="public" isActive="false" xmi.id="Mechanics_ClassID0" name="Mechanics" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Branch_ClassID0" name="Branch" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="OldBeautifulBuilding_ClassID0" name="OldBeautifulBuilding" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="That_ClassID1" name="That" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Doubled_ClassID1" name="Doubled" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:GeneralizableElement.generalization>
+                        <UML:Generalization xmi.idref="genDoubledOldBeautifulBuilding1"/>
+                    </UML:GeneralizableElement.generalization>
+                </UML:Class>
+                <UML:Generalization xmi.id="genDoubledOldBeautifulBuilding1" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Generalization.child>
+                        <UML:Class xmi.idref="Doubled_ClassID1"/>
+                    </UML:Generalization.child>
+                    <UML:Generalization.parent>
+                        <UML:Class xmi.idref="OldBeautifulBuilding_ClassID0"/>
+                    </UML:Generalization.parent>
+                </UML:Generalization>
             </UML:Namespace.ownedElement>
         </UML:Model>
     </XMI.content>

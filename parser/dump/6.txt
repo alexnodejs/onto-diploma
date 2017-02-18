@@ -1,0 +1,1 @@
+The media administration contains an entry for each medium in the library

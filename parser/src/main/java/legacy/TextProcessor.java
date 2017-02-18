@@ -69,6 +69,8 @@ public class TextProcessor {
 	static StanfordCoreNLP pipeline;
 	public static void genearlizationElementBuilder (Class child_class, Class parent_class, List<AbstractModelElement> _absME, int i)
 	{
+        System.out.println("====== genearlizationElementBuildergenearlizationElementBuilder child_class =====" + child_class._model_name);
+        System.out.println("====== genearlizationElementBuilder parent_class =====" + parent_class._model_name);
 		Generalization _general=new Generalization
 				(new GeneralizationChild(
 						new GeneralizationChildClass(child_class._model_id)),
@@ -86,38 +88,42 @@ public class TextProcessor {
 	}
 	public static Class classElementsBuilder(SemanticGraph dep,IndexedWord word,List<AbstractModelElement> _absME, boolean IsRoot,int i)
 	{
-		
+        System.out.println("== classElementsBuilder ===");
 		String _classname=(Character.toUpperCase(word.originalText().charAt(0)))+word.originalText().substring(1);boolean _generFlag=false;
 		Class _classobj1=null, _classobj2=null;
 		
-		Collection<IndexedWord> _word_children=dep.getChildList(word);
-		GramRelationsEnum _gramReltype=null;
+		Collection<IndexedWord> _word_children = dep.getChildList(word);
+        System.out.println("classElementsBuilder _word_children:" + _word_children);
+		GramRelationsEnum _gramReltype = null;
 		
 		for (IndexedWord child : _word_children) {	
 			
-			System.out.println("IndexedWord:" + dep.getEdge(word, child).getRelation().toString());
-			_gramReltype= GramRelationsEnum.getType(dep.getEdge(word, child).getRelation().toString());
-			System.out.println(_gramReltype.toString());
+			 System.out.println("IndexedWord:" + dep.getEdge(word, child).getRelation().toString());
+             System.out.println("classElementsBuilder child.word():" + child.word());
+             System.out.println("classElementsBuilder word.word():" + word.word());
+			_gramReltype = GramRelationsEnum.getType(dep.getEdge(word, child).getRelation().toString());
+
+			System.out.println("classElementsBuilder TYPE: " + _gramReltype.toString() + " classname:"  + _classname);
 			switch (_gramReltype)
 			{			
 			case REL_JJ:
 			case REL_AMOD:
 			case REL_NN:
+                System.out.println("classElementsBuilder REL_NN/REL_AMOD/REL_JJ : " + _classname);
 				_classname=(Character.toUpperCase(child.originalText().charAt(0)) + child.originalText().substring(1))+_classname;
-				//System.out.println("YAY "+ _classname);
 				break;
 			case REL_NSUBJ:
-			
-				
+                System.out.println("classElementsBuilder REL_NSUBJ: " + _classname);
 				_classobj1=classElementsBuilder(dep,child, _absME,false,i);
-				//System.out.println("class blabla after NSUBJ");
 				_generFlag=true;
 				break;
 			case REL_DEP:
+                System.out.println("classElementsBuilder REL_DEP: " + _classname);
+
 				_classobj2=new Class(_classname+"_ClassID"+i,_classname);
 				i++;
 				_absME.add(_classobj2);
-				System.out.println("YAY added cl2 in the DEP "+_classname);
+				//System.out.println("YAY added cl2 in the DEP "+_classname);
 				_classobj1=classElementsBuilder(dep,child, _absME,false,i);
 				//_absME.add(_classobj1);
 				//System.out.println("class blabla after dep");
@@ -129,7 +135,7 @@ public class TextProcessor {
 			case REL_VMOD:
 			case REL_PARTMOD:
 			case REL_RCMOD:
-				System.out.println("YAY RCMOD");
+				System.out.println("classElementsBuilder RCMOD/REL_PARTMOD/REL_VMOD");
 				if (_generFlag) 
 					{
 					System.out.println("YAY from genFlag");
@@ -138,21 +144,21 @@ public class TextProcessor {
 					i++;
 					_absME.add(_classobj2);
 					genearlizationElementBuilder(_classobj1,_classobj2, _absME,i);
-					System.out.println("YAY cl2 added in the 1st RCMOD "+_classname);
+					System.out.println("classElementsBuilder RCMOD/REL_PARTMOD/REL_VMOD _generFlag YES: "+_classname);
 					return null;
 					}
 				else {
-					//System.out.println("YAY from !genFlag");
 					_classobj1=new Class(_classname+"_ClassID"+i,_classname);
 					i++;
 					_absME.add(_classobj1);
 					associationElementBuilder(false,dep,child, _absME,_classobj1,i);
-					System.out.println("YAY added cl1 in the end RCMOD "+_classname);
-					return _classobj1;
+                    System.out.println("classElementsBuilder RCMOD/REL_PARTMOD/REL_VMOD _generFlag NO: "+_classname);
+
+                    return _classobj1;
 				}
 				//break;
 			default:
-				System.out.println(_gramReltype.toString());
+				System.out.println("classElementsBuilder default" + _gramReltype.toString());
 				continue;
 			}
 		}
@@ -169,121 +175,142 @@ public class TextProcessor {
 //			return _classobj2;
 //		}
 //		else {
-		
+             System.out.println("classElementsBuilder Continue "+_classname);
 			_classobj1=new Class(_classname+"_ClassID"+i,_classname);
 			i++;
 			_absME.add(_classobj1);
-			System.out.println("YAY added in the end "+_classname);
+
 			
 			return _classobj1;
 			//}
 		
 	}
 	
-	private static Association associationElementBuilder(boolean flag,SemanticGraph dep,IndexedWord word, List<AbstractModelElement> _absME, Class classobj1,int i) 
+	private static Association associationElementBuilder(boolean flag,SemanticGraph dep,IndexedWord word, List<AbstractModelElement> _absME, Class classobj1,int i)
 	{
-		
-		
-		String _assoc_name=word.originalText();;
-		Association _association=null;
-		Class _classobj2=null;
-		
-		
-		Collection<IndexedWord> _word_children=dep.getChildList(word);
-		GramRelationsEnum _gramReltype=null;
-		
-		for (IndexedWord child : _word_children) {			
-			_gramReltype= GramRelationsEnum.getType(dep.getEdge(word, child).getRelation().toString());
+
+        System.out.println("== associationElementBuilder ===");
+		String _assoc_name=word.originalText();
+		Association _association = null;
+		Class _classobj2 = null;
+
+
+		Collection<IndexedWord> _word_children = dep.getChildList(word);
+        System.out.println("associationElementBuilder _word_children:" + _word_children);
+		GramRelationsEnum _gramReltype = null;
+
+		for (IndexedWord child : _word_children) {
+            System.out.println("associationElementBuilder IndexedWord getRelation:" + dep.getEdge(word, child).getRelation().toString());
+            System.out.println("associationElementBuilder child.word():" + child.word());
+            System.out.println("associationElementBuilder word.word():" + word.word());
+
+            _gramReltype= GramRelationsEnum.getType(dep.getEdge(word, child).getRelation().toString());
 			switch (_gramReltype)
-			{			
+			{
 			case REL_AUX:
 			case REL_AUXPASS:
-				
+                System.out.println("ASSOC AUXPASS" +_assoc_name);
 				_assoc_name=(Character.toUpperCase(child.originalText().charAt(0)))+child.originalText().substring(1)+_assoc_name ;
-				System.out.println("Assoc AUXPASS" +_assoc_name);
+
 				break;
 			case REL_NSUBJPASS:
+                System.out.println("REL_NSUBJPASS" +_assoc_name);
 				if (child.get(PartOfSpeechAnnotation.class).equals("WDT"))
 					break;
 			case REL_DOBJ:
-				System.out.println("Assoc DOBJ"+_assoc_name);
-				if (classobj1!=null) 
-				_classobj2=classElementsBuilder(dep,child, _absME,false,i);
-				else classobj1=classElementsBuilder(dep,child, _absME,false,i);
+				System.out.println("ASSOC: DOBJ"+_assoc_name);
+				if (classobj1!=null) {
+                    System.out.println("classobj1 != null" + classobj1);
+
+                    _classobj2 = classElementsBuilder(dep, child, _absME, false, i);
+                }
+				else {
+                    System.out.println("classobj1 else ");
+				    classobj1=classElementsBuilder(dep,child, _absME,false,i);
+                }
 				break;
 			case REL_XCOMP:
-				System.out.println("Assoc XCOMP");
-				_association=associationElementBuilder(true,dep,child, _absME, null,i);			
+				System.out.println("ASSOC: XCOMP");
+				_association=associationElementBuilder(true,dep,child, _absME, null,i);
 				break;
 			case REL_AGENT:
-				
+
 				_assoc_name=_assoc_name+"by";
-				System.out.println("Assoc AGENT"+_assoc_name);
+				System.out.println("ASSOC: AGENT "+ _assoc_name + " child" + child);
 				_classobj2=classElementsBuilder(dep, child,_absME,false,i);
 				break;
 			default:
-				System.out.println(_gramReltype.toString());
+				System.out.println("default ASSOC: AGENT "+_gramReltype.toString() + "child: " + child);
 				continue;
-			
+
 			}
 		}
 		if ((flag)&&(classobj1!=null))
 		{
+            System.out.println("RETURN ASSOC: NOT_ADD: flag&&classobj1 "+_assoc_name);
 			_association= new Association(_assoc_name+"_AssociationID"+i, _assoc_name, "", classobj1._model_id,i);
 			i++;
-			System.out.println("Return Assoc flag&&cl1 "+_assoc_name);
 			return _association;
 		}
 		else if (_association==null)
 		{
+            System.out.println("RETURN ASSOC NULL: ADD: _association==null: "+_assoc_name+ "class_obj2: " + _classobj2);
 			_association= new Association(_assoc_name+"_AssociationID"+i, _assoc_name, classobj1._model_id, _classobj2._model_id,i);
 			i++;
-			System.out.println("Return Assoc !flag&&cl1 "+_assoc_name);
 			_absME.add(_association);
-			System.out.println("YAY added assoc in the end "+_assoc_name);
-			return null;	
+			//System.out.println("YAY added assoc in the end "+_assoc_name);
+			return null;
 		}
-		else 
-			{
-			_association._model_name=_assoc_name+_association._model_name;
-		_association._model_id=_assoc_name+_association._model_id;
-		_association.Set_AssociationEnd1(classobj1._model_id,i);
-		i++;
-		_absME.add(_association);
-		System.out.println("Return Assoc ret else "+_association._model_name);
+		else
+		{
+            System.out.println("RETURN ASSOC NULL: ADD: else"+_assoc_name);
+            _association._model_name=_assoc_name+_association._model_name;
+		    _association._model_id=_assoc_name+_association._model_id;
+		    _association.Set_AssociationEnd1(classobj1._model_id,i);
+		    i++;
+		    _absME.add(_association);
+		//System.out.println("Return Assoc ret else "+_association._model_name);
 		return null;
 			}
 	}
 	public static void ClassSearch(SemanticGraph dep,IndexedWord word,List<AbstractModelElement> classes)
 	{
+        System.out.println("ClassSearch: ADD: else");
 		String _classname="";
 		String pos = word.get(PartOfSpeechAnnotation.class);
         //System.out.println(pos);
-		Class tmp=null;
+		Class tmp = null;
         Collection<IndexedWord> _word_children=dep.getChildList(word);
-        
-        GrammaticalRelation gr=null;
+
+        GrammaticalRelation gr = null;
         
         for (IndexedWord child : _word_children) {
-        	gr=dep.getEdge(word, child).getRelation();
+            System.out.println("ClassSearch IndexedWord:" + dep.getEdge(word, child).getRelation().toString());
+
+            gr = dep.getEdge(word, child).getRelation();
 			System.out.println(gr.hashCode());
 			
 			
         	if ((dep.getEdge(word, child).getRelation().toString().equals("amod"))||(dep.getEdge(word, child).getRelation().toString().equals("nn")))
         	{
-        		System.out.print(" Relation "+ dep.getEdge(word, child).getRelation().toString()+ " ["+word.originalText()+" "+child.originalText()+"]");
+                System.out.println("ClassSearch if amod or nn:");
+
+                System.out.print(" Relation "+ dep.getEdge(word, child).getRelation().toString()+ " ["+word.originalText()+" "+child.originalText()+"]");
         		_classname=(Character.toUpperCase(child.originalText().charAt(0)) + child.originalText().substring(1));
         	}
-        	else ClassSearch(dep,child,classes);
+        	else {
+                System.out.println("ClassSearch else:");
+        	    ClassSearch(dep, child, classes);
+            }
 		}
-        boolean t=true;
+        boolean t = true;
 		//System.out.println(GrammaticalRelation.GrammaticalRelationAnnotation.class.getDeclaredClasses().getClass().getName());
 		
         if ((pos.equals("NN"))||(pos.equals("NNP"))||(pos.equals("NNS")))
         {
         	
         	//_classname=word.originalText();
-        	_classname= _classname+Character.toUpperCase(word.lemma().charAt(0)) + word.lemma().substring(1);
+        	_classname= _classname + Character.toUpperCase(word.lemma().charAt(0)) + word.lemma().substring(1);
         	
         //	for (Class _class: classes)
         //		if (_class._model_id.equals("classID:"+_classname)) t=false;
@@ -298,7 +325,7 @@ public class TextProcessor {
 	
 	public static XMI Processing()//File _file
 	{
-		File _file = new File(Constants.resourcesDir + "input.txt");
+		File _file = new File(Constants.resourcesDir + "11.txt");
 		XMI _xmiStructure=null;
 		Properties props = new Properties();
 		props.put("annotators", "tokenize, ssplit, pos, lemma,parse");
@@ -306,7 +333,7 @@ public class TextProcessor {
 
 		//List <String> classes_list=new ArrayList<String>();
 		
-		String text=null;//Text container for each file
+		String text = null; //Text container for each file
 		
 	        String _filename = Constants.outputparserfilename; //_file.getName().substring(0, _file.getName().lastIndexOf("."));
 	        String _destinationFolder = Constants.resourcesDir;//"newout";//_file.getAbsolutePath().substring(0, _file.getAbsolutePath().lastIndexOf("."))+"//";
@@ -315,28 +342,25 @@ public class TextProcessor {
 	        FileInputStream fis;
 			try {
 				ModelItem _xmi_modelItem=new ModelItem();
-                
-				
-				
+
 				fis = new FileInputStream(_file);
 				BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-				text=reader.readLine();
+				text = reader.readLine();
 				reader.close();
 				Annotation annotation;
 				annotation = new Annotation(text);
 				
 				pipeline.annotate(annotation);
-				//System.out.print(pipeline.);
 				List<CoreMap> sentences = annotation.get(SentencesAnnotation.class);
-				Tree tree = null;
-				
-				
+
 				PrintWriter Fileout = new PrintWriter(_destinationFolder+_filename+".txt");
 				List<AbstractModelElement> abslist=new ArrayList<AbstractModelElement>();
 				for (CoreMap sentence : sentences) {
-		            SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation.class);
+					SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
+
+					//SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation.class);
 		            //System.out.println(dependencies.toList());
-		            //System.out.println(dependencies.);
+		            System.out.println("dependencies: " + dependencies);
 		             
 		            //System.out.println(dependencies.toString("plain")); //here
 		            IndexedWord rootword=dependencies.getFirstRoot();
@@ -360,7 +384,7 @@ public class TextProcessor {
 		                      IndexedWord gov = edge.getGovernor();
 		                      String governor = gov.word();
 		                      int governor_index = gov.index();
-		                  GrammaticalRelation relation = edge.getRelation();
+		                      GrammaticalRelation relation = edge.getRelation();
 		                  
 		                /* if (relation.toString().equals("amod"))
 		                	 _xmi_modelItem._classList.add(new Class("classID:"+, _className, _isSpecification, _isRoot, _isLeaf, _isAbstract, visibility, isActive))
@@ -368,7 +392,7 @@ public class TextProcessor {
 		                  System.out.println("No:"+j+" Relation: "+relation.toString()+" Dependent ID: "+dependent_index+" Dependent: "+dependent.toString()+" Governor ID: "+governor_index+" Governor: "+governor.toString());
 
 		            }
-		           // ClassSearch(dependencies, rootword, abslist);
+		           //ClassSearch(dependencies, rootword, abslist);
 		           if (rootword.tag().equalsIgnoreCase("NN"))
 		           {
 		        	   classElementsBuilder(dependencies, rootword, abslist,true,0);
@@ -384,62 +408,29 @@ public class TextProcessor {
 		            	if (c1 instanceof Class) {		            		
 		            		_xmi_modelItem._classList.add((Class)c1);
 		            		System.out.println("Class"+c1._model_name);
-		            	}	else 
-		            		if (c1 instanceof  Association){
-		            			_xmi_modelItem._associationList.add((Association)c1);
-		            			System.out.println("Assoc "+c1._model_name);
-		            		}
-		            		else 
-			            		if (c1 instanceof  Generalization){
-			            			_xmi_modelItem._generalizationList.add((Generalization)c1);
-			            			System.out.println("Assoc "+c1._model_name);
-			            		}
+		            	}
+		            	else if (c1 instanceof  Association){
+		            		_xmi_modelItem._associationList.add((Association)c1);
+		            		System.out.println("Assoc "+c1._model_name);
+		            	} else if (c1 instanceof  Generalization){
+			            	_xmi_modelItem._generalizationList.add((Generalization)c1);
+			            	System.out.println("Assoc "+c1._model_name);
+			            }
 
 		            }
 		        }
-				
-	//				String classname;
-	//		    for(CoreMap sentence: sentences) {
-			      // traversing the words in the current sentence
-			      // a CoreLabel is a CoreMap with additional token-specific methods
-	//		      for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
-			        // this is the text of the token
-	//		        String word = token.get(TextAnnotation.class);
-			        //System.out.print(word);
-			        // this is the POS tag of the token
-	//		        String pos = token.get(PartOfSpeechAnnotation.class);
-			        //System.out.println(pos);
-		//	        if ((pos.equals("NN"))||(pos.equals("NNP"))||(pos.equals("NNS")))
-		//	        {
-		//	        	classname= Character.toUpperCase(token.lemma().charAt(0)) + token.lemma().substring(1);
-	//		        	_xmi_modelItem._classList.add(new Class("classID:"+token.originalText(), classname, false,false,false,false,Visibility.PUBLIC,false));
-			        	//classes_list.add(word);
-			        	//NN_word_list.add(word);
-			        	//System.out.println(word);
-	//		        Fileout.println(word);
-	//		        }
-			        // this is the NER label of the token
-			        //String ne = token.get(NamedEntityTagAnnotation.class);  
-			       // System.out.print(ne);
-	//		      }
-	//		      tree = sentence.get(TreeAnnotation.class);
-//String ds1=tree.parent(tree).toString();
-//System.out.println(ds1);
-			      // this is the Stanford dependency graph of the current sentence
-			      //SemanticGraph dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
-			    
-	//		      }
-			    
-			   Fileout.close();
-			   PrintWriter out1=new PrintWriter(_destinationFolder+_filename+".txt");
+
+			    Fileout.close();
+			    PrintWriter out1=new PrintWriter(_destinationFolder+_filename+".txt");
 				pipeline.prettyPrint(annotation, out1);
 				out1.close();
 				PrintWriter xmlOut=new PrintWriter(_destinationFolder+_filename+".xml");
 				pipeline.xmlPrint(annotation, xmlOut);
 				xmlOut.close();
+
 				//System.out.print("HIIIIIXML!"+_destinationFolder+_filename+".smt");
 				
-				_xmiStructure=new XMI(_xmi_modelItem);
+				_xmiStructure = new XMI(_xmi_modelItem);
 				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
