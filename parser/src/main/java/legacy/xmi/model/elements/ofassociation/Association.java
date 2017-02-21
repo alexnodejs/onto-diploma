@@ -13,7 +13,7 @@ import legacy.xmi.root.elements.Visibility;
 public class Association extends AbstractModelElement{
 	@XmlElementWrapper(name="Association.connection",namespace="org.omg.xmi.namespace.UML")
 	@XmlElement(name="AssociationEnd",namespace="org.omg.xmi.namespace.UML")
-public List<AssociationEnd> _associationEnds = new ArrayList<AssociationEnd>();
+    public List<AssociationEnd> _associationEnds = new ArrayList<AssociationEnd>();
 	public Association(String _model_id, String _model_name, boolean _isSpecification,
 			boolean _isRoot, boolean _isLeaf,boolean  _isAbstract,
 			String _assocEnd1,String _assocEnd2,Visibility _visibilityEnd1, Visibility _visibilityEnd2,

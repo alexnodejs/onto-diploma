@@ -1,125 +1,263 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 import config.Constants;
-import edu.stanford.nlp.coref.CorefCoreAnnotations;
-import edu.stanford.nlp.coref.data.CorefChain;
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.pipeline.XMLOutputter;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
-import legacy.GramRelationsEnum;
 import legacy.xmi.model.elements.ofGeneralization.*;
+import legacy.xmi.model.elements.ofmethod.Attribute;
+import legacy.xmi.model.elements.ofmethod.Operation;
 import legacy.xmi.model.root.elements.ModelItem;
 import legacy.xmi.root.elements.XMI;
 
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 
 import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
-import edu.stanford.nlp.semgraph.SemanticGraphEdge;
-import edu.stanford.nlp.trees.GrammaticalRelation;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
 import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.root.elements.AbstractModelElement;
-import nu.xom.Document;
+
 
 public class ParseManager {
-	static StanfordCoreNLP pipeline;
+
+    private StanfordCoreNLP pipeline;
+    private List<AbstractModelElement> abslist = new ArrayList<AbstractModelElement>();
+
+    private int generateIndex() {
+        int index = abslist.size() > 0 ? abslist.size() + 1 : 0;
+        return index;
+    }
+
+    private void attachOperation(SemanticGraph dep, IndexedWord attrWord) {
+        IndexedWord noun = SearchUtil.getNearestNoun(dep, attrWord);
+
+        if(noun == null) { return; }
+        Class classElement = SearchUtil.getClassElement(noun, SearchType.CLASS_NAME, abslist);
+        Operation operation = ElementBuilderUtil.operationBuilder(attrWord, classElement, generateIndex());
+        classElement.addOperation(operation);
+    }
+
+    private void attachAttribute(SemanticGraph dep, IndexedWord attrWord) {
+        IndexedWord noun = SearchUtil.getNearestNoun(dep, attrWord);
+        if(noun == null) { return; }
+        Class classElement = SearchUtil.getClassElement(noun, SearchType.CLASS_NAME, abslist);
+        Attribute attribute = ElementBuilderUtil.attributeBuilder(attrWord, classElement, generateIndex());
+        classElement.addAttribute(attribute);
+    }
+
+    private void attachClassElement(IndexedWord classWord) {
+        Class classElement = ElementBuilderUtil.classElementsBuilder(classWord, generateIndex());
+        addElementToClass(classElement);
+    }
+
+    private void addElementToClass(Class element) {
+        if (element == null) {
+            return;
+        }
+
+        if (!SearchUtil.IsElementExist(abslist, element)) {
+            abslist.add(element);
+        }
+    }
 
 
-    public static void genearlizationElementBuilder (Class child_class,
-                                                     Class parent_class,
-                                                     List<AbstractModelElement> _absME,
-                                                     int index)
+    private void investigateClassElements(SemanticGraph dep,
+                                          IndexedWord word) {
+
+        System.out.println("==== investigateClassElements ====");
+        Collection<IndexedWord> childList = dep.getChildList(word);
+        if (!childList.isEmpty()) {
+            for (IndexedWord child : childList) {
+
+                System.out.println("investigateClassElements child.word():" + child.word());
+                System.out.println("investigateClassElements child TAG---" + child.tag());
+
+                //String relationType = dep.getEdge(word, child).getRelation().toString();
+                //System.out.println("getAllClasses relationType:" + relationType);
+
+                if (Arrays.asList(Constants.nounPOS).contains(child.tag())) {
+                    attachClassElement(child);
+                }
+
+                investigateClassElements(dep, child);
+            }
+        } else {
+            System.out.println(" the element " + word.word() + "does not have any child");
+        }
+    }
+
+    private void investigateOperation(SemanticGraph dep,
+                                    IndexedWord word) {
+
+
+        System.out.println("investigateMethods");
+        // Check parent
+        if (POSUtil.isVerb(word)) {
+            System.out.println("create method---" + word.word());
+            attachOperation(dep,word);
+        }
+
+        // Check child
+        Collection<IndexedWord> word_children = dep.getChildList(word);
+        if (word_children.isEmpty()) {
+            System.out.println("investigateMethods NOT CHILDS: " + word.word());
+            return;
+        }
+        for (IndexedWord child : word_children) {
+            String relationType = dep.getEdge(word, child).getRelation().toString();
+            System.out.println("investigatePropsAndMethodsGraph relationType:" + relationType);
+
+            if (POSUtil.isVerb(child)) {
+                System.out.println("create method---" + word.word() + " child: " + child.word());
+                attachOperation(dep, child);
+            }
+            investigateOperation(dep, child);
+        }
+    }
+
+    private void investigateAdjectives(SemanticGraph dep,
+                                       IndexedWord word) {
+        System.out.println("investigatePropsGraph");
+
+        // Check parent
+        if (POSUtil.isAdjective(word)) {
+            System.out.println("create property--- word" + word.word() + " word: " + word.word());
+            attachAttribute(dep, word);
+        }
+
+        // Check childs
+        Collection<IndexedWord> word_children = dep.getChildList(word);
+        if (word_children.isEmpty()) {
+            System.out.println("investigatePropsGraph NOT CHILDS: " + word.word());
+            return;
+        }
+        for (IndexedWord child : word_children) {
+            String relationType = dep.getEdge(word, child).getRelation().toString();
+            System.out.println("investigatePropsGraph relationType:" + relationType);
+
+            if (POSUtil.isAdjective(child)) {
+                System.out.println("create property--- word " + word.word() + " child: " + child.word());
+                attachAttribute(dep, child);
+            }
+
+            investigateAdjectives(dep, child);
+        }
+    }
+
+    private void investigateClassConnections(SemanticGraph dep,
+                                             IndexedWord word) {
+
+        System.out.println("searchForClassConnections");
+        Collection<IndexedWord> word_children = dep.getChildList(word);
+        if (word_children.isEmpty()) {
+            System.out.println("searchForClassConnections NOT CHILDS: " + word.word());
+            return;
+        }
+        for (IndexedWord child : word_children) {
+
+            String relationType = dep.getEdge(word, child).getRelation().toString();
+            System.out.println("searchForClassConnections relationType:" + relationType);
+
+            if (Arrays.asList(Constants.classConnectioRelationSet).contains(relationType)) {
+                //create attribute add to class by name
+                System.out.println(" BUILD RELATION ---" + word.word() + " child: " + child.word());
+                //genearlizationElementBuilder();
+                //associationElementBuilder();
+            }
+
+            investigateClassConnections(dep, child);
+        }
+    }
+
+
+    public XMI Processing(String filename)//File _file
     {
-        System.out.println("======  genearlizationElementBuildergenearlizationElementBuilder child_class =====" + child_class._model_name);
-        System.out.println("======  genearlizationElementBuilder parent_class =====" + parent_class._model_name);
-        Generalization generalizationModel = new Generalization
-                (new GeneralizationChild(
-                        new GeneralizationChildClass(child_class._model_id)),
-                        new GeneralizationParent(
-                                new GeneralizationParentClass(parent_class._model_id)),
-                        "gen"+child_class._model_name+parent_class._model_name + index,
-                        null,
-                        false);
-        //index++;
-        child_class.set_generalizableElementGeneralization(generalizationModel._generalization_id);
-        //_absME.add(child_class);
-        _absME.add(generalizationModel);
+        String fileText = FileManager.readFile(filename); //"The director is 65 years old";//FileManager.readFile(filename);
 
+        Properties props = new Properties();
+        props.put("annotators", "tokenize, ssplit, pos, lemma,parse");
+        pipeline = new StanfordCoreNLP(props);
+        System.out.println("pipeline:  " + pipeline);
+        Annotation document;
+        document = new Annotation(fileText);
+        pipeline.annotate(document);
+        System.out.print("pipeline annotation" + document);
+        XMI xmiStructure = null;
+
+        ParseDocument(document);
+        xmiStructure = buiildXMI(abslist);
+
+        //List<AbstractModelElement> abstractModelElementList = ParseDocument(document);
+        //XMI xmiStructure = buiildXMI(abstractModelElementList);
+
+        return xmiStructure;
     }
 
-    private static void associationElementBuilder(boolean flag,
-                                                         SemanticGraph dep,
-                                                         IndexedWord word,
-                                                         List<AbstractModelElement> absME,
-                                                         Class parent,
-                                                         Class child,
-                                                         int index)
-    {
+    private List<AbstractModelElement> ParseDocument(Annotation document) {
 
-        System.out.println("== associationElementBuilder ===");
-        String assoc_name = word.originalText();
-        Association association = null;
+        List<CoreMap> sentences = document.get(SentencesAnnotation.class);
 
-        //1
-        association = new Association(assoc_name + "_AssociationID" + index,
-                assoc_name,
-                parent._model_id,
-                child._model_id,
-                index);
+        for (CoreMap sentence : sentences) {
+            System.out.println(" sentence---" + sentence);
+            // this is the parse tree of the current sentence
+            Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
+            System.out.println("tree---" + tree);
 
-        if(!Arrays.asList(absME).contains(association)) {
-            System.out.println("inversigateGraph no assoc class:" + association._model_name);
-            absME.add(association);
+            // this is the Stanford dependency graph of the current sentence
+            SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
+            System.out.println("SemanticGraph---" + dependencies);
+
+            IndexedWord firstRoot = dependencies.getFirstRoot();
+            System.out.println("firstRoot---" + firstRoot);
+
+            // Build XMI elements
+            //Class element = classElementsBuilder(dependencies, firstRoot, null, null, abslist, 0);
+            System.out.println("firstRoot TAG---" + firstRoot.tag());
+            if (Arrays.asList(Constants.nounPOS).contains(firstRoot.tag())) {
+                ElementBuilderUtil.classElementsBuilder(firstRoot, generateIndex());
+            }
+            //inversigateGraph(dependencies, firstRoot);
+
+            investigateClassElements(dependencies, firstRoot);
+            investigateAdjectives(dependencies, firstRoot);
+            investigateOperation(dependencies, firstRoot);
         }
+        return abslist;
     }
 
-    private static Class classElementsBuilder(SemanticGraph dep,
-                                              IndexedWord word,
-                                              IndexedWord child,
-                                              Class parentElement,
-                                              List<AbstractModelElement> absME,
-                                              int index) {
+    private XMI buiildXMI(List<AbstractModelElement> abstractModelElementList) {
 
-        String className = (Character.toUpperCase(word.originalText().charAt(0))) + word.originalText().substring(1);
-        System.out.println("=== classElementsBuilder === " + className);
-        Class element = new Class(className + "_ClassID" + index, className);
+        XMI xmiStructure;
+        ModelItem _xmi_modelItem = new ModelItem();
 
-        if (element == null) { return null; }
+        System.out.println("buiildXMI!!!!! " + abstractModelElementList.size());
+        for (AbstractModelElement modelElement : abstractModelElementList) {
+            if (modelElement instanceof Class) {
+                _xmi_modelItem._classList.add((Class) modelElement);
+                System.out.println(" XMI Class: " + modelElement._model_name);
+            } else if (modelElement instanceof Association) {
+                _xmi_modelItem._associationList.add((Association) modelElement);
+                System.out.println(" XMI Assoc " + modelElement._model_name);
+            } else if (modelElement instanceof Generalization) {
+                _xmi_modelItem._generalizationList.add((Generalization) modelElement);
+                System.out.println(" XMI Generalization " + modelElement._model_name);
+            }
 
-        if(!IsElementExist(absME, element)){
-            absME.add(element);
         }
-
-        if (child != null ) {
-            inversigateGraph(dep, child, parentElement, absME);
-        }
-
-        return element;
+        xmiStructure = new XMI(_xmi_modelItem);
+        return xmiStructure;
     }
+}
 
-    private static boolean IsElementExist(List<AbstractModelElement> absME, Class element) {
-        if(!Arrays.asList(absME).contains(element)) {
-            return false;
-        }
-        return true;
-    }
 
-    private static void inversigateGraph(SemanticGraph dep,
+
+
+
+   /* private static void inversigateGraph(SemanticGraph dep,
                                 IndexedWord word,
                                 Class parentElement,
                                 List<AbstractModelElement> absME) {
@@ -150,84 +288,133 @@ public class ParseManager {
             }
 
         }
-    }
+    }*/
 
 
-	public static XMI Processing(String filename)//File _file
-	{
-		String fileText = FileManager.readFile(filename); //"The director is 65 years old";//FileManager.readFile(filename);
+    /* private static Class classElementsBuilder(SemanticGraph dep,
+                                              IndexedWord word,
+                                              IndexedWord child,
+                                              Class parentElement,
+                                              List<AbstractModelElement> absME,
+                                              int index) {
 
-		Properties props = new Properties();
-		props.put("annotators", "tokenize, ssplit, pos, lemma,parse");
-		pipeline = new StanfordCoreNLP(props);
-		System.out.println("pipeline:  " + pipeline);
-		Annotation document;
-		document = new Annotation(fileText);
-		pipeline.annotate(document);
-		System.out.print("pipeline annotation" + document);
+        String className = (Character.toUpperCase(word.originalText().charAt(0))) + word.originalText().substring(1);
+        System.out.println("=== classElementsBuilder === " + className);
+        Class element = new Class(className + "_ClassID" + index, className);
 
+        if (element == null) { return null; }
 
-        List<AbstractModelElement> abstractModelElementList = ParseDocument(document);
-        XMI xmiStructure = buiildXMI(abstractModelElementList);
-
-	    return xmiStructure;
-    }
-
-	private static List<AbstractModelElement> ParseDocument(Annotation document) {
-		// Go through sentences
-
-
-
-        List<AbstractModelElement> abslist = new ArrayList<AbstractModelElement>();
-        List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-
-        for(CoreMap sentence: sentences) {
-            System.out.println(" sentence---" + sentence);
-            // this is the parse tree of the current sentence
-            Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
-            System.out.println("tree---" + tree);
-
-            // this is the Stanford dependency graph of the current sentence
-            SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
-            System.out.println("SemanticGraph---" + dependencies);
-
-            IndexedWord firstRoot = dependencies.getFirstRoot();
-            System.out.println("firstRoot---" + firstRoot);
-
-            // Build XMI elements
-            Class element = classElementsBuilder(dependencies, firstRoot, null, null, abslist, 0);
-            inversigateGraph(dependencies, firstRoot, element, abslist);
-
-            System.out.println("firstRoot TAG---" + firstRoot.tag());
-
-
+        if(!IsElementExist(absME, element)){
+            absME.add(element);
         }
-        return abslist;
-	}
 
-	private  static XMI buiildXMI(List<AbstractModelElement> abstractModelElementList) {
-
-        XMI xmiStructure;
-        ModelItem _xmi_modelItem=new ModelItem();
-
-        System.out.println("buiildXMI!!!!! " + abstractModelElementList.size() );
-        for (AbstractModelElement modelElement: abstractModelElementList)
-        {
-            if (modelElement instanceof Class) {
-                _xmi_modelItem._classList.add((Class)modelElement);
-                System.out.println(" XMI Class: "+ modelElement._model_name);
-            }
-            else if (modelElement instanceof  Association){
-                _xmi_modelItem._associationList.add((Association)modelElement);
-                System.out.println(" XMI Assoc "+ modelElement._model_name);
-            }
-            else if (modelElement instanceof  Generalization){
-                _xmi_modelItem._generalizationList.add((Generalization)modelElement);
-                System.out.println(" XMI Generalization "+ modelElement._model_name);
-            }
-
+        if (child != null ) {
+            inversigateGraph(dep, child, parentElement, absME);
         }
-        xmiStructure = new XMI(_xmi_modelItem);
-        return  xmiStructure;
+
+        return element;
     }
-}
+
+
+
+    private void inversigateClassElements(SemanticGraph dep,
+                                         List<IndexedWord> classElements) {
+
+        System.out.println("inversigateClassElements");
+
+
+        for (IndexedWord element : classElements) {
+
+            Class absElement = classElementsBuilder(element, 0);
+            Collection<IndexedWord> word_children = dep.getChildList(element);
+
+            for (IndexedWord child : word_children) {
+
+                System.out.println("inversigateClassElements IndexedWord:" + dep.getEdge(element, child).getRelation().toString());
+                System.out.println("inversigateClassElements child.word():" + child.word());
+                System.out.println("inversigateClassElements word.word():" + element.word());
+
+                String relationType = dep.getEdge(element, child).getRelation().toString();
+                System.out.println("inversigateClassElements relationType:" + relationType);
+
+                System.out.println("inversigateClassElements child TAG---" + child.tag());
+                System.out.println("inversigateClassElements element TAG---" + element.tag());
+
+                if (Arrays.asList(Constants.associationRelationSet).contains(relationType)) {
+                    Class absChildElement = classElementsBuilder(child,0);
+                    associationElementBuilder(child, absElement, absChildElement, 0);
+                }
+
+//             if (Arrays.asList(Constants.associationRelationSet).contains(relationType)) {
+//                Class absChildElement = classElementsBuilder(child,0);
+//                associationElementBuilder(child, absElement, absChildElement, 0);
+//             }
+             //build property
+
+             //else if (Arrays.asList(Constants.relationsGeneralizationSet).contains(relationType)) {
+//                Class childElement = classElementsBuilder(dep, child, null, parentElement, absME, 0);
+//                genearlizationElementBuilder(parentElement, childElement, absME,0);
+//            }
+
+            }
+        }
+    }
+
+//            if (Arrays.asList(Constants.associationRelationSet).contains(relationType)) {
+//
+//            }
+
+//            Class childElement = null;
+//            if(Arrays.asList(Constants.nounPOS).contains(child.tag())) {
+//                childElement = classElementsBuilder(child);
+//            }
+//
+//            if (Arrays.asList(Constants.methodRelationSet).contains(relationType)) {
+//                //add method to childElement
+//            }
+//
+//            if(Arrays.asList(Constants.adjectivePOS).contains(child.tag())) {
+//                childElement = classElementsBuilder(child);
+//            }
+
+                //associationElementBuilder(false, dep, child, absME, parentElement, childElement, 0);
+            //}
+ //           else if (Arrays.asList(Constants.relationsGeneralizationSet).contains(relationType)) {
+//                Class childElement = classElementsBuilder(dep, child, null, parentElement, absME, 0);
+//                genearlizationElementBuilder(parentElement, childElement, absME,0);
+//            }
+
+
+
+
+//    private void getAllVerbsElements(SemanticGraph dep,
+//                                     IndexedWord word,
+//                                     List<IndexedWord> classElements) {
+//        System.out.println("====getAllVerbsElements ====");
+//
+//
+//        Collection<IndexedWord> childList = dep.getChildList(word);
+//        if (!childList.isEmpty()) {
+//            for (IndexedWord child : childList) {
+//
+//                System.out.println("getAllVerbsElements child.word():" + child.word());
+//                System.out.println("getAllVerbsElements child TAG---" + child.tag());
+//                //String relationType = dep.getEdge(word, child).getRelation().toString();
+//                //System.out.println("getAllClasses relationType:" + relationType);
+//
+//
+//                if (Arrays.asList(Constants.verbPOS).contains(child.tag())) {
+//                    verbsElements.add(child);
+//                    //TODO: get relations and add method to class
+//                }
+//
+//                getAllVerbsElements(dep, child, classElements);
+//
+//            }
+//        } else {
+//            System.out.println(" the element " + word.word() + "does not have any child");
+//        }
+//    }
+
+
+    */

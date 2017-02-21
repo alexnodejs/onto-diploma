@@ -14,6 +14,7 @@ public class GeneralizationChild {
 		this._generalizationChildClass = _generalizationChildClass;
 		System.out.println("!!!!!!!"+this._generalizationChildClass.toString());
 	}
+
 	public GeneralizationChild() {
 		//super();
 		this._generalizationChildClass =  new GeneralizationChildClass();
