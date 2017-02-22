@@ -49,9 +49,39 @@ public class ParseManager {
         classElement.addAttribute(attribute);
     }
 
+
+
+
     private void attachClassElement(IndexedWord classWord) {
         Class classElement = ElementBuilderUtil.classElementsBuilder(classWord, generateIndex());
         addElementToClass(classElement);
+    }
+
+    private void attachGeneralizationElement(IndexedWord parent, IndexedWord child) {
+        System.out.println("==== attachGeneralizationElement parent ====" + parent.tag());
+
+        Class parentClassElement = null;
+        Class childClassElement = null;
+        if(POSUtil.isVerb(parent)) {
+            parentClassElement = SearchUtil.getClassElement(parent, SearchType.CLASS_OPERATION, abslist);
+        } else if(POSUtil.isAdjective(parent)) {
+            parentClassElement = SearchUtil.getClassElement(parent, SearchType.CLASS_ATTRIBUTE, abslist);
+        }
+
+        if(POSUtil.isVerb(child)) {
+            childClassElement = SearchUtil.getClassElement(child, SearchType.CLASS_OPERATION, abslist);
+        } else if(POSUtil.isAdjective(child)) {
+            childClassElement = SearchUtil.getClassElement(child, SearchType.CLASS_ATTRIBUTE, abslist);
+        }
+
+        if(parentClassElement == null || childClassElement == null) {
+            System.out.println("==== attachGeneralizationElement NULL ====");
+            //TODO: Find nearest in graph
+            return;
+        }
+
+         Generalization generalizationElement = ElementBuilderUtil.genearlizationElementBuilder(parentClassElement, childClassElement, generateIndex());
+        addGeneralizationToABSList(generalizationElement);
     }
 
     private void addElementToClass(Class element) {
@@ -60,6 +90,25 @@ public class ParseManager {
         }
 
         if (!SearchUtil.IsElementExist(abslist, element)) {
+            abslist.add(element);
+        }
+    }
+
+    private void addGeneralizationToABSList(Generalization element) {
+        if (element == null) {
+            return;
+        }
+
+        if (!SearchUtil.IsGeneralizationExist(abslist, element)) {
+            abslist.add(element);
+        }
+    }
+    private void addAssociationToABSList(Association element) {
+        if (element == null) {
+            return;
+        }
+
+        if (!SearchUtil.IsAssociationExist(abslist, element)) {
             abslist.add(element);
         }
     }
@@ -151,25 +200,46 @@ public class ParseManager {
     private void investigateClassConnections(SemanticGraph dep,
                                              IndexedWord word) {
 
-        System.out.println("searchForClassConnections");
+        System.out.println("investigateClassConnections");
         Collection<IndexedWord> word_children = dep.getChildList(word);
         if (word_children.isEmpty()) {
-            System.out.println("searchForClassConnections NOT CHILDS: " + word.word());
+            System.out.println("investigateClassConnections NOT CHILDS: " + word.word());
             return;
         }
         for (IndexedWord child : word_children) {
 
             String relationType = dep.getEdge(word, child).getRelation().toString();
-            System.out.println("searchForClassConnections relationType:" + relationType);
+            System.out.println("investigateClassConnections relationType:" + relationType);
 
-            if (Arrays.asList(Constants.classConnectioRelationSet).contains(relationType)) {
-                //create attribute add to class by name
-                System.out.println(" BUILD RELATION ---" + word.word() + " child: " + child.word());
-                //genearlizationElementBuilder();
-                //associationElementBuilder();
+            if (DEPUtil.isGeneralization(relationType)) {
+                System.out.println(" BUILD RELATION GENERALIZATION---" + word.word() + " child: " + child.word());
+                attachGeneralizationElement(word, child);
             }
 
             investigateClassConnections(dep, child);
+        }
+    }
+
+    private void investigateRelations(SemanticGraph dep,
+                                      IndexedWord word) {
+
+        System.out.println("investigateRelations");
+        Collection<IndexedWord> word_children = dep.getChildList(word);
+        if (word_children.isEmpty()) {
+            System.out.println("investigateRelations NOT CHILDS: " + word.word());
+            return;
+        }
+        for (IndexedWord child : word_children) {
+
+            String relationType = dep.getEdge(word, child).getRelation().toString();
+            System.out.println("investigateRelations relationType:" + relationType);
+
+            if (DEPUtil.isModifeierRelation(relationType, child)) {
+                System.out.println(" EXTEND SOMETHING---" + word.word() + " child: " + child.word());
+                ElementBuilderUtil.modifyAttribute(dep, child, abslist);
+            }
+
+            investigateRelations(dep, child);
         }
     }
 
@@ -225,6 +295,8 @@ public class ParseManager {
             investigateClassElements(dependencies, firstRoot);
             investigateAdjectives(dependencies, firstRoot);
             investigateOperation(dependencies, firstRoot);
+            investigateClassConnections(dependencies, firstRoot);
+            investigateRelations(dependencies, firstRoot);
         }
         return abslist;
     }

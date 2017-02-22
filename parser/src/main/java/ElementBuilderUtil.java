@@ -1,11 +1,14 @@
 import edu.stanford.nlp.ling.IndexedWord;
+import edu.stanford.nlp.semgraph.SemanticGraph;
 import legacy.xmi.model.elements.ofGeneralization.*;
 import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.elements.ofmethod.Attribute;
 import legacy.xmi.model.elements.ofmethod.Operation;
+import legacy.xmi.model.root.elements.AbstractModelElement;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by svitlanamoiseyenko on 2/21/17.
@@ -36,7 +39,8 @@ public class ElementBuilderUtil {
     }
 
 
-    public static Generalization genearlizationElementBuilder (Class child_class,
+    public static Generalization genearlizationElementBuilder (
+                                              Class child_class,
                                               Class parent_class,
                                               int index)
     {
@@ -50,10 +54,8 @@ public class ElementBuilderUtil {
                         "gen"+ child_class._model_name + parent_class._model_name + index,
                         null,
                         false);
-        //index++;
+
         child_class.set_generalizableElementGeneralization(generalizationModel._generalization_id);
-        //_absME.add(child_class);
-        //abslist.add(generalizationModel); //TODO
         return  generalizationModel;
     }
 
@@ -75,12 +77,25 @@ public class ElementBuilderUtil {
                 index);
 
         return association;
-//        if(!Arrays.asList(abslist).contains(association)) {
-//            System.out.println("inversigateGraph no assoc class:" + association._model_name);
-//            abslist.add(association);
-//        }
     }
 
+    public static void modifyAttribute(SemanticGraph dep, IndexedWord word, List<AbstractModelElement> abslist) {
+        IndexedWord parent = dep.getParent(word);
+        if(parent == null) { return; }
+        Class classElement = null;
+
+        if(POSUtil.isAdjective(parent)) {
+            classElement = SearchUtil.getClassElement(parent, SearchType.CLASS_ATTRIBUTE, abslist);
+            if (classElement != null) {
+                classElement._classifier._attribute._name = word.word() + " " + classElement._classifier._attribute._name;
+            }
+        } else if(POSUtil.isVerb(parent)) {
+            classElement = SearchUtil.getClassElement(parent, SearchType.CLASS_OPERATION, abslist);
+            if (classElement != null) {
+                classElement._classifier._operation._name = word.word() + " " + classElement._classifier._operation._name;
+            }
+        }
+    }
 
     /*private static void associationElementBuilder(boolean flag,
                                                          SemanticGraph dep,

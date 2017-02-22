@@ -15,9 +15,6 @@ public class Classifier {
     public Operation _operation;
 
     public Classifier() {
-
-        //this._attribute = attribute; //new Attribute("0", "KYKY");
-        //this._method = method;
     }
 
     public void addAttribute(Attribute attribute) {

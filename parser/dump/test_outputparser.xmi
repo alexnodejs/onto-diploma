@@ -8,14 +8,25 @@
             <UML:Namespace.ownedElement>
                 <UML:Class visibility="public" isActive="false" xmi.id="He_ClassID0" name="He" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Classifier.feature>
-                        <UML:Operation xmi.id="believes3" name="believes" visibility="private" isSpecification="false" ownerScope="instance"/>
+                        <UML:Operation xmi.id="believes3" name="really believes" visibility="private" isSpecification="false" ownerScope="instance"/>
                     </UML:Classifier.feature>
+                    <UML:GeneralizableElement.generalization>
+                        <UML:Generalization xmi.idref="genHeShe3"/>
+                    </UML:GeneralizableElement.generalization>
                 </UML:Class>
                 <UML:Class visibility="public" isActive="false" xmi.id="She_ClassID2" name="She" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="beautiful3" name="beautiful" visibility="private" isSpecification="false" ownerScope="instance"/>
+                        <UML:Attribute xmi.id="beautiful3" name="very beautiful" visibility="private" isSpecification="false" ownerScope="instance"/>
                     </UML:Classifier.feature>
                 </UML:Class>
+                <UML:Generalization xmi.id="genHeShe3" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Generalization.child>
+                        <UML:Class xmi.idref="He_ClassID0"/>
+                    </UML:Generalization.child>
+                    <UML:Generalization.parent>
+                        <UML:Class xmi.idref="She_ClassID2"/>
+                    </UML:Generalization.parent>
+                </UML:Generalization>
             </UML:Namespace.ownedElement>
         </UML:Model>
     </XMI.content>

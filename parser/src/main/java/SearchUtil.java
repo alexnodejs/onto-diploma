@@ -1,5 +1,7 @@
 import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.semgraph.SemanticGraph;
+import legacy.xmi.model.elements.ofGeneralization.Generalization;
+import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.root.elements.AbstractModelElement;
 
@@ -14,7 +16,23 @@ public class SearchUtil {
 
 
     public static boolean IsElementExist(List<AbstractModelElement> absME,
-                                         Class element) {
+                                          Class element) {
+        if(!Arrays.asList(absME).contains(element)) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean IsGeneralizationExist(List<AbstractModelElement> absME,
+                                         Generalization element) {
+        if(!Arrays.asList(absME).contains(element)) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean IsAssociationExist(List<AbstractModelElement> absME,
+                                                Association element) {
         if(!Arrays.asList(absME).contains(element)) {
             return false;
         }
@@ -51,25 +69,39 @@ public class SearchUtil {
                                         List<AbstractModelElement> abslist) {
 
         System.out.println(" getClassElement " + word.word());
-        Class classElement = null;
+        //Class classElement = null;
         for (AbstractModelElement element: abslist) {
+            if (element instanceof Class) {
                 switch (searchType) {
 
                     case CLASS_ATTRIBUTE:
-                        break;
+                        System.out.println(" getClassElement CLASS_ATTRIBUTE CLASS: " + String.valueOf(((Class)element)._model_name));
 
-                    case CLASS_NAME:
-                        if (element instanceof Class) {
-                            if (element._model_name.equals(word.word())) {
-                                classElement = (Class) element;
-                            }
+                        if (((Class)element).getClassAttributeByName(word.word()) != null) {
+                          //  classElement = (Class) element;
+                            return  (Class) element;
                         }
                         break;
 
-                    case CLASS_OPERATION:
+                    case CLASS_NAME:
+
+                        if (element._model_name.equals(word.word())) {
+                            //classElement = (Class) element;
+                            return  (Class) element;
+                        }
+
                         break;
+
+                    case CLASS_OPERATION:
+                        System.out.println(" getClassElement CLASS_OPERATION CLASS: " + String.valueOf(((Class)element)._model_name));
+                        if (((Class)element).getClassOperationByName(word.word()) != null) {
+                           // classElement = (Class) element;
+                            return  (Class) element;
+                        }
+                        break;
+                }
             }
         }
-        return  classElement;
+        return  null;
     }
 }
