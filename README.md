@@ -8,6 +8,7 @@ Svitlana Moiseyenko
 
 ### 2. Development of software for graphical analysis of compliance between ontology and requiremnts
 Alexander Vasileyko
+#### Moved to the seprate repository
 
 
 ### 3. Development of software for elements layout optimization on UML diagram
