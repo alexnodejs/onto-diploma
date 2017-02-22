@@ -144,10 +144,10 @@ public class ParseManager {
                 System.out.println("investigateClassElements child.word():" + child.word());
                 System.out.println("investigateClassElements child TAG---" + child.tag());
 
-                //String relationType = dep.getEdge(word, child).getRelation().toString();
+                String relationType = dep.getEdge(word, child).getRelation().toString();
                 //System.out.println("getAllClasses relationType:" + relationType);
 
-                if (POSUtil.isNoun(child)) {
+                if (POSUtil.isNoun(child) && !DEPUtil.isModifeierRelation(relationType, child)) {
                     attachClassElement(child);
                 }
 
@@ -255,7 +255,7 @@ public class ParseManager {
 
             if (DEPUtil.isModifeierRelation(relationType, child)) {
                 System.out.println(" EXTEND SOMETHING---" + word.word() + " child: " + child.word());
-                ElementBuilderUtil.modifyAttribute(dep, child, abslist);
+                ElementBuilderUtil.modifyElement(dep, child, abslist);
             }
 
             investigateRelations(dep, child);

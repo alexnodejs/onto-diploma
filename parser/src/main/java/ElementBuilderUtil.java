@@ -77,7 +77,7 @@ public class ElementBuilderUtil {
         return association;
     }
 
-    public static void modifyAttribute(SemanticGraph dep, IndexedWord word, List<AbstractModelElement> abslist) {
+    public static void modifyElement(SemanticGraph dep, IndexedWord word, List<AbstractModelElement> abslist) {
         IndexedWord parent = dep.getParent(word);
         if(parent == null) { return; }
         Class classElement = null;
@@ -91,6 +91,11 @@ public class ElementBuilderUtil {
             classElement = SearchUtil.getClassElement(parent, SearchType.CLASS_OPERATION, abslist);
             if (classElement != null) {
                 classElement._classifier._operation._name = word.word() + " " + classElement._classifier._operation._name;
+            }
+        } else if(POSUtil.isNoun(parent)) {
+            classElement = SearchUtil.getClassElement(parent, SearchType.CLASS_NAME, abslist);
+            if (classElement != null) {
+                classElement._model_name = word.word() + " " + classElement._model_name;
             }
         }
     }

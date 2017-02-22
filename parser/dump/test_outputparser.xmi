@@ -6,64 +6,12 @@
     <XMI.content>
         <UML:Model xmi.id="UML_model_1" name="NewModelUML" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
             <UML:Namespace.ownedElement>
-                <UML:Class visibility="public" isActive="false" xmi.id="He_ClassID0" name="He" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Class visibility="public" isActive="false" xmi.id="Bell_ClassID0" name="Bell" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Classifier.feature>
-                        <UML:Operation xmi.id="believes3" name="really believes" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                    <UML:GeneralizableElement.generalization>
-                        <UML:Generalization xmi.idref="genHeShe3"/>
-                    </UML:GeneralizableElement.generalization>
-                </UML:Class>
-                <UML:Class visibility="public" isActive="false" xmi.id="She_ClassID2" name="She" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="beautiful3" name="very beautiful" visibility="private" isSpecification="false" ownerScope="instance"/>
+                        <UML:Attribute xmi.id="based3" name="based" visibility="private" isSpecification="false" ownerScope="instance"/>
                     </UML:Classifier.feature>
                 </UML:Class>
-                <UML:Class visibility="public" isActive="false" xmi.id="Dog_ClassID4" name="Dog" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Operation xmi.id="likes6" name="likes" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                    <UML:GeneralizableElement.generalization>
-                        <UML:Generalization xmi.idref="genDogMeat6"/>
-                    </UML:GeneralizableElement.generalization>
-                </UML:Class>
-                <UML:Class visibility="public" isActive="false" xmi.id="Meat_ClassID5" name="Meat" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="red6" name="red" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                </UML:Class>
-                <UML:Class visibility="public" isActive="false" xmi.id="Food_ClassID7" name="Food" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="modified8" name="Genetically modified" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                    <UML:GeneralizableElement.generalization>
-                        <UML:Generalization xmi.idref="genFoodFood8"/>
-                    </UML:GeneralizableElement.generalization>
-                </UML:Class>
-                <UML:Generalization xmi.id="genHeShe3" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Generalization.child>
-                        <UML:Class xmi.idref="He_ClassID0"/>
-                    </UML:Generalization.child>
-                    <UML:Generalization.parent>
-                        <UML:Class xmi.idref="She_ClassID2"/>
-                    </UML:Generalization.parent>
-                </UML:Generalization>
-                <UML:Generalization xmi.id="genDogMeat6" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Generalization.child>
-                        <UML:Class xmi.idref="Dog_ClassID4"/>
-                    </UML:Generalization.child>
-                    <UML:Generalization.parent>
-                        <UML:Class xmi.idref="Meat_ClassID5"/>
-                    </UML:Generalization.parent>
-                </UML:Generalization>
-                <UML:Generalization xmi.id="genFoodFood8" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Generalization.child>
-                        <UML:Class xmi.idref="Food_ClassID7"/>
-                    </UML:Generalization.child>
-                    <UML:Generalization.parent>
-                        <UML:Class xmi.idref="Food_ClassID7"/>
-                    </UML:Generalization.parent>
-                </UML:Generalization>
+                <UML:Class visibility="public" isActive="false" xmi.id="Angeles_ClassID2" name="Los Angeles" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
             </UML:Namespace.ownedElement>
         </UML:Model>
     </XMI.content>
