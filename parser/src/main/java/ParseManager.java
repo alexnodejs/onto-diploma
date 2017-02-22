@@ -147,7 +147,7 @@ public class ParseManager {
                 //String relationType = dep.getEdge(word, child).getRelation().toString();
                 //System.out.println("getAllClasses relationType:" + relationType);
 
-                if (Arrays.asList(Constants.nounPOS).contains(child.tag())) {
+                if (POSUtil.isNoun(child)) {
                     attachClassElement(child);
                 }
 
@@ -306,8 +306,9 @@ public class ParseManager {
             // Build XMI elements
             //Class element = classElementsBuilder(dependencies, firstRoot, null, null, abslist, 0);
             System.out.println("firstRoot TAG---" + firstRoot.tag());
-            if (Arrays.asList(Constants.nounPOS).contains(firstRoot.tag())) {
-                ElementBuilderUtil.classElementsBuilder(firstRoot, generateIndex());
+            //TODO: move to investigateClassElements
+            if (POSUtil.isNoun(firstRoot)) {
+                attachClassElement(firstRoot);
             }
             //inversigateGraph(dependencies, firstRoot);
 

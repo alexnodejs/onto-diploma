@@ -6,9 +6,9 @@ public final class Constants {
   public static String outputparserfilename = "outputparser";
 
 
-  public static final String nounPOS[] = new String[] {"NN", "NNP", "PRP"};
+  public static final String nounPOS[] = new String[] {"NN", "NNP", "PRP", "NNS"};
   public static final String verbPOS[] = new String[] {"VBZ"};
-  public static final String adjectivePOS[] = new String[] {"JJ"};//, "RB"
+  public static final String adjectivePOS[] = new String[] {"JJ", "VBN"};//, "RB"
   public static final String adjectiveModifierPOS[] = new String[] {"RB"};//, "RB"
 
   public static final String relationsModifierSet[] = new String[] {"advmod"};
