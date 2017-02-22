@@ -44,9 +44,7 @@ public class ElementBuilderUtil {
                                               Class parent_class,
                                               int index)
     {
-        System.out.println("======  genearlizationElementBuildergenearlizationElementBuilder child_class =====" + child_class._model_name);
-        System.out.println("======  genearlizationElementBuilder parent_class =====" + parent_class._model_name);
-        Generalization generalizationModel = new Generalization
+       Generalization generalizationModel = new Generalization
                 (new GeneralizationChild(
                         new GeneralizationChildClass(child_class._model_id)),
                         new GeneralizationParent(

@@ -88,7 +88,7 @@ public class Class extends AbstractModelElement {
 		else if (_classifier._attribute._name == null) {
 			return null;
 		}
-		else if (_classifier._attribute._name.equals(attrName)) {
+		else if (_classifier._attribute._name.toLowerCase().equals(attrName)) {
 			return this;
 		}
 		return null;
@@ -96,9 +96,9 @@ public class Class extends AbstractModelElement {
 
 	public Class getClassOperationByName(String operationName) {
 		System.out.println(" getClassElement _classifier ");
-		System.out.println(" getClassElement _classifier " + String.valueOf(_classifier));
-		System.out.println(" getClassElement _classifier._operation " + String.valueOf(_classifier._operation));
-		System.out.println(" getClassElement _classifier._operation._name " + String.valueOf(_classifier._operation._name));
+		//System.out.println(" getClassElement _classifier " + String.valueOf(_classifier));
+		//System.out.println(" getClassElement _classifier._operation " + String.valueOf(_classifier._operation));
+		//System.out.println(" getClassElement _classifier._operation._name " + String.valueOf(_classifier._operation._name));
 
 		if (_classifier == null) {
 			return null;
@@ -109,7 +109,7 @@ public class Class extends AbstractModelElement {
 		else if (_classifier._operation._name == null) {
 			return null;
 		}
-		else if (_classifier._operation._name.equals(operationName)) {
+		else if (_classifier._operation._name.toLowerCase().equals(operationName)) {
 			return this;
 		}
 		return null;

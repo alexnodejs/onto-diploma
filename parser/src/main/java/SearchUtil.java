@@ -77,15 +77,16 @@ public class SearchUtil {
                     case CLASS_ATTRIBUTE:
                         System.out.println(" getClassElement CLASS_ATTRIBUTE CLASS: " + String.valueOf(((Class)element)._model_name));
 
-                        if (((Class)element).getClassAttributeByName(word.word()) != null) {
+                        if (((Class)element).getClassAttributeByName(word.word().toLowerCase()) != null) {
                           //  classElement = (Class) element;
                             return  (Class) element;
                         }
                         break;
 
                     case CLASS_NAME:
-
-                        if (element._model_name.equals(word.word())) {
+                        System.out.println(" getClassElement CLASS_NAME CLASS: " + String.valueOf(((Class)element)._model_name));
+                        System.out.println(" getClassElement word: " + String.valueOf(word.word()));
+                        if (element._model_name.toLowerCase().equals(word.word().toLowerCase())) {
                             //classElement = (Class) element;
                             return  (Class) element;
                         }
@@ -94,7 +95,7 @@ public class SearchUtil {
 
                     case CLASS_OPERATION:
                         System.out.println(" getClassElement CLASS_OPERATION CLASS: " + String.valueOf(((Class)element)._model_name));
-                        if (((Class)element).getClassOperationByName(word.word()) != null) {
+                        if (((Class)element).getClassOperationByName(word.word().toLowerCase()) != null) {
                            // classElement = (Class) element;
                             return  (Class) element;
                         }

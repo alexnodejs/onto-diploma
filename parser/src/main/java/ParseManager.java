@@ -34,10 +34,14 @@ public class ParseManager {
 
     private void attachOperation(SemanticGraph dep, IndexedWord attrWord) {
         IndexedWord noun = SearchUtil.getNearestNoun(dep, attrWord);
-
+        System.out.println("==== attachOperation noun ====" + String.valueOf(noun));
         if(noun == null) { return; }
         Class classElement = SearchUtil.getClassElement(noun, SearchType.CLASS_NAME, abslist);
+        System.out.println("==== attachOperation classElement ====" + String.valueOf(classElement));
+        if(classElement == null) { return; }
         Operation operation = ElementBuilderUtil.operationBuilder(attrWord, classElement, generateIndex());
+        System.out.println("==== attachOperation operation ====" + String.valueOf(operation._name));
+        if(operation == null) { return; }
         classElement.addOperation(operation);
     }
 
@@ -58,24 +62,39 @@ public class ParseManager {
     }
 
     private void attachGeneralizationElement(IndexedWord parent, IndexedWord child) {
-        System.out.println("==== attachGeneralizationElement parent ====" + parent.tag());
+        System.out.println("==== attachGeneralizationElement parent ====" + parent.word() +" tag: " + parent.tag());
+        System.out.println("==== attachGeneralizationElement parent ====" + child.word() +" tag: " + child.tag());
 
         Class parentClassElement = null;
         Class childClassElement = null;
         if(POSUtil.isVerb(parent)) {
+            System.out.println("==== attachGeneralizationElement parent isVerb ====");
             parentClassElement = SearchUtil.getClassElement(parent, SearchType.CLASS_OPERATION, abslist);
         } else if(POSUtil.isAdjective(parent)) {
+            System.out.println("==== attachGeneralizationElement parent isVerb ====");
             parentClassElement = SearchUtil.getClassElement(parent, SearchType.CLASS_ATTRIBUTE, abslist);
+        }else if(POSUtil.isNoun(child)) {
+            System.out.println("==== attachGeneralizationElement parentClassElement noun ");
+            parentClassElement = SearchUtil.getClassElement(parent, SearchType.CLASS_NAME, abslist);
         }
 
         if(POSUtil.isVerb(child)) {
+            System.out.println("==== attachGeneralizationElement child isVerb ====");
+
             childClassElement = SearchUtil.getClassElement(child, SearchType.CLASS_OPERATION, abslist);
         } else if(POSUtil.isAdjective(child)) {
+            System.out.println("==== attachGeneralizationElement child isAdjective ");
+
             childClassElement = SearchUtil.getClassElement(child, SearchType.CLASS_ATTRIBUTE, abslist);
+        } else if(POSUtil.isNoun(child)) {
+            System.out.println("==== attachGeneralizationElement child noun: " + child.word());
+            childClassElement = SearchUtil.getClassElement(child, SearchType.CLASS_NAME, abslist);
         }
 
+
         if(parentClassElement == null || childClassElement == null) {
-            System.out.println("==== attachGeneralizationElement NULL ====");
+            System.out.println("==== attachGeneralizationElement NULL ==== parent: "
+                    + String.valueOf(parentClassElement) + " child:" + String.valueOf(childClassElement));
             //TODO: Find nearest in graph
             return;
         }
@@ -146,7 +165,7 @@ public class ParseManager {
         System.out.println("investigateMethods");
         // Check parent
         if (POSUtil.isVerb(word)) {
-            System.out.println("create method---" + word.word());
+            System.out.println("parent create method---" + word.word());
             attachOperation(dep,word);
         }
 

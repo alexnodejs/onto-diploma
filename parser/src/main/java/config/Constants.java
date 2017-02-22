@@ -15,7 +15,7 @@ public final class Constants {
 
   //public static final String propertyRelationSet[] = new String[] {"xcomp" };
   //public static final String classMemberRelationSet[] = new String[] {"nsubj","xcomp"};
-  public static final String relationsGeneralizationSet[] = new String[] {"ccomp"};
+  public static final String relationsGeneralizationSet[] = new String[] {"ccomp", "dobj"};
 
   //nn Los Angeles class with 2 names
 //  public static final String classSet[] = new String[] {"amod" };

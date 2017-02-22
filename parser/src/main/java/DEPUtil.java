@@ -15,8 +15,8 @@ public class DEPUtil {
     }
 
     public static boolean isModifeierRelation(String relationType, IndexedWord word) {
-        if(Arrays.asList(Constants.relationsModifierSet).contains(relationType)
-                && Arrays.asList(Constants.adjectiveModifierPOS).contains(word.tag())) {
+        if(Arrays.asList(Constants.relationsModifierSet).contains(relationType)) {
+            // && Arrays.asList(Constants.adjectiveModifierPOS).contains(word.tag())
             return true;
         }
         return false;

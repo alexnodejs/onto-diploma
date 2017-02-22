@@ -19,12 +19,29 @@
                         <UML:Attribute xmi.id="beautiful3" name="very beautiful" visibility="private" isSpecification="false" ownerScope="instance"/>
                     </UML:Classifier.feature>
                 </UML:Class>
+                <UML:Class visibility="public" isActive="false" xmi.id="Dog_ClassID4" name="Dog" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Classifier.feature>
+                        <UML:Operation xmi.id="likes6" name="likes" visibility="private" isSpecification="false" ownerScope="instance"/>
+                    </UML:Classifier.feature>
+                    <UML:GeneralizableElement.generalization>
+                        <UML:Generalization xmi.idref="genDogMeat6"/>
+                    </UML:GeneralizableElement.generalization>
+                </UML:Class>
+                <UML:Class visibility="public" isActive="false" xmi.id="Meat_ClassID5" name="Meat" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
                 <UML:Generalization xmi.id="genHeShe3" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Generalization.child>
                         <UML:Class xmi.idref="He_ClassID0"/>
                     </UML:Generalization.child>
                     <UML:Generalization.parent>
                         <UML:Class xmi.idref="She_ClassID2"/>
+                    </UML:Generalization.parent>
+                </UML:Generalization>
+                <UML:Generalization xmi.id="genDogMeat6" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Generalization.child>
+                        <UML:Class xmi.idref="Dog_ClassID4"/>
+                    </UML:Generalization.child>
+                    <UML:Generalization.parent>
+                        <UML:Class xmi.idref="Meat_ClassID5"/>
                     </UML:Generalization.parent>
                 </UML:Generalization>
             </UML:Namespace.ownedElement>
