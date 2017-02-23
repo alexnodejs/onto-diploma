@@ -1,10 +1,7 @@
-import java.io.File;
-
 import legacy.xmi.output.XMI_output;
 import legacy.xmi.root.elements.XMI;
 
 import config.*;
-import legacy.TextProcessor;
 
 public class Main {
 
@@ -23,8 +20,8 @@ public class Main {
         XMI p = TextProcessor.Processing();//new XMI(file);
         XMI_output.WriteToXMIFile(Constants.resourcesDir + "outputparser" + ".xmi", p);*/
 
-        ParseManager parseManager = new ParseManager();
-        XMI xmi = parseManager.Processing("7.txt"); // 4 -? , 9
+        OldParserManager oldParserManager = new OldParserManager();
+        XMI xmi = oldParserManager.Processing("14.txt"); // 4 -? , 9
         XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
     }
 

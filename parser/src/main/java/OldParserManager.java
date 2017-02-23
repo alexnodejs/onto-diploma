@@ -22,7 +22,7 @@ import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.root.elements.AbstractModelElement;
 
 
-public class ParseManager {
+public class OldParserManager {
 
     private StanfordCoreNLP pipeline;
     private List<AbstractModelElement> abslist = new ArrayList<AbstractModelElement>();
@@ -303,6 +303,9 @@ public class ParseManager {
             IndexedWord firstRoot = dependencies.getFirstRoot();
             System.out.println("firstRoot---" + firstRoot);
 
+            // this is the parse tree of the current sentence
+            //Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
+            //System.out.println("tree---" + tree);
             // Build XMI elements
             //Class element = classElementsBuilder(dependencies, firstRoot, null, null, abslist, 0);
             System.out.println("firstRoot TAG---" + firstRoot.tag());
