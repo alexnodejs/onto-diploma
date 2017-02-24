@@ -20,9 +20,14 @@ public class Main {
         XMI p = TextProcessor.Processing();//new XMI(file);
         XMI_output.WriteToXMIFile(Constants.resourcesDir + "outputparser" + ".xmi", p);*/
 
-        OldParserManager oldParserManager = new OldParserManager();
-        XMI xmi = oldParserManager.Processing("14.txt"); // 4 -? , 9
+//      OldParserManager oldParserManager = new OldParserManager();
+//      XMI xmi = oldParserManager.Processing("14.txt"); // 4 -? , 9
+//      XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
+
+        ParseManager parseManager = new ParseManager();
+        XMI xmi = parseManager.Processing("14.txt");
         XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
+
     }
 
 

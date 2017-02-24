@@ -1,6 +1,5 @@
 import java.util.*;
 
-import config.Constants;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
@@ -346,6 +345,7 @@ public class OldParserManager {
         xmiStructure = new XMI(_xmi_modelItem);
         return xmiStructure;
     }
+
 }
 
 

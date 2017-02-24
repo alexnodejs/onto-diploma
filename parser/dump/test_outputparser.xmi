@@ -6,38 +6,14 @@
     <XMI.content>
         <UML:Model xmi.id="UML_model_1" name="NewModelUML" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
             <UML:Namespace.ownedElement>
-                <UML:Class visibility="public" isActive="false" xmi.id="Cats_ClassID0" name="Cats" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="similar9" name="similar" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                </UML:Class>
+                <UML:Class visibility="public" isActive="false" xmi.id="Cats_ClassID0" name="Cats" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
                 <UML:Class visibility="public" isActive="false" xmi.id="Anatomy_ClassID2" name="Anatomy" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Felids_ClassID3" name="Felids" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="other9" name="other" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                </UML:Class>
-                <UML:Class visibility="public" isActive="false" xmi.id="Body_ClassID4" name="Body" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="flexible9" name="flexible" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                </UML:Class>
-                <UML:Class visibility="public" isActive="false" xmi.id="Reflexes_ClassID5" name="Reflexes" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="quick9" name="quick" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                </UML:Class>
-                <UML:Class visibility="public" isActive="false" xmi.id="Claws_ClassID6" name="Claws" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="retractable9" name="retractable" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                </UML:Class>
+                <UML:Class visibility="public" isActive="false" xmi.id="Felids_ClassID3" name="Felids" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Body_ClassID4" name="Body" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Reflexes_ClassID5" name="Reflexes" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Claws_ClassID6" name="Claws" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
                 <UML:Class visibility="public" isActive="false" xmi.id="Teeth_ClassID7" name="Teeth" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Prey_ClassID8" name="Prey" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
-                    <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="small9" name="small" visibility="private" isSpecification="false" ownerScope="instance"/>
-                    </UML:Classifier.feature>
-                </UML:Class>
+                <UML:Class visibility="public" isActive="false" xmi.id="Prey_ClassID8" name="Prey" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
             </UML:Namespace.ownedElement>
         </UML:Model>
     </XMI.content>

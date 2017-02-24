@@ -28,4 +28,11 @@ public class POSUtil {
         }
         return false;
     }
+
+    public static boolean isNoun(String value) {
+        if(Arrays.asList(Constants.nounsPOS).contains(value)) {
+            return true;
+        }
+        return false;
+    }
 }

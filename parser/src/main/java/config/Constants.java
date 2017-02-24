@@ -21,4 +21,6 @@ public final class Constants {
 //  public static final String classSet[] = new String[] {"amod" };
 //  public static final String relationsAssociationSet[] = new String[] {"nsubj"};
 //  public static final String relationsGeneralizationSet[] = new String[] {"dobj"};
+
+  public static final String nounsPOS[] = new String[] {"NN", "NNP", "PRP", "NNS"};
 }

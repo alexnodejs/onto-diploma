@@ -15,6 +15,17 @@ import java.util.List;
  */
 public class ElementBuilderUtil {
 
+    public static Class classElementsBuilder(String word, int index) {
+
+        String className = (Character.toUpperCase(word.charAt(0))) + word.substring(1);
+        System.out.println("=== classElementsBuilder === " + className);
+        Class element = new Class(className + "_ClassID" + index, className);
+
+        if (element == null) { return null; }
+
+        return element;
+    }
+
     public static Class classElementsBuilder(IndexedWord word, int index) {
 
         String className = (Character.toUpperCase(word.originalText().charAt(0))) + word.originalText().substring(1);
