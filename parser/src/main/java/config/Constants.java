@@ -17,9 +17,9 @@ public final class Constants {
   //================= New ==========
 
   public static final String posNounSet[] = new String[] {"NN", "NNP", "PRP", "NNS"};
-  public static final String posVerbsSet[] = new String[] {"VBP"};
+  public static final String posVerbsSet[] = new String[] {"VBP", "VBZ"}; // VBD maybe adj , "VBD"
 
   public static final String relationClassSet[] = new String[] {"NP"};
   public static final String relationAssociationSet[] = new String[] {"VP", "V"};
-  public static final String relationConnectionSet[] = new String[] {"PP"};
+  public static final String relationGeneralizationSet[] = new String[] {"PP"};
 }

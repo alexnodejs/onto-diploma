@@ -238,28 +238,46 @@ public class OldParserManager {
         }
     }
 
-    private void investigateRelations(SemanticGraph dep,
+    private void investigateRelationsTest(SemanticGraph dep,
                                       IndexedWord word) {
 
-        System.out.println("investigateRelations");
+        System.out.println("investigateRelationsTest");
         Collection<IndexedWord> word_children = dep.getChildList(word);
-        if (word_children.isEmpty()) {
-            System.out.println("investigateRelations NOT CHILDS: " + word.word());
-            return;
-        }
+
         for (IndexedWord child : word_children) {
 
             String relationType = dep.getEdge(word, child).getRelation().toString();
-            System.out.println("investigateRelations relationType:" + relationType);
 
-            if (DEPUtil.isModifeierRelation(relationType, child)) {
-                System.out.println(" EXTEND SOMETHING---" + word.word() + " child: " + child.word());
-                ElementBuilderUtil.modifyElement(dep, child, abslist);
-            }
+            System.out.println("investigateRelationsTest parent:" + word.word());
+            System.out.println("investigateRelationsTest child:" + child.word());
+            System.out.println("investigateRelationsTest relationType:" + relationType);
 
-            investigateRelations(dep, child);
+            investigateRelationsTest(dep, child);
         }
     }
+
+//    private void investigateRelations(SemanticGraph dep,
+//                                      IndexedWord word) {
+//
+//        System.out.println("investigateRelations");
+//        Collection<IndexedWord> word_children = dep.getChildList(word);
+//        if (word_children.isEmpty()) {
+//            System.out.println("investigateRelations NOT CHILDS: " + word.word());
+//            return;
+//        }
+//        for (IndexedWord child : word_children) {
+//
+//            String relationType = dep.getEdge(word, child).getRelation().toString();
+//            System.out.println("investigateRelations relationType:" + relationType);
+//
+//            if (DEPUtil.isModifeierRelation(relationType, child)) {
+//                System.out.println(" EXTEND SOMETHING---" + word.word() + " child: " + child.word());
+//                ElementBuilderUtil.modifyElement(dep, child, abslist);
+//            }
+//
+//            investigateRelations(dep, child);
+//        }
+//    }
 
 
     public XMI Processing(String filename)//File _file
@@ -292,8 +310,8 @@ public class OldParserManager {
         for (CoreMap sentence : sentences) {
             System.out.println(" sentence---" + sentence);
             // this is the parse tree of the current sentence
-            Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
-            System.out.println("tree---" + tree);
+            //Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
+            //System.out.println("tree---" + tree);
 
             // this is the Stanford dependency graph of the current sentence
             SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
@@ -301,6 +319,9 @@ public class OldParserManager {
 
             IndexedWord firstRoot = dependencies.getFirstRoot();
             System.out.println("firstRoot---" + firstRoot);
+
+            System.out.println("Dependencies prettyPrint---");
+            dependencies.prettyPrint();
 
             // this is the parse tree of the current sentence
             //Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
@@ -316,9 +337,10 @@ public class OldParserManager {
 
             investigateClassElements(dependencies, firstRoot);
             investigateAdjectives(dependencies, firstRoot);
-            investigateOperation(dependencies, firstRoot);
-            investigateClassConnections(dependencies, firstRoot);
-            investigateRelations(dependencies, firstRoot);
+            investigateRelationsTest(dependencies, firstRoot);
+//            investigateOperation(dependencies, firstRoot);
+//            investigateClassConnections(dependencies, firstRoot);
+//            investigateRelations(dependencies, firstRoot);
         }
         return abslist;
     }

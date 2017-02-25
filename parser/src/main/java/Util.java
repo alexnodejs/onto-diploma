@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class Util {
 
-    public static List<LabeledWord> findParentClasses(Tree tree, LabeledWord labeledWord, Tree root) {
+    public static List<LabeledWord> findSiblingClasses(Tree tree, Tree root) {
 
-        System.out.println(" findParentClassName  siblings:" + tree.siblings(root));
+        System.out.println(" findSiblingClasses  siblings:" + tree.siblings(root));
         List<Tree> siblings = tree.siblings(root);
         for (Tree sibling : siblings) {
 
@@ -26,6 +26,28 @@ public class Util {
     }
 
 
+    public static List<LabeledWord> findParentClasses(Tree tree, Tree root) {
+        System.out.println(" ====findParentClasses====");
+
+        Tree parent = tree.parent(root);
+        System.out.println(" findParentClasses :" + parent);
+        List<Tree> siblings = parent.siblings(root);
+        System.out.println(" findParentClasses siblings:" + siblings);
+
+//      if (siblings == null) {
+//        findParentClasses(root, parent);
+//      }
+            for (Tree sibling : siblings) {
+                if (DEPUtil.isRelationClass(sibling)) {
+                    System.out.println(" findParentClasses siblings:" + siblings);
+                    List<LabeledWord> list = findLabeledWords(sibling, TagType.NOUN);
+                    if (list != null) {
+                        return list;
+                    }
+                }
+            }
+        return null;
+    }
 
     public static List<LabeledWord> findChildClasses(Tree tree) {
 
@@ -45,6 +67,44 @@ public class Util {
         }
         return labeledList;
     }
+
+    public static List<LabeledWord> findChildClassesForAssociation(Tree tree) {
+
+        List<LabeledWord> labeledList = new ArrayList<LabeledWord>();
+        List<Tree> children = tree.getChildrenAsList();
+        System.out.println("findChildClassesForAssociation" + children);
+        for (Tree child : children) {
+
+            System.out.println(" findChildClassesForAssociation child:" + child.value());
+            if (!DEPUtil.isRelationGeneralization(child)) {
+            List<LabeledWord> list = findLabeledWords(child, TagType.NOUN);
+               if (list != null) {
+                  labeledList.addAll(list);
+               }
+            }
+        }
+        return labeledList;
+    }
+
+
+    public static List<LabeledWord> findChildClassesForGeneralization(Tree tree) {
+
+        List<LabeledWord> labeledList = new ArrayList<LabeledWord>();
+        List<Tree> children = tree.getChildrenAsList();
+        System.out.println("findChildClassesForGeneralization" + children);
+        for (Tree child : children) {
+
+            System.out.println(" findChildClassesForGeneralization child:" + child.value());
+            if (!DEPUtil.isRelationAssociation(child)) {
+                List<LabeledWord> list = findLabeledWords(child, TagType.NOUN);
+                if (list != null) {
+                    labeledList.addAll(list);
+                }
+            }
+        }
+        return labeledList;
+    }
+
 
     public static LabeledWord findLabeledWord(Tree tree, TagType tagType) {
 

@@ -1,6 +1,7 @@
 
 import config.Constants;
 import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.ling.LabeledWord;
 import edu.stanford.nlp.naturalli.NaturalLogicAnnotator;
 import edu.stanford.nlp.naturalli.NaturalLogicRelation;
@@ -56,21 +57,38 @@ public class ParseManager {
     }
 
 
-    private void attachRelation(LabeledWord labeledWord, List<LabeledWord> parents, List<LabeledWord> children) {
+    private void attachAssociation(LabeledWord labeledWord, List<LabeledWord> parents, List<LabeledWord> children) {
 
         for (LabeledWord parent: parents) {
-
             Class parentClass =  SearchUtil.getClassElement(parent, SearchType.CLASS_NAME, abslist);
 
             for (LabeledWord child: children) {
                 Class childClass =  SearchUtil.getClassElement(child, SearchType.CLASS_NAME, abslist);
 
-
+                Association associationElemet = ElementBuilderUtil.associationElementBuilder(labeledWord, parentClass, childClass, generateIndex());
+                if (!SearchUtil.IsAssociationExist(abslist, associationElemet)) {
+                    abslist.add(associationElemet);
+                }
             }
         }
     }
 
+    private void attachGeneralization( List<LabeledWord> parents, List<LabeledWord> children) {//LabeledWord labeledWord,
 
+        for (LabeledWord parent: parents) {
+            Class parentClass =  SearchUtil.getClassElement(parent, SearchType.CLASS_NAME, abslist);
+
+            for (LabeledWord child: children) {
+                Class childClass =  SearchUtil.getClassElement(child, SearchType.CLASS_NAME, abslist);
+
+                Generalization generalizationElement = ElementBuilderUtil.genearlizationElementBuilder(parentClass, childClass, generateIndex());
+
+                if (!SearchUtil.IsGeneralizationExist(abslist, generalizationElement)) {
+                 abslist.add(generalizationElement);
+                }
+            }
+        }
+    }
 
     private void investigateClassElements(Tree tree) {
 
@@ -78,7 +96,6 @@ public class ParseManager {
         List<LabeledWord> childList = tree.labeledYield();
 
         for (LabeledWord labeledWord: childList) {
-
 
             System.out.println(" investigateClassElements child.labeledYield():" + labeledWord.word());
             System.out.println(" investigateClassElements child.yield():" + labeledWord.tag());
@@ -95,40 +112,48 @@ public class ParseManager {
         List<Tree> childList = tree.getChildrenAsList();
         for (Tree childTree : childList) {
 
-            if (DEPUtil.isRelationClass(childTree)) {
-
-                System.out.println(" ======= ======= ====== ");
-                System.out.println(" ======= R investigateRelationsElements root: ====== " + tree);
-                System.out.println(" ======= R investigateRelationsElements childTree: ====== " + childTree);
-                System.out.println(" ======= R investigateRelationsElements getLeaves: ====== " + childTree.getLeaves());
-                System.out.println(" ======= R investigateRelationsElements labeledYield: ====== " + childTree.labeledYield());
-                //childrenList = Util.findChildClasses(childTree);
-//                System.out.println(" ======= R investigateRelationsElements childTree siblings: ====== " + childTree.firstChild());
-//                System.out.println(" ======= R investigateRelationsElements childTree yield: ====== " + tree.firstChild());
-//
-//                System.out.println(" R investigateRelationsElements childTree value:" + childTree.value());
-//                System.out.println(" investigateRelationsElements getLeaves:" + childTree.getLeaves());
-//                System.out.println(" investigateRelationsElements childrenList:" + childrenList);
+            if (DEPUtil.isRelationAssociation(childTree)) {
+                System.out.println(" R   investigateRelationsElements  isRelationAssociation value:" + childTree.value());
+                LabeledWord relationLabeledWord = Util.findLabeledWord(childTree, TagType.VERB);
+                if (relationLabeledWord != null) {
+                    System.out.println("  VVV relationLabeledWord:" + relationLabeledWord.word());
+                    parentsList = Util.findSiblingClasses(childTree, tree);
+                    childrenList = Util.findChildClassesForAssociation(childTree);
+                    System.out.println("  investigateRelationsElements parentsList:" + parentsList);
+                    System.out.println("  investigateRelationsElements childs:" + childrenList);
+                    if (parentsList != null && childList != null) {
+                        attachAssociation(relationLabeledWord, parentsList, childrenList);
+                    }
+                }
             }
-
-//            if (DEPUtil.isRelationAssociation(childTree)) {
-//                System.out.println(" R investigateRelationsElements value:" + childTree.value());
-//                System.out.println(" R  investigateRelationsElements depth:" + childTree.depth());
-//                System.out.println(" R  investigateRelationsElements labeledYield:" + childTree.labeledYield());
-//                LabeledWord relationLabeledWord = Util.findLabeledWord(childTree, TagType.VERB);
-//                if (relationLabeledWord != null) {
-//                    System.out.println(" VVV relationLabeledWord:" + relationLabeledWord.word());
-//                    parentsList = Util.findParentClasses(childTree, relationLabeledWord, tree);
-//                    childrenList = Util.findChildClasses(childTree);
-//                    System.out.println(" investigateRelationsElements childs:" + childrenList);
-//                    if (parentsList != null && childList != null) {
-//                        attachRelation(relationLabeledWord, parentsList, childrenList);
-//                    }
-//                }
-//            }
-              investigateRelationsElements(childTree);
+            investigateRelationsElements(childTree);
         }
     }
+
+
+    private void investigateGeneralizationsElements(Tree tree, Tree root) {
+
+        List<LabeledWord> parentsList = null;
+        List<LabeledWord> childrenList = null;
+        List<Tree> childList = tree.getChildrenAsList();
+        for (Tree childTree : childList) {
+
+
+            if (DEPUtil.isRelationGeneralization(childTree)) {
+                System.out.println(" R  isRelationGeneralization  value:" + childTree.value());
+                parentsList = Util.findParentClasses(childTree, root);
+                childrenList = Util.findChildClassesForGeneralization(childTree);
+                System.out.println("  isRelationGeneralization parentsList:" + parentsList);
+                System.out.println("  isRelationGeneralization childrenList:" + childrenList);
+                if (parentsList != null && childList != null) {
+                    attachGeneralization(parentsList, childrenList);
+                }
+                //}
+            }
+            investigateGeneralizationsElements(childTree, root);
+        }
+    }
+
 
 
     public XMI Processing(String filename)//File _file
@@ -146,8 +171,6 @@ public class ParseManager {
         XMI xmiStructure = null;
 
 
-
-        
         ParseDocument(document);
         xmiStructure = buiildXMI(abslist);
 
@@ -165,7 +188,8 @@ public class ParseManager {
 
             System.out.println("tree---" + tree);
             investigateClassElements(tree);
-            //investigateRelationsElements(tree);
+            investigateRelationsElements(tree);
+            investigateGeneralizationsElements(tree, tree);
 
             //System.out.println(" print tree---");
             //TreePrint treePrint = new TreePrint("penn,latexTree");

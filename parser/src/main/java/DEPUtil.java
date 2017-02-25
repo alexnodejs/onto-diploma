@@ -39,4 +39,11 @@ public class DEPUtil {
         }
         return false;
     }
+
+    public static boolean isRelationGeneralization(Tree tree) {
+        if(!tree.isLeaf() && Arrays.asList(Constants.relationGeneralizationSet).contains(tree.value())) {
+            return true;
+        }
+        return false;
+    }
 }
