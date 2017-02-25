@@ -1,5 +1,9 @@
 
+import config.Constants;
 import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.LabeledWord;
+import edu.stanford.nlp.naturalli.NaturalLogicAnnotator;
+import edu.stanford.nlp.naturalli.NaturalLogicRelation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.trees.Tree;
@@ -11,6 +15,11 @@ import legacy.xmi.model.root.elements.AbstractModelElement;
 import legacy.xmi.model.root.elements.ModelItem;
 import legacy.xmi.root.elements.XMI;
 
+import edu.stanford.nlp.trees.TreePrint;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
@@ -41,34 +50,86 @@ public class ParseManager {
     }
 
 
-    private void attachClassElement(Tree treeNode) {
-        Class classElement = ElementBuilderUtil.classElementsBuilder(treeNode.value(), generateIndex());
+    private void attachClassElement(LabeledWord labeledWord) {
+        Class classElement = ElementBuilderUtil.classElementsBuilder(labeledWord.word(), generateIndex());
         addElementToClass(classElement);
     }
 
+
+    private void attachRelation(LabeledWord labeledWord, List<LabeledWord> parents, List<LabeledWord> children) {
+
+        for (LabeledWord parent: parents) {
+
+            Class parentClass =  SearchUtil.getClassElement(parent, SearchType.CLASS_NAME, abslist);
+
+            for (LabeledWord child: children) {
+                Class childClass =  SearchUtil.getClassElement(child, SearchType.CLASS_NAME, abslist);
+
+
+            }
+        }
+    }
+
+
+
     private void investigateClassElements(Tree tree) {
 
-
         System.out.println("==== investigateClassElements ====");
+        List<LabeledWord> childList = tree.labeledYield();
+
+        for (LabeledWord labeledWord: childList) {
+
+
+            System.out.println(" investigateClassElements child.labeledYield():" + labeledWord.word());
+            System.out.println(" investigateClassElements child.yield():" + labeledWord.tag());
+            if(POSUtil.isNoun(labeledWord)) {
+                 attachClassElement(labeledWord);
+            }
+        }
+    }
+
+    private void investigateRelationsElements(Tree tree) {
+
+        List<LabeledWord> parentsList = null;
+        List<LabeledWord> childrenList = null;
         List<Tree> childList = tree.getChildrenAsList();
         for (Tree childTree : childList) {
 
-//          System.out.println(" investigateClassElements child.nodeString():" + childTree.nodeString());
-//          System.out.println(" investigateClassElements child.value():" + childTree.value());
-//          System.out.println(" investigateClassElements child.leaves():" + childTree.getLeaves());
-//          System.out.println(" investigateClassElements child.depth():" + childTree.depth());
-//          System.out.println(" investigateClassElements child.isLeaf():" + childTree.isLeaf());
-//          System.out.println(" investigateClassElements child.label():" + childTree.label());
-            if(!childTree.isLeaf() && POSUtil.isNoun(childTree.value())) {
-                List<Tree> leaves = childTree.getLeaves();
-                System.out.println(" investigateClassElements leaves:" + leaves);
-                for (Tree leave : leaves) {
-                     attachClassElement(leave);
-                }
+            if (DEPUtil.isRelationClass(childTree)) {
+
+                System.out.println(" ======= ======= ====== ");
+                System.out.println(" ======= R investigateRelationsElements root: ====== " + tree);
+                System.out.println(" ======= R investigateRelationsElements childTree: ====== " + childTree);
+                System.out.println(" ======= R investigateRelationsElements getLeaves: ====== " + childTree.getLeaves());
+                System.out.println(" ======= R investigateRelationsElements labeledYield: ====== " + childTree.labeledYield());
+                //childrenList = Util.findChildClasses(childTree);
+//                System.out.println(" ======= R investigateRelationsElements childTree siblings: ====== " + childTree.firstChild());
+//                System.out.println(" ======= R investigateRelationsElements childTree yield: ====== " + tree.firstChild());
+//
+//                System.out.println(" R investigateRelationsElements childTree value:" + childTree.value());
+//                System.out.println(" investigateRelationsElements getLeaves:" + childTree.getLeaves());
+//                System.out.println(" investigateRelationsElements childrenList:" + childrenList);
             }
-            investigateClassElements(childTree);
+
+//            if (DEPUtil.isRelationAssociation(childTree)) {
+//                System.out.println(" R investigateRelationsElements value:" + childTree.value());
+//                System.out.println(" R  investigateRelationsElements depth:" + childTree.depth());
+//                System.out.println(" R  investigateRelationsElements labeledYield:" + childTree.labeledYield());
+//                LabeledWord relationLabeledWord = Util.findLabeledWord(childTree, TagType.VERB);
+//                if (relationLabeledWord != null) {
+//                    System.out.println(" VVV relationLabeledWord:" + relationLabeledWord.word());
+//                    parentsList = Util.findParentClasses(childTree, relationLabeledWord, tree);
+//                    childrenList = Util.findChildClasses(childTree);
+//                    System.out.println(" investigateRelationsElements childs:" + childrenList);
+//                    if (parentsList != null && childList != null) {
+//                        attachRelation(relationLabeledWord, parentsList, childrenList);
+//                    }
+//                }
+//            }
+              investigateRelationsElements(childTree);
         }
     }
+
 
     public XMI Processing(String filename)//File _file
     {
@@ -84,6 +145,9 @@ public class ParseManager {
         System.out.print(" pipeline annotation" + document);
         XMI xmiStructure = null;
 
+
+
+        
         ParseDocument(document);
         xmiStructure = buiildXMI(abslist);
 
@@ -98,23 +162,15 @@ public class ParseManager {
 
             // this is the parse tree of the current sentence
             Tree tree = sentence.get(TreeAnnotation.class);
+
             System.out.println("tree---" + tree);
             investigateClassElements(tree);
+            //investigateRelationsElements(tree);
 
+            //System.out.println(" print tree---");
+            //TreePrint treePrint = new TreePrint("penn,latexTree");
+            //treePrint.printTree(tree);
 
-            System.out.println(" investigateClassElements root:" + tree.value());
-
-            //TODO: move to investigateClassElements
-//          if (POSUtil.isNoun(firstRoot)) {
-//              attachClassElement(firstRoot);
-//          }
-
-
-//            investigateClassElements(dependencies, firstRoot);
-//            investigateAdjectives(dependencies, firstRoot);
-//            investigateOperation(dependencies, firstRoot);
-//            investigateClassConnections(dependencies, firstRoot);
-//            investigateRelations(dependencies, firstRoot);
         }
     }
 
@@ -141,3 +197,46 @@ public class ParseManager {
         return xmiStructure;
     }
 }
+
+//    private void investigateRelationsElements(Tree tree) {
+//
+//        List<LabeledWord> parentsList = null;
+//        List<LabeledWord> childrenList = null;
+//        List<Tree> childList = tree.getChildrenAsList();
+//        for (Tree childTree : childList) {
+//             if (DEPUtil.isRelationAssociation(childTree)) {
+//                System.out.println(" R investigateRelationsElements value:" + childTree.value());
+//                System.out.println(" R  investigateRelationsElements depth:" + childTree.depth());
+//                System.out.println(" R  investigateRelationsElements labeledYield:" + childTree.labeledYield());
+//                LabeledWord relationLabeledWord = Util.findLabeledWord(childTree, TagType.VERB);
+//                if (relationLabeledWord != null) {
+//                    System.out.println(" VVV relationLabeledWord:" + relationLabeledWord.word());
+//                    parentsList = Util.findParentClasses(childTree, relationLabeledWord, tree);
+//                    childrenList = Util.findChildClasses(childTree);
+//                    System.out.println(" investigateRelationsElements childs:" + childrenList);
+//                    if (parentsList != null && childList != null) {
+//                        attachRelation(relationLabeledWord, parentsList, childrenList);
+//                    }
+//                }
+//             }
+//            investigateRelationsElements(childTree);
+//        }
+//    }
+
+
+//
+//    private void attachAssociation(LabeledWord labeledWord, List<LabeledWord> parents, List<LabeledWord> children) {
+//
+//        for (LabeledWord parent: parents) {
+//            Class parentClass =  SearchUtil.getClassElement(parent, SearchType.CLASS_NAME, abslist);
+//
+//            for (LabeledWord child: children) {
+//                Class childClass =  SearchUtil.getClassElement(child, SearchType.CLASS_NAME, abslist);
+//
+//                Association associationElemet = ElementBuilderUtil.associationElementBuilder(labeledWord, parentClass, childClass, generateIndex());
+//                if (!SearchUtil.IsAssociationExist(abslist, associationElemet)) {
+//                    abslist.add(associationElemet);
+//                }
+//            }
+//        }
+//    }

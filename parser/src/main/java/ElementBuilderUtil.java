@@ -1,4 +1,5 @@
 import edu.stanford.nlp.ling.IndexedWord;
+import edu.stanford.nlp.ling.LabeledWord;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import legacy.xmi.model.elements.ofGeneralization.*;
 import legacy.xmi.model.elements.ofassociation.Association;
@@ -16,7 +17,6 @@ import java.util.List;
 public class ElementBuilderUtil {
 
     public static Class classElementsBuilder(String word, int index) {
-
         String className = (Character.toUpperCase(word.charAt(0))) + word.substring(1);
         System.out.println("=== classElementsBuilder === " + className);
         Class element = new Class(className + "_ClassID" + index, className);
@@ -26,8 +26,28 @@ public class ElementBuilderUtil {
         return element;
     }
 
-    public static Class classElementsBuilder(IndexedWord word, int index) {
+    public static Association associationElementBuilder(LabeledWord word,
+                                                 Class parent,
+                                                 Class child,
+                                                 int index) {
 
+        System.out.println("== associationElementBuilder ===");
+        String assoc_name = word.word();
+        Association association = null;
+
+        //1
+        association = new Association(assoc_name + "_AssociationID" + index,
+                assoc_name,
+                parent._model_id,
+                child._model_id,
+                index);
+
+        return association;
+    }
+
+
+    // Old
+    public static Class classElementsBuilder(IndexedWord word, int index) {
         String className = (Character.toUpperCase(word.originalText().charAt(0))) + word.originalText().substring(1);
         System.out.println("=== classElementsBuilder === " + className);
         Class element = new Class(className + "_ClassID" + index, className);

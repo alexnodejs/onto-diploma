@@ -1,4 +1,5 @@
 import edu.stanford.nlp.ling.IndexedWord;
+import edu.stanford.nlp.ling.LabeledWord;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import legacy.xmi.model.elements.ofGeneralization.Generalization;
 import legacy.xmi.model.elements.ofassociation.Association;
@@ -14,7 +15,48 @@ import java.util.List;
  */
 public class SearchUtil {
 
+    public static Class getClassElement(LabeledWord word,
+                                        SearchType searchType,
+                                        List<AbstractModelElement> abslist) {
 
+        System.out.println("  getClassElement " + word.word());
+        //Class classElement = null;
+        for (AbstractModelElement element: abslist) {
+            if (element instanceof Class) {
+                switch (searchType) {
+
+                    case CLASS_ATTRIBUTE:
+                        System.out.println("  getClassElement CLASS_ATTRIBUTE CLASS: " + String.valueOf(((Class)element)._model_name));
+                        if (((Class)element).getClassAttributeByName(word.word().toLowerCase()) != null) {
+                            //  classElement = (Class) element;
+                            return  (Class) element;
+                        }
+                        break;
+
+                    case CLASS_NAME:
+                        System.out.println("  getClassElement CLASS_NAME CLASS: " + String.valueOf(((Class)element)._model_name));
+                        System.out.println("  getClassElement word: " + String.valueOf(word.word()));
+                        if (element._model_name.toLowerCase().equals(word.word().toLowerCase())) {
+                            //classElement = (Class) element;
+                            return  (Class) element;
+                        }
+
+                        break;
+
+                    case CLASS_OPERATION:
+                        System.out.println("  getClassElement CLASS_OPERATION CLASS: " + String.valueOf(((Class)element)._model_name));
+                        if (((Class)element).getClassOperationByName(word.word().toLowerCase()) != null) {
+                            // classElement = (Class) element;
+                            return  (Class) element;
+                        }
+                        break;
+                }
+            }
+        }
+        return  null;
+    }
+
+    // Old
     public static boolean IsElementExist(List<AbstractModelElement> absME,
                                           Class element) {
         if(!Arrays.asList(absME).contains(element)) {
