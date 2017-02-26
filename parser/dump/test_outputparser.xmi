@@ -6,33 +6,94 @@
     <XMI.content>
         <UML:Model xmi.id="UML_model_1" name="NewModelUML" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
             <UML:Namespace.ownedElement>
-                <UML:Class visibility="public" isActive="false" xmi.id="Dog_ClassID0" name="Dog" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Sausage_ClassID2" name="Sausage" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Water_ClassID3" name="Water" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Association xmi.id="likes_AssociationID4" name="likes" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Class visibility="public" isActive="false" xmi.id="Cats_ClassID0" name="Cats" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Anatomy_ClassID2" name="Anatomy" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Fields_ClassID3" name="Fields" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Body_ClassID4" name="Body" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Reflexes_ClassID5" name="Reflexes" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Claws_ClassID6" name="Claws" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Teeth_ClassID7" name="Teeth" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Prey_ClassID8" name="Prey" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Association xmi.id="are_AssociationID9" name="are" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Association.connection>
-                        <UML:AssociationEnd xmi.id="_assocEndFor_Dog_ClassID04" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID09" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>
-<UML:Class xmi.idref="Dog_ClassID0"/>
+<UML:Class xmi.idref="Cats_ClassID0"/>
                             </UML:AssociationEnd.participant>
                         </UML:AssociationEnd>
-                        <UML:AssociationEnd xmi.id="_assocEndFor_Sausage_ClassID24" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Anatomy_ClassID29" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>
-<UML:Class xmi.idref="Sausage_ClassID2"/>
+<UML:Class xmi.idref="Anatomy_ClassID2"/>
                             </UML:AssociationEnd.participant>
                         </UML:AssociationEnd>
                     </UML:Association.connection>
                 </UML:Association>
-                <UML:Association xmi.id="likes_AssociationID5" name="likes" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Association xmi.id="no name_AssociationID10" name="no name" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Association.connection>
-                        <UML:AssociationEnd xmi.id="_assocEndFor_Dog_ClassID05" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID010" visibility="public" isNavigable="true" ordering="unordered" aggregation="aggregate" targetScope="instance" changeability="changeable" name="kyky1" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>
-<UML:Class xmi.idref="Dog_ClassID0"/>
+<UML:Class xmi.idref="Cats_ClassID0"/>
                             </UML:AssociationEnd.participant>
                         </UML:AssociationEnd>
-                        <UML:AssociationEnd xmi.id="_assocEndFor_Water_ClassID35" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Fields_ClassID310" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" name="kyky2" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>
-<UML:Class xmi.idref="Water_ClassID3"/>
+<UML:Class xmi.idref="Fields_ClassID3"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Association xmi.id="no name_AssociationID11" name="no name" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID011" visibility="public" isNavigable="true" ordering="unordered" aggregation="aggregate" targetScope="instance" changeability="changeable" name="kyky1" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Cats_ClassID0"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Body_ClassID411" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" name="kyky2" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Body_ClassID4"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Association xmi.id="no name_AssociationID12" name="no name" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID012" visibility="public" isNavigable="true" ordering="unordered" aggregation="aggregate" targetScope="instance" changeability="changeable" name="kyky1" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Cats_ClassID0"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Reflexes_ClassID512" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" name="kyky2" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Reflexes_ClassID5"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Association xmi.id="no name_AssociationID13" name="no name" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID013" visibility="public" isNavigable="true" ordering="unordered" aggregation="aggregate" targetScope="instance" changeability="changeable" name="kyky1" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Cats_ClassID0"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Claws_ClassID613" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" name="kyky2" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Claws_ClassID6"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Association xmi.id="no name_AssociationID14" name="no name" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Teeth_ClassID714" visibility="public" isNavigable="true" ordering="unordered" aggregation="aggregate" targetScope="instance" changeability="changeable" name="kyky1" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Teeth_ClassID7"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Prey_ClassID814" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" name="kyky2" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Prey_ClassID8"/>
                             </UML:AssociationEnd.participant>
                         </UML:AssociationEnd>
                     </UML:Association.connection>

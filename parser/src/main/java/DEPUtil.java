@@ -34,7 +34,7 @@ public class DEPUtil {
     }
 
     public static boolean isRelationClass(Tree tree) {
-        if( !tree.isLeaf() && Arrays.asList(Constants.relationClassSet).contains(tree.value())) {
+        if( !tree.isLeaf() && Arrays.asList(Constants.classSet).contains(tree.value())) {
             return true;
         }
         return false;
@@ -46,4 +46,12 @@ public class DEPUtil {
         }
         return false;
     }
+
+    public static boolean isRelationAggregation(Tree tree) {
+        if(!tree.isLeaf() && Arrays.asList(Constants.relationAggregationSet).contains(tree.value())) {
+            return true;
+        }
+        return false;
+    }
 }
+

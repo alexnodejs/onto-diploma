@@ -29,13 +29,32 @@ public class Association extends AbstractModelElement{
 	}
 	
 	public Association(String _model_id, String _model_name,
-			String _participantID1, String _participantID2,int i) {
-		
-	
+						String _participantID1, String _participantID2,int i) {
+
+
 		this.set_AbstractModelElement(_model_id, _model_name, false, false, false, false);
 		this._associationEnds.add(new AssociationEnd("_assocEndFor_"+_participantID1+i,Visibility.PUBLIC,false,true,"unordered","none","instance","changeable",_participantID1));
 		this._associationEnds.add(new AssociationEnd("_assocEndFor_"+_participantID2+i,Visibility.PUBLIC,false,true,"unordered","none","instance","changeable",_participantID2));
-		
+
+	}
+
+	public Association(String _model_id,
+					   String _model_name,
+					   String _participantID1,
+					   String _participantID2,
+					   String _aggregationID1,
+					   String _aggregationID2,
+					   String _nameID1,
+					   String _nameID2,
+					   int i
+
+
+	) {
+
+		this.set_AbstractModelElement(_model_id, _model_name, false, false, false, false);
+		this._associationEnds.add(new AssociationEnd("_assocEndFor_"+_participantID1+i,Visibility.PUBLIC,false,true,"unordered",_aggregationID1,"instance","changeable",_participantID1, _nameID1));
+		this._associationEnds.add(new AssociationEnd("_assocEndFor_"+_participantID2+i,Visibility.PUBLIC,false,true,"unordered",_aggregationID2,"instance","changeable",_participantID2, _nameID2));
+
 	}
 	
 	public void Set_AssociationEnd1 (String _participantID1,int i)

@@ -29,11 +29,18 @@ public class AssociationEnd extends AbstractModelElement{
 	private String _targetScope;
 	@XmlAttribute (name="changeability")
 	private String _changeability;
+	@XmlAttribute (name="name")
+	private String _name;
 	
-	
-	public AssociationEnd(String _assocEnd_id, Visibility _visibility,
-			boolean _isSpecification, boolean _isNavigable, String _ordering,
-			String _aggregation, String _targetScope, String _changeability,String _participantID) {
+	public AssociationEnd(String _assocEnd_id,
+						  Visibility _visibility,
+						  boolean _isSpecification,
+						  boolean _isNavigable,
+						  String _ordering,
+						  String _aggregation,
+						  String _targetScope,
+						  String _changeability,
+						  String _participantID) {
 		//super();
 		
 		this._associationParticipant=new AssociationParticipant(new AssociationParticipantClass(_participantID));
@@ -47,5 +54,31 @@ this._assocEnd_id = _assocEnd_id;
 		this._targetScope = _targetScope;
 		this._changeability = _changeability;
 	}
+
+	public AssociationEnd(String _assocEnd_id,
+						  Visibility _visibility,
+						  boolean _isSpecification,
+						  boolean _isNavigable,
+						  String _ordering,
+						  String _aggregation,
+						  String _targetScope,
+						  String _changeability,
+						  String _participantID,
+						  String _name) {
+		//super();
+
+		this._associationParticipant=new AssociationParticipant(new AssociationParticipantClass(_participantID));
+		this._assocEnd_id = _assocEnd_id;
+//this._associationMultiplicity=new AssociationEndMultiplicity();
+		this._visibility = _visibility.getName();
+		this._isSpecification = _isSpecification;
+		this._isNavigable = _isNavigable;
+		this._ordering = _ordering;
+		this._aggregation = _aggregation;
+		this._targetScope = _targetScope;
+		this._changeability = _changeability;
+		this._name = _name;
+	}
+
 
 }

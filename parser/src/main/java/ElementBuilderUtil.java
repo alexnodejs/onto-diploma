@@ -45,6 +45,52 @@ public class ElementBuilderUtil {
         return association;
     }
 
+    public static Association aggregationElementBuilder(String name,
+                                                        Class parent,
+                                                        Class child,
+                                                        int index) {
+
+        System.out.println("== associationElementBuilder ===");
+        String assoc_name = name;
+        Association association = null;
+
+        //1
+        association = new Association(assoc_name + "_AssociationID" + index,
+                assoc_name,
+                parent._model_id,
+                child._model_id,
+                "aggregate",
+                "none",
+                "kyky1",
+                "kyky2",
+                index);
+
+        return association;
+    }
+
+    public static Association compositionElementBuilder(String name,
+                                                        Class parent,
+                                                        Class child,
+                                                        int index) {
+
+        System.out.println("== associationElementBuilder ===");
+        String assoc_name = name;
+        Association association = null;
+
+        //1
+        association = new Association(assoc_name + "_AssociationID" + index,
+                assoc_name,
+                parent._model_id,
+                child._model_id,
+                "composition",
+                "none",
+                "",
+                "",
+                index);
+
+        return association;
+    }
+
 
     // Old
     public static Class classElementsBuilder(IndexedWord word, int index) {
