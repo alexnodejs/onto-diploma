@@ -127,7 +127,7 @@ public class ParseManager {
         List<Tree> childList = tree.getChildrenAsList();
         for (Tree childTree : childList) {
 
-            if (DEPUtil.isRelationAssociation(childTree)) {
+            if (DEPUtil.isRelationAssociation(childTree)) { //child VBZ
                 System.out.println(" R   investigateRelationsElements  isRelationAssociation value:" + childTree.value());
                 LabeledWord relationLabeledWord = Util.findLabeledWord(childTree, TagType.VERB);
                 if (relationLabeledWord != null) {
@@ -144,7 +144,7 @@ public class ParseManager {
                 }
             }
 
-            if (DEPUtil.isRelationGeneralization(childTree)) {
+            if (DEPUtil.isRelationGeneralization(childTree)) { //TO
                 List<LabeledWord> parentsList = null;
                 List<LabeledWord> childrenList = null;
                 System.out.println(" R  isRelationGeneralization  value:" + childTree.value());
