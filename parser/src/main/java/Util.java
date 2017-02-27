@@ -76,7 +76,7 @@ public class Util {
         for (Tree child : children) {
 
             System.out.println(" findChildClassesForAssociation child:" + child.value());
-            if (!DEPUtil.isRelationGeneralization(child)) {
+            if (!DEPUtil.isRelationPP(child)) {
             List<LabeledWord> list = findLabeledWords(child, TagType.NOUN);
                if (list != null) {
                   labeledList.addAll(list);
@@ -87,7 +87,7 @@ public class Util {
     }
 
 
-    public static List<LabeledWord> findChildClassesForGeneralization(Tree tree) {
+    public static List<LabeledWord> findChildClassesForisRelationPP(Tree tree) {
 
         List<LabeledWord> labeledList = new ArrayList<LabeledWord>();
         List<Tree> children = tree.getChildrenAsList();
@@ -103,6 +103,18 @@ public class Util {
             }
         }
         return labeledList;
+    }
+
+    public static String getAssosiationName(Tree tree) {
+
+        List<LabeledWord>  labeledWordList = tree.labeledYield();
+        //System.out.println("  getAssosiatioName tree leaves:" + tree.getLeaves()); // in case if only one
+        for (LabeledWord labeledWord: labeledWordList) {
+            if(labeledWord.tag().toString().equals(tree.value().toString())) {
+                return labeledWord.word();
+            }
+        }
+        return "";
     }
 
 

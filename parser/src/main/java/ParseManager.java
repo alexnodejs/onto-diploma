@@ -73,7 +73,7 @@ public class ParseManager {
         }
     }
 
-    private void attachAggregation(List<LabeledWord> parents, List<LabeledWord> children) {
+    private void attachAggregation(List<LabeledWord> parents, List<LabeledWord> children, String parentEndName) {
 
         for (LabeledWord parent: parents) {
             Class parentClass =  SearchUtil.getClassElement(parent, SearchType.CLASS_NAME, abslist);
@@ -81,7 +81,7 @@ public class ParseManager {
             for (LabeledWord child: children) {
                 Class childClass =  SearchUtil.getClassElement(child, SearchType.CLASS_NAME, abslist);
 
-                Association associationElemet = ElementBuilderUtil.aggregationElementBuilder("no name", parentClass, childClass, generateIndex());
+                Association associationElemet = ElementBuilderUtil.aggregationElementBuilder("", parentClass, childClass, parentEndName, "", generateIndex());
                 if (!SearchUtil.IsAssociationExist(abslist, associationElemet)) {
                     abslist.add(associationElemet);
                 }
@@ -121,6 +121,64 @@ public class ParseManager {
         }
     }
 
+//    private void investigateRelationsElements(Tree tree, Tree root) {
+//
+//
+//        List<Tree> childList = tree.getChildrenAsList();
+//        for (Tree childTree : childList) {
+//
+//            if (DEPUtil.isRelationAssociation(childTree)) { //child VBZ
+//                System.out.println(" R   investigateRelationsElements  isRelationAssociation value:" + childTree.value());
+//                LabeledWord relationLabeledWord = Util.findLabeledWord(childTree, TagType.VERB);
+//                if (relationLabeledWord != null) {
+//                    List<LabeledWord> parentsList = null;
+//                    List<LabeledWord> childrenList = null;
+//                    System.out.println("  VVV relationLabeledWord:" + relationLabeledWord.word());
+//                    parentsList = Util.findSiblingClasses(childTree, tree);
+//                    childrenList = Util.findChildClassesForAssociation(childTree);
+//                    System.out.println("  investigateRelationsElements parentsList:" + parentsList);
+//                    System.out.println("  investigateRelationsElements childs:" + childrenList);
+//                    if (parentsList != null && childList != null) {
+//                        attachAssociation(relationLabeledWord, parentsList, childrenList);
+//                    }
+//                }
+//            }
+//
+//            if (DEPUtil.isRelationPP(childTree)) {
+//                System.out.println("  isRelation2:" + childTree.firstChild());
+//                if (DEPUtil.isRelationGeneralization(childTree.firstChild())) { //TO
+//                    List<LabeledWord> parentsList = null;
+//                    List<LabeledWord> childrenList = null;
+//                    System.out.println(" R  isRelationGeneralization  value:" + childTree.value());
+//
+//                    parentsList = Util.findParentClasses(childTree, root);
+//                    childrenList = Util.findChildClassesForisRelationPP(childTree);
+//                    System.out.println("  isRelationGeneralization parentsList:" + parentsList);
+//                    System.out.println("  isRelationGeneralization childrenList:" + childrenList);
+//                    if (parentsList != null && childList != null) {
+//                        attachGeneralization(parentsList, childrenList);
+//                        //attachAggregation(parentsList, childrenList);
+//                    }
+//                }
+//                if (DEPUtil.isRelationAggregation(childTree.firstChild())) {
+//                    List<LabeledWord> parentsList = null;
+//                    List<LabeledWord> childrenList = null;
+//                    System.out.println(" R  isRelationAggregation  value:" + childTree.value());
+//
+//                    parentsList = Util.findParentClasses(childTree, root);
+//                    childrenList = Util.findChildClassesForisRelationPP(childTree);
+//                    System.out.println("  isRelationAggregation parentsList:" + parentsList);
+//                    System.out.println("  isRelationAggregation childrenList:" + childrenList);
+//                    if (parentsList != null && childList != null) {
+//                        attachAggregation(parentsList, childrenList, Util.getAssosiationName(childTree.firstChild()));
+//                    }
+//                }
+//            }
+//            investigateRelationsElements(childTree, root);
+//        }
+//    }
+
+
     private void investigateRelationsElements(Tree tree, Tree root) {
 
 
@@ -144,55 +202,39 @@ public class ParseManager {
                 }
             }
 
-            if (DEPUtil.isRelationGeneralization(childTree)) { //TO
-                List<LabeledWord> parentsList = null;
-                List<LabeledWord> childrenList = null;
-                System.out.println(" R  isRelationGeneralization  value:" + childTree.value());
+            if (DEPUtil.isRelationPP(childTree)) {
+                System.out.println("  isRelation2:" + childTree.firstChild());
+                if (DEPUtil.isRelationGeneralization(childTree.firstChild())) { //TO
+                    List<LabeledWord> parentsList = null;
+                    List<LabeledWord> childrenList = null;
+                    System.out.println(" R  isRelationGeneralization  value:" + childTree.value());
 
-                parentsList = Util.findParentClasses(childTree, root);
-                childrenList = Util.findChildClassesForGeneralization(childTree);
-                System.out.println("  isRelationGeneralization parentsList:" + parentsList);
-                System.out.println("  isRelationGeneralization childrenList:" + childrenList);
-                if (parentsList != null && childList != null) {
-                    //attachGeneralization(parentsList, childrenList);
-                    attachAggregation(parentsList, childrenList);
+                    parentsList = Util.findParentClasses(childTree, root);
+                    childrenList = Util.findChildClassesForisRelationPP(childTree);
+                    System.out.println("  isRelationGeneralization parentsList:" + parentsList);
+                    System.out.println("  isRelationGeneralization childrenList:" + childrenList);
+                    if (parentsList != null && childList != null) {
+                        attachGeneralization(parentsList, childrenList);
+                        //attachAggregation(parentsList, childrenList);
+                    }
                 }
-                //}
+                if (DEPUtil.isRelationAggregation(childTree.firstChild())) {
+                    List<LabeledWord> parentsList = null;
+                    List<LabeledWord> childrenList = null;
+                    System.out.println(" R  isRelationAggregation  value:" + childTree.value());
+
+                    parentsList = Util.findParentClasses(childTree, root);
+                    childrenList = Util.findChildClassesForisRelationPP(childTree);
+                    System.out.println("  isRelationAggregation parentsList:" + parentsList);
+                    System.out.println("  isRelationAggregation childrenList:" + childrenList);
+                    if (parentsList != null && childList != null) {
+                        attachAggregation(parentsList, childrenList, Util.getAssosiationName(childTree.firstChild()));
+                    }
+                }
             }
-
-//            if (DEPUtil.isRelationAggregation(childTree)) {
-//                List<LabeledWord> parentsList = null;
-//                List<LabeledWord> childrenList = null;
-//                System.out.println(" R  isRelationAggregation  value:" + childTree.value());
-//
-//                parentsList = Util.findParentClasses(childTree, root);
-//                childrenList = Util.findChildClassesForGeneralization(childTree);
-//                System.out.println("  isRelationAggregation parentsList:" + parentsList);
-//                System.out.println("  isRelationAggregation childrenList:" + childrenList);
-//                if (parentsList != null && childList != null) {
-//                    attachAggregation(parentsList, childrenList);
-//                }
-//                //}
-//            }
-
             investigateRelationsElements(childTree, root);
         }
     }
-
-
-//    private void investigateGeneralizationsElements(Tree tree, Tree root) {
-//
-//        List<LabeledWord> parentsList = null;
-//        List<LabeledWord> childrenList = null;
-//        List<Tree> childList = tree.getChildrenAsList();
-//        for (Tree childTree : childList) {
-//
-//
-//
-//            investigateGeneralizationsElements(childTree, root);
-//        }
-//    }
-
 
 
     public XMI Processing(String filename)//File _file

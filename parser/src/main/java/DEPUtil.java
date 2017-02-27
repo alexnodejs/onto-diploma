@@ -26,6 +26,13 @@ public class DEPUtil {
 
 
     //NEW
+    public static boolean isRelationClass(Tree tree) {
+        if( !tree.isLeaf() && Arrays.asList(Constants.classSet).contains(tree.value())) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean isRelationAssociation(Tree tree) {
         if( !tree.isLeaf() && Arrays.asList(Constants.relationAssociationSet).contains(tree.value())) {
             return true;
@@ -33,8 +40,9 @@ public class DEPUtil {
         return false;
     }
 
-    public static boolean isRelationClass(Tree tree) {
-        if( !tree.isLeaf() && Arrays.asList(Constants.classSet).contains(tree.value())) {
+
+    public static boolean isRelationPP(Tree tree) {
+        if(!tree.isLeaf() && Arrays.asList(Constants.relationPP).contains(tree.value())) {
             return true;
         }
         return false;

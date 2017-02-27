@@ -22,7 +22,9 @@ public final class Constants {
   public static final String classSet[] = new String[] {"NP"};
 
   public static final String relationAssociationSet[] = new String[] {"VP", "V"}; // PP
-  public static final String relationGeneralizationSet[] = new String[] {"PP"};
+  public static final String relationPP[] = new String[] {"PP"};
+
+  public static final String relationGeneralizationSet[] = new String[] {"TO"};
   public static final String relationAggregationSet [] = new String[] {"IN"};
   //public static final String relationCompositionSet[] = new String[] {"IN"};
 }

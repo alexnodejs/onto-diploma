@@ -48,6 +48,8 @@ public class ElementBuilderUtil {
     public static Association aggregationElementBuilder(String name,
                                                         Class parent,
                                                         Class child,
+                                                        String parentEndName,
+                                                        String childEndName,
                                                         int index) {
 
         System.out.println("== associationElementBuilder ===");
@@ -61,8 +63,8 @@ public class ElementBuilderUtil {
                 child._model_id,
                 "aggregate",
                 "none",
-                "kyky1",
-                "kyky2",
+                parentEndName,
+                "",
                 index);
 
         return association;
