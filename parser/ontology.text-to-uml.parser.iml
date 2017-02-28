@@ -34,5 +34,6 @@
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.6.1" level="project" />
     <orderEntry type="library" name="Maven: edu.stanford.nlp:stanford-corenlp:models:3.7.0" level="project" />
     <orderEntry type="library" name="Maven: edu.stanford.nlp:stanford-parser:models:3.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jgrapht:jgrapht-core:1.0.1" level="project" />
   </component>
 </module>

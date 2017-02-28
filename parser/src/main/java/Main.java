@@ -20,9 +20,12 @@ public class Main {
         //XMI xmi = oldParserManager.Processing("14.txt"); // 4 -? , 9
 //      XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
 
-        //ParseManager parseManager = new ParseManager();
-        //XMI xmi = parseManager.Processing("17.txt");
+        TextParser textParser = new TextParser();
+        XMI xmi = textParser.Processing("14.txt");
         //XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
+
+//        PlazmaGraph plazmaGraph = new PlazmaGraph();
+//        plazmaGraph.buildGraph();
 
     }
 
