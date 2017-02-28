@@ -19,13 +19,21 @@ public final class Constants {
   public static final String posNounSet[] = new String[] {"NN", "NNP", "PRP", "NNS"};
   public static final String posVerbsSet[] = new String[] {"VBP", "VBZ"}; // VBD maybe adj , "VBD" , "VBG"
 
-  public static final String classSet[] = new String[] {"NP"};
+  // Phrase level BASE
+  public static final String relationNPTag[] = new String[] {"NP"};
+  public static final String relationTag[] = new String[] {"VP"};
 
-  public static final String relationAssociationSet[] = new String[] {"VP", "V"}; // PP
-  public static final String relationPP[] = new String[] {"PP"};
+  // Phrase level
 
-  public static final String relationGeneralizationSet[] = new String[] {"TO"};
-  public static final String relationAggregationSet [] = new String[] {"IN"};
+  public static final String relationPrepositionalPhraseTags[] = new String[] {"PP"};
+
+  //Word level
+  public static final String relationGeneralizationTags[] = new String[] {"TO"};
+  public static final String relationAggregationTags [] = new String[] {"IN"};
+
+  public static final String wlNNNounTags[] = new String[] {"NN"};
+  public static final String wlOtherNounTags[] = new String[] { "NNP", "PRP", "NNS"};
+
   //public static final String relationCompositionSet[] = new String[] {"IN"};
 }
 

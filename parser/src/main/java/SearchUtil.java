@@ -36,7 +36,7 @@ public class SearchUtil {
                     case CLASS_NAME:
                         System.out.println("  getClassElement CLASS_NAME CLASS: " + String.valueOf(((Class)element)._model_name));
                         System.out.println("  getClassElement word: " + String.valueOf(word.word()));
-                        if (element._model_name.toLowerCase().equals(word.word().toLowerCase())) {
+                        if (element._model_name.toLowerCase().contains(word.word().toLowerCase())) {
                             //classElement = (Class) element;
                             return  (Class) element;
                         }

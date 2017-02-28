@@ -53,6 +53,10 @@ public class ElementBuilderUtil {
                                                         int index) {
 
         System.out.println("== associationElementBuilder ===");
+        System.out.println("== associationElementBuilder parent ===" + parent);
+        System.out.println("== associationElementBuilder child ===" + child);
+        System.out.println("== associationElementBuilder parentEndName ===" + parentEndName);
+        System.out.println("== associationElementBuilder childEndName ===" + childEndName);
         String assoc_name = name;
         Association association = null;
 

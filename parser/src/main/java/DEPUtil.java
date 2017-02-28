@@ -25,41 +25,5 @@ public class DEPUtil {
     }
 
 
-    //NEW
-    public static boolean isRelationClass(Tree tree) {
-        if( !tree.isLeaf() && Arrays.asList(Constants.classSet).contains(tree.value())) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean isRelationAssociation(Tree tree) {
-        if( !tree.isLeaf() && Arrays.asList(Constants.relationAssociationSet).contains(tree.value())) {
-            return true;
-        }
-        return false;
-    }
-
-
-    public static boolean isRelationPP(Tree tree) {
-        if(!tree.isLeaf() && Arrays.asList(Constants.relationPP).contains(tree.value())) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean isRelationGeneralization(Tree tree) {
-        if(!tree.isLeaf() && Arrays.asList(Constants.relationGeneralizationSet).contains(tree.value())) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean isRelationAggregation(Tree tree) {
-        if(!tree.isLeaf() && Arrays.asList(Constants.relationAggregationSet).contains(tree.value())) {
-            return true;
-        }
-        return false;
-    }
 }
 
