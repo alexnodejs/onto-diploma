@@ -6,10 +6,6 @@ import config.*;
 public class Main {
 
     public static void main(String[] args) {
-        //TextParser textparser = new TextParser();
-        //String text = FileManager.readFile("input.txt");
-        //"Stanford University is located in California. It is a great university, founded in 1891.";
-        //textparser.parseText(text);
 
        /* File dir = new File(Constants.resourcesDir);
         if (dir.exists()) {
@@ -24,9 +20,9 @@ public class Main {
         //XMI xmi = oldParserManager.Processing("14.txt"); // 4 -? , 9
 //      XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
 
-        ParseManager parseManager = new ParseManager();
-        XMI xmi = parseManager.Processing("17.txt");
-        XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
+        //ParseManager parseManager = new ParseManager();
+        //XMI xmi = parseManager.Processing("17.txt");
+        //XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
 
     }
 
