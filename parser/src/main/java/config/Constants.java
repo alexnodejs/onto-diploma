@@ -16,8 +16,8 @@ public final class Constants {
 
   //================= New ==========
 
-  public static final String posNounSet[] = new String[] {"NN", "NNP", "PRP", "NNS"};
-  public static final String posVerbsSet[] = new String[] {"VBP", "VBZ"}; // VBD maybe adj , "VBD" , "VBG"
+  //public static final String posNounSet[] = new String[] {"NN", "NNP", "PRP", "NNS"};
+
 
   // Phrase level BASE
   public static final String relationNPTag[] = new String[] {"NP"};
@@ -33,6 +33,8 @@ public final class Constants {
 
   public static final String wlNNNounTags[] = new String[] {"NN"};
   public static final String wlOtherNounTags[] = new String[] { "NNP", "PRP", "NNS"};
+
+  public static final String wlVerbsTags[] = new String[] {"VBP", "VBZ"}; // VBD maybe adj , "VBD" , "VBG"
 
   //public static final String relationCompositionSet[] = new String[] {"IN"};
 }

@@ -30,20 +30,6 @@ public class POSUtil {
         return false;
     }
 
-    //New
-    public static boolean isNoun(LabeledWord labeledWord) {
-        if(Arrays.asList(Constants.posNounSet).contains(labeledWord.tag().toString())) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean isVerb(LabeledWord labeledWord) {
-        if(Arrays.asList(Constants.posVerbsSet).contains(labeledWord.tag().toString())) {
-            return true;
-        }
-        return false;
-    }
 
 
 

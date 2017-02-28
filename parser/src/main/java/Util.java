@@ -16,7 +16,7 @@ public class Util {
         for (Tree sibling : siblings) {
 
             if (PhraseUtil.isRelationNP(sibling)) { //TODO maybe find noun at once
-                List<LabeledWord> list = findLabeledWords(sibling, TagType.NOUN);
+                List<LabeledWord> list = findLabeledWords(sibling, TagType.NOUN_ALL);
                 if (list != null) {
                     return list;
                 }
@@ -25,25 +25,70 @@ public class Util {
         return null;
     }
 
+    public static boolean ifHasPhrases(Tree tree) {
 
-    public static List<LabeledWord> findChildClasses(Tree tree) {
 
+        List<Tree> children = tree.getChildrenAsList();
+        System.out.println("findVPChildClasses" + children);
+        for (Tree child : children) {
+            if(child.isPhrasal()) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public static List<LabeledWord> findVPChildClasses(Tree tree) {
+        System.out.println("findVPChildClasses tree" + tree);
         List<LabeledWord> labeledList = new ArrayList<LabeledWord>();
         List<Tree> children = tree.getChildrenAsList();
-        //System.out.println(" findChildClasses children:" + children);
+        System.out.println("findVPChildClasses" + children);
         for (Tree child : children) {
 
-            //System.out.println(" findChildClasses child:" + child);
-            //if (POSUtil.isNoun(child)) {
-                List<LabeledWord> list = findLabeledWords(child, TagType.NOUN);
-                //System.out.println(" findChildClasses list:" + list);
-                if (list != null) {
-                    labeledList.addAll(list);
-                }
-            //}
+            //if (child.value().equals("NP")) {
+
+              if (PhraseUtil.isRelationNP(child)) {
+                   System.out.println(" ============= ");
+                   System.out.println(" findVPChildClasses child: " + child);
+                   System.out.println("find IS NP depth: " + child.depth());
+                   System.out.println("find IS NP leaf: " + child.isLeaf());
+                   System.out.println("find IS NP phrase: " + child.isPhrasal());
+                   if (ifHasPhrases(child)) {
+                       findVPChildClasses(child);
+                   } else {
+                       List<LabeledWord> list = findLabeledWords(child, TagType.NOUN_NN);
+
+                      System.out.println("find IS LIST" + list);
+                      if (list != null) {
+                          labeledList.addAll(list);
+                      }
+                   }
+             }
         }
+        System.out.println("find IS NP labeledList: " + labeledList);
         return labeledList;
     }
+
+
+//    public static List<LabeledWord> findChildClasses(Tree tree) {
+//
+//        List<LabeledWord> labeledList = new ArrayList<LabeledWord>();
+//        List<Tree> children = tree.getChildrenAsList();
+//        //System.out.println(" findChildClasses children:" + children);
+//        for (Tree child : children) {
+//
+//            //System.out.println(" findChildClasses child:" + child);
+//            //if (POSUtil.isNoun(child)) {
+//                List<LabeledWord> list = findLabeledWords(child, TagType.NOUN_NN);
+//                //System.out.println(" findChildClasses list:" + list);
+//                if (list != null) {
+//                    labeledList.addAll(list);
+//                }
+//            //}
+//        }
+//        return labeledList;
+//    }
 
     public static List<LabeledWord> findChildClassesForAssociation(Tree tree) {
 
@@ -54,7 +99,7 @@ public class Util {
 
             System.out.println(" findChildClassesForAssociation child:" + child.value());
             if (!PhraseUtil.isRelationPrepositionalPhraseTags(child)) {
-            List<LabeledWord> list = findLabeledWords(child, TagType.NOUN);
+            List<LabeledWord> list = findLabeledWords(child, TagType.NOUN_NN);
                if (list != null) {
                   labeledList.addAll(list);
                }
@@ -89,7 +134,7 @@ public class Util {
         for (Tree sibling : siblings) {
             if (PhraseUtil.isRelationNP(sibling)) {
                 System.out.println(" findWordLevelTagParentClasses siblings:" + siblings);
-                List<LabeledWord> list = findLabeledWords(sibling, TagType.NOUN);
+                List<LabeledWord> list = findLabeledWords(sibling, TagType.NOUN_NN);//TODO+CHECK
                 if (list != null) {
                     return list;
                 }
@@ -100,7 +145,7 @@ public class Util {
 
 
     public static List<LabeledWord> findWordLevelTagChildClasses(Tree tree) {
-
+        System.out.println("findWordLevelTagChildClasses tree" + tree);
         List<LabeledWord> labeledList = new ArrayList<LabeledWord>();
         List<Tree> children = tree.getChildrenAsList();
         System.out.println("findWordLevelTagChildClasses" + children);
@@ -108,7 +153,7 @@ public class Util {
 
             System.out.println(" findWordLevelTagChildClasses child:" + child.value());
             if (!PhraseUtil.isRelationTag(child)) {
-                List<LabeledWord> list = findLabeledWords(child, TagType.NOUN);
+                List<LabeledWord> list = findLabeledWords(child, TagType.NOUN_NN);
                 if (list != null) {
                     labeledList.addAll(list);
                 }
@@ -138,16 +183,28 @@ public class Util {
         for (LabeledWord labeledWord: childList) {
 
             switch (tagType) {
-                case NOUN:
+                case NOUN_ALL:
                     System.out.println(" findLabeledWord:" + labeledWord.word());
-                    if(POSUtil.isNoun(labeledWord)) {
+                    if(WordUtil.isNoun(labeledWord)) {
+                        System.out.println(" findLabeledWord NOUN :" + labeledWord.word());
+                        return labeledWord;
+                    }
+                case NOUN_NN:
+                    System.out.println(" findLabeledWord:" + labeledWord.word());
+                    if(WordUtil.isNounNNTag(labeledWord)) {
+                        System.out.println(" findLabeledWord NOUN :" + labeledWord.word());
+                        return labeledWord;
+                    }
+                case NOUN_OTHER:
+                    System.out.println(" findLabeledWord:" + labeledWord.word());
+                    if(WordUtil.isOtherNounTag(labeledWord)) {
                         System.out.println(" findLabeledWord NOUN :" + labeledWord.word());
                         return labeledWord;
                     }
                 case ADJ:
                     break;
                 case VERB:
-                    if(POSUtil.isVerb(labeledWord)) {
+                    if(WordUtil.isVerbTag(labeledWord)) {
                         return labeledWord;
                     }
                     //break;
@@ -165,16 +222,26 @@ public class Util {
         for (LabeledWord labeledWord: childList) {
 
             switch (tagType) {
-                case NOUN:
+                case NOUN_ALL:
                     //System.out.println(" findLabeledWords:" + labeledWord.word());
-                    if(POSUtil.isNoun(labeledWord)) {
-                        //System.out.println(" findLabeledWords NOUN :" + labeledWord.word());
+                    if(WordUtil.isNoun(labeledWord)) {
                         list.add(labeledWord);
                     }
+                    break;
+                case NOUN_NN:
+                    if(WordUtil.isNounNNTag(labeledWord)) {
+                        list.add(labeledWord);
+                    }
+                    break;
+                case NOUN_OTHER:
+                    if(WordUtil.isOtherNounTag(labeledWord)) {
+                        list.add(labeledWord);
+                    }
+                    break;
                 case ADJ:
                     break;
                 case VERB:
-                    if(POSUtil.isVerb(labeledWord)) {
+                    if(WordUtil.isVerbTag(labeledWord)) {
                         list.add(labeledWord);
                     }
             }

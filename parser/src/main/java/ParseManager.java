@@ -16,17 +16,11 @@ import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.root.elements.AbstractModelElement;
 import legacy.xmi.model.root.elements.ModelItem;
 import legacy.xmi.root.elements.XMI;
-
-import edu.stanford.nlp.trees.TreePrint;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
 
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 
-import javax.swing.text.AbstractDocument;
+
 
 /**
  * Created by svitlanamoiseyenko on 2/23/17.
@@ -145,6 +139,7 @@ public class ParseManager {
     }
 
     //RELATIONS
+    //Base VP tag
     private void investigateVPRelationTags(Tree phraseTree, Tree root) {
 
         List<Tree> childList = phraseTree.getChildrenAsList();
@@ -161,6 +156,63 @@ public class ParseManager {
 
     }
 
+    // Other relations tags
+    private void investigatePhraseRelationTags(Tree phraseTree, Tree root) {
+
+        List<Tree> childList = phraseTree.getChildrenAsList();
+        for (Tree childTree : childList) {
+
+
+            if (PhraseUtil.isRelationPrepositionalPhraseTags(childTree)) {
+                System.out.println("  investigatePhraseRelationTags:" + childTree.firstChild());
+
+               //investigateRelationsWordTags(childTree, phraseTree, root);
+            } else   {
+                List<LabeledWord> childListYields = childTree.labeledYield();
+                for (LabeledWord labeledWord: childListYields) {
+                    if(WordUtil.isVerbTag(labeledWord) && labeledWord.word().equals("is")) { // && labeledWord.word().equals("is")
+                        System.out.println("  VP next :" + labeledWord.word());
+
+                        //TODO: continue
+                      List<LabeledWord> parentsList = null;
+                      List<LabeledWord> childrenList = null;
+                      parentsList = Util.findSiblingClasses(phraseTree, root);
+                      //childrenList = Util.findChildClassesForAssociation(phraseTree);
+                      //parentsList = Util.findWordLevelTagParentClasses(phraseTree, root);
+                      childrenList = Util.findVPChildClasses(phraseTree);
+                      System.out.println("  investigateRelationsElements parentsList:" + parentsList);
+                      System.out.println("  investigateRelationsElements childrenList:" + childrenList);
+                      if (parentsList != null && childrenList != null) {
+                       attachAssociation(labeledWord, parentsList, childrenList);
+                      }
+
+                    }
+
+                }
+            }
+
+//                if (WordUtil.isRelationGeneralization(childTree.firstChild())) { //TO
+//                    List<LabeledWord> parentsList = null;
+//                    List<LabeledWord> childrenList = null;
+//                    System.out.println(" R  isRelationGeneralization  value:" + childTree.value());
+//
+//                    parentsList = Util.findParentClasses(childTree, root);
+//                    childrenList = Util.findChildClassesForisRelationPP(childTree);
+//                    System.out.println("  isRelationGeneralization parentsList:" + parentsList);
+//                    System.out.println("  isRelationGeneralization childrenList:" + childrenList);
+//                    if (parentsList != null && childList != null) {
+//                        attachGeneralization(parentsList, childrenList);
+//                        //attachAggregation(parentsList, childrenList);
+//                    }
+//                }
+
+
+            investigatePhraseRelationTags(childTree, root);
+        }
+
+    }
+
+    // Other relations tags
     private void investigateRelationsWordTags(Tree wordLevelTree, Tree phraseLevelTree, Tree root) {
 
         System.out.println(" R  investigateRelationsWordTags  wordLevelTree:" + wordLevelTree);
@@ -181,37 +233,7 @@ public class ParseManager {
     }
 
 
-    private void investigatePhraseRelationTags(Tree phraseTree, Tree root) {
 
-        List<Tree> childList = phraseTree.getChildrenAsList();
-       for (Tree childTree : childList) {
-
-           if (PhraseUtil.isRelationPrepositionalPhraseTags(childTree)) {
-               System.out.println("  investigatePhraseRelationTags:" + childTree.firstChild());
-
-               investigateRelationsWordTags(childTree, phraseTree, root);
-           }
-
-//                if (WordUtil.isRelationGeneralization(childTree.firstChild())) { //TO
-//                    List<LabeledWord> parentsList = null;
-//                    List<LabeledWord> childrenList = null;
-//                    System.out.println(" R  isRelationGeneralization  value:" + childTree.value());
-//
-//                    parentsList = Util.findParentClasses(childTree, root);
-//                    childrenList = Util.findChildClassesForisRelationPP(childTree);
-//                    System.out.println("  isRelationGeneralization parentsList:" + parentsList);
-//                    System.out.println("  isRelationGeneralization childrenList:" + childrenList);
-//                    if (parentsList != null && childList != null) {
-//                        attachGeneralization(parentsList, childrenList);
-//                        //attachAggregation(parentsList, childrenList);
-//                    }
-//                }
-
-
-           investigatePhraseRelationTags(childTree, root);
-       }
-
-    }
 
 
 

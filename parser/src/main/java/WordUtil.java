@@ -29,10 +29,29 @@ public class WordUtil {
         }
         return false;
     }
+
     public static boolean isNounNNTag(LabeledWord labeledWord) {
         if(Arrays.asList(Constants.wlNNNounTags).contains(labeledWord.tag().toString())) {
             return true;
         }
         return false;
     }
+
+    public static boolean isNoun(LabeledWord labeledWord) {
+        if(Arrays.asList(Constants.wlNNNounTags).contains(labeledWord.tag().toString()) ||
+                Arrays.asList(Constants.wlOtherNounTags).contains(labeledWord.tag().toString())      ) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public static boolean isVerbTag(LabeledWord labeledWord) {
+        if(Arrays.asList(Constants.wlVerbsTags).contains(labeledWord.tag().toString())) {
+            return true;
+        }
+        return false;
+    }
+
+
 }
