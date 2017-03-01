@@ -6,15 +6,14 @@
     <XMI.content>
         <UML:Model xmi.id="UML_model_1" name="NewModelUML" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
             <UML:Namespace.ownedElement>
-                <UML:Class visibility="public" isActive="false" xmi.id="Apple_ClassID0" name="Apple" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Technology company_ClassID2" name="Technology company" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Cupertino_ClassID3" name="Cupertino" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="California_ClassID4" name="California" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Designs_ClassID5" name="Designs" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Electronics_ClassID6" name="Electronics" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Consumer_ClassID7" name="Consumer" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Computer software_ClassID8" name="Computer software" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
-                <UML:Class visibility="public" isActive="false" xmi.id="Services_ClassID9" name="Services" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Cats_ClassID0" name="Cats" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Anatomy_ClassID2" name="Anatomy" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Fields_ClassID3" name="Fields" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Body_ClassID4" name="Body" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Reflexes_ClassID5" name="Reflexes" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Claws_ClassID6" name="Claws" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Teeth_ClassID7" name="Teeth" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Prey_ClassID8" name="Prey" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
             </UML:Namespace.ownedElement>
         </UML:Model>
     </XMI.content>

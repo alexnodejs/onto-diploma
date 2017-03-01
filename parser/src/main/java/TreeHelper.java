@@ -1,6 +1,8 @@
+import config.Constants;
 import edu.stanford.nlp.trees.Tree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,6 +23,21 @@ public class TreeHelper {
         }
         return false;
     }
+
+    public static boolean isAdjective(String tag) {
+        if(Arrays.asList(Constants.adjectiveSet).contains(tag)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isNoun(String tag) {
+        if(Arrays.asList(Constants.nounSet).contains(tag)) {
+            return true;
+        }
+        return false;
+    }
+
 
     public static boolean isHasPhrasesNP(Tree tree) {
         List<Tree> children = tree.getChildrenAsList();

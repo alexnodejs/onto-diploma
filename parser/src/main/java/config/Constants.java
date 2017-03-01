@@ -6,7 +6,8 @@ public final class Constants {
   public static String outputparserfilename = "outputparser";
 
 
-
+  public static final String nounSet[] = new String[] {"NN", "NNP", "PRP", "NNS"};
+  public static final String adjectiveSet[] = new String[] {"JJ"};
 }
 
 
