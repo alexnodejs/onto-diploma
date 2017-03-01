@@ -5,6 +5,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,61 +20,54 @@ public class PlazmaGraph {
     {
     } // ensure non-instantiability.
 
-    /**
-     * The starting point for the demo.
-     *
-     * @param args ignored.
-     */
-    public void buildGraph()
-    {
 
-        // create a graph based on URL objects
-        DirectedGraph<URL, DefaultEdge> hrefGraph = createHrefGraph();
-
-        // note directed edges are printed as: (<v1>,<v2>)
-        System.out.println(hrefGraph.toString());
-    }
-
-    public  void printGraph(DirectedGraph<URL, DefaultEdge> graph) {
+    public  void printGraph() {
         for(DefaultEdge e : graph.edgeSet()){
             System.out.println(graph.getEdgeSource(e) + " --> " + graph.getEdgeTarget(e));
         }
     }
 
-    /**
-     * Creates a toy directed graph based on URL objects that represents link structure.
-     *
-     * @return a graph based on URL objects.
-     */
-    private static DirectedGraph<URL, DefaultEdge> createHrefGraph()
+    public void addNodes(List<Tree> nodesNP)
     {
-        DirectedGraph<URL, DefaultEdge> g = new DefaultDirectedGraph<URL, DefaultEdge>(DefaultEdge.class);
-
-        try {
-            URL amazon = new URL("http://www.amazon.com");
-            URL yahoo = new URL("http://www.yahoo.com");
-            URL ebay = new URL("http://www.ebay.com");
-
-            // add the vertices
-            g.addVertex(amazon);
-            g.addVertex(yahoo);
-            g.addVertex(ebay);
-
-            // add edges to create linking structure
-            g.addEdge(yahoo, amazon);
-            g.addEdge(yahoo, ebay);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return g;
-    }
-
-
-    public void addNodes(List<Tree> nodesNP) {
-        for (Tree node: nodesNP){
-            System.out.println("node: " + node);
+        for (Tree node: nodesNP)
+        {
+            //System.out.println("node: " + node);
             graph.addVertex(node);
         }
+    }
+
+    public Tree getNode(Tree nodeNP)
+    {
+        for(Tree graphNode : graph.vertexSet())
+        {
+            if(graphNode.equals(nodeNP)) {
+                return graphNode;
+            }
+        }
+        return null;
+    }
+
+    public void addEdges(Tree parentNode, List<Tree> nodesNP)
+    {
+        Tree graphNode1 = getNode(parentNode);
+        if(graphNode1 == null) {return;}
+
+        for (Tree node: nodesNP)
+        {
+            Tree graphNode2 = getNode(node);
+            if(graphNode2 != null) {
+                graph.addEdge(graphNode1, graphNode2);
+            }
+        }
+    }
+
+    public List<Tree> getAllNodes()
+    {
+        List<Tree> nodes = new ArrayList<Tree>();
+        for(Tree node : graph.vertexSet()) {
+            //System.out.println("node: " + node);
+            nodes.add(node);
+        }
+        return nodes;
     }
 }

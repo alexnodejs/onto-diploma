@@ -24,9 +24,6 @@ public class Main {
         XMI xmi = textParser.Processing("14.txt");
         //XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
 
-//        PlazmaGraph plazmaGraph = new PlazmaGraph();
-//        plazmaGraph.buildGraph();
-
     }
 
 
