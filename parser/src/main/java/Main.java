@@ -18,7 +18,7 @@ public class Main {
 
         TextParser textParser = new TextParser();
         XMI xmi = textParser.Processing("17.txt");
-       // XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
+        XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
 
     }
 

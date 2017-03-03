@@ -8,6 +8,8 @@ import edu.stanford.nlp.trees.TreePrint;
 import edu.stanford.nlp.util.CoreMap;
 
 import graphs.NPGraph;
+import graphs.XMIGraph;
+import graphs.XMINode;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.elements.ofGeneralization.Generalization;
 import legacy.xmi.model.elements.ofassociation.Association;
@@ -24,7 +26,8 @@ import java.util.*;
 public class TextParser {
 
     private StanfordCoreNLP pipeline;
-    private NPGraph plazmaGraph = new NPGraph();
+    private NPGraph npGraph = new NPGraph();
+    private XMIGraph xmiGraph = new XMIGraph();
     private List<AbstractModelElement> abslist = new ArrayList<AbstractModelElement>();
 
 
@@ -45,7 +48,7 @@ public class TextParser {
 
         ParseDocument(document);
         //buildAbstractModelElementsList();
-        //xmiStructure = buiildXMI(abslist);
+        xmiStructure = buiildXMI(abslist);
 
         return xmiStructure;
     }
@@ -61,7 +64,10 @@ public class TextParser {
             TreePrint treePrint = new TreePrint("penn");// latexTree
             treePrint.printTree(tree);
 
-            buildGraphNodesAndEdges(tree);
+            buildNPGraph(tree);
+            buildXMIGraph();
+            buildAbstractModelElementsList();
+
 
         }
     }
@@ -89,7 +95,7 @@ public class TextParser {
         return xmiStructure;
     }
 
-    private void buildGraphNodesAndEdges(Tree tree)
+    private void buildNPGraph(Tree tree)
     {
         List<Tree> nodesNP = buildGraphNodes(tree);
         buildGraphEdges(nodesNP, tree);
@@ -99,7 +105,7 @@ public class TextParser {
     {
         List<Tree> nodesNP = new ArrayList<Tree>();
         TreeHelper.getNPTrees(tree, nodesNP);
-        plazmaGraph.addNodes(nodesNP);
+        npGraph.addNodes(nodesNP);
 
         return nodesNP;
     }
@@ -116,16 +122,35 @@ public class TextParser {
              System.out.println("parentNode: " + parentNode);
              List<CustomData> connectedItems = new ArrayList<CustomData>();
              TreeHelper.investigateAllConnectedNodes(tree, parentNode, tree, connectedItems);
-             plazmaGraph.addEdges(parentNode, connectedItems);
+            npGraph.addEdges(parentNode, connectedItems);
         }
 
-        plazmaGraph.printGraph();
+        npGraph.printGraph();
     }
 
-    private void buildAbstractModelElementsList() {
-        List<Tree> graphNodes = plazmaGraph.getAllNodes();
+    private void buildXMIGraph() {
+        List<Tree> graphNodes = npGraph.getAllNodes();
         for (Tree node: graphNodes) {
-            TextParserHelper.addElementToClass(GraphHelper.getXMIRepresentationsNode(node, abslist), abslist);
+            xmiGraph.addNode(XMIGraphHelper.getXMINode(node));
+        }
+        xmiGraph.printGraph();
+    }
+
+//    private void buildAbstractModelElementsList() {
+//        List<Tree> graphNodes = plazmaGraph.getAllNodes();
+//        for (Tree node: graphNodes) {
+//            TextParserHelper.addElementToClass(GraphHelper.getXMIRepresentationsNode(node, abslist), abslist);
+//        }
+//    }
+
+    private void buildAbstractModelElementsList() {
+        List<XMINode> graphNodes = xmiGraph.getAllNodes();
+        for (XMINode node: graphNodes) {
+            int index = XMIHelper.generateIndex(abslist);
+            Class element = XMIHelper.getClassElementFromNode(node, index);
+            XMIHelper.addElementToClass(element,abslist);
+            //return ElementBuilderUtil.classElementsBuilder(xmiNodeNode.name, index);
+            //TextParserHelper.addElementToClass(GraphHelper.getXMIRepresentationsNode(node, abslist), abslist);
         }
     }
 

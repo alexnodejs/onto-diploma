@@ -24,7 +24,7 @@ public class GraphHelper {
             }
         }
 
-        int index = TextParserHelper.generateIndex(abstractModelElements);
+        int index = XMIHelper.generateIndex(abstractModelElements);
         return ElementBuilderUtil.classElementsBuilder(className, index);
     }
 

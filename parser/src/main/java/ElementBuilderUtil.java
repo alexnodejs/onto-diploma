@@ -1,5 +1,6 @@
 import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.trees.Tree;
+import graphs.XMINode;
 import legacy.xmi.model.elements.ofGeneralization.*;
 import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.elements.ofclass.Class;
@@ -10,18 +11,23 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes;
 
 /**
  * Created by svitlanamoiseyenko on 2/21/17.
  */
 public class ElementBuilderUtil {
 
-    public static Class classElementsBuilder(String word, int index)
-    {
-        String className = (Character.toUpperCase(word.charAt(0))) + word.substring(1);
-        //System.out.println("=== classElementsBuilder === " + className);
-        Class element = new Class(className + "_ClassID" + index, className);
+    public static  Attribute attributeBuilder(String name, int index) {
+        String xmiID = name + String.valueOf(index);
+        Attribute attribute = new Attribute(xmiID, name);
+        return attribute;
+    }
 
+    public static Class classElementsBuilder(String name, int index)
+    {
+        String className = name;
+        Class element = new Class(className + "_ClassID" + index, className);
         if (element == null) { return null; }
 
         return element;
