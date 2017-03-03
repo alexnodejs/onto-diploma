@@ -100,7 +100,7 @@
                         </UML:AssociationEnd>
                     </UML:Association.connection>
                 </UML:Association>
-                <UML:Association xmi.id="tokilling_AssociationID14" name="tokilling" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Association xmi.id="to killing_AssociationID14" name="to killing" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Association.connection>
                         <UML:AssociationEnd xmi.id="_assocEndFor_Teeth_ClassID714" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>

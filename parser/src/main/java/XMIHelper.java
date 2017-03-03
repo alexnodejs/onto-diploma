@@ -72,37 +72,27 @@ public class XMIHelper {
         return association;
     }
 
-    public Class getClassElement(String name, SearchType searchType) {
-
-        System.out.println(" getClassElement " + name);
-        //Class classElement = null;
+    public Class getClassElement(String name, SearchType searchType)
+    {
         for (AbstractModelElement element: abstractModelElements) {
             if (element instanceof Class) {
                 switch (searchType) {
 
                     case CLASS_ATTRIBUTE:
-                        System.out.println(" getClassElement CLASS_ATTRIBUTE CLASS: " + String.valueOf(((Class)element)._model_name));
-
                         if (((Class)element).getClassAttributeByName(name.toLowerCase()) != null) {
-                            //  classElement = (Class) element;
                             return  (Class) element;
                         }
                         break;
 
                     case CLASS_NAME:
-                        System.out.println(" getClassElement CLASS_NAME CLASS: " + String.valueOf(((Class)element)._model_name));
-                        System.out.println(" getClassElement word: " + String.valueOf(name));
                         if (element._model_name.toLowerCase().equals(name.toLowerCase())) {
-                            //classElement = (Class) element;
                             return  (Class) element;
                         }
 
                         break;
 
                     case CLASS_OPERATION:
-                        System.out.println(" getClassElement CLASS_OPERATION CLASS: " + String.valueOf(((Class)element)._model_name));
                         if (((Class)element).getClassOperationByName(name.toLowerCase()) != null) {
-                            // classElement = (Class) element;
                             return  (Class) element;
                         }
                         break;

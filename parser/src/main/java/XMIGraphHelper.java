@@ -56,19 +56,10 @@ public class XMIGraphHelper {
                     if (xmiEdge.name == null) {
                         xmiEdge.name = name;
                     } else {
-                        xmiEdge.name += name;
+                        xmiEdge.name += " " + name;
                     }
                 }
             }
-            /*if (!childTree.isPhrasal() && TreeHelper.isHasJoinVerb(childTree.value().toString())) {
-                System.out.println("===childTree leaves==== " + childTree.getLeaves());
-                String name = String.valueOf(childTree.getLeaves().get(0));
-                if (xmiEdge.name == null) {
-                    xmiEdge.name = name;
-                } else {
-                    xmiEdge.name += name;
-                }
-            }*/
         }
         xmiEdge.name = xmiEdge.name == null ? "": xmiEdge.name;
         xmiEdge.type = "none";
@@ -76,19 +67,4 @@ public class XMIGraphHelper {
         xmiEdge.childNodeId = npEdge.childNodeId;
         return xmiEdge;
     }
-
-    //public static Class getXMIRepresentationsEdge(Tree parent, Tree child, List<AbstractModelElement> abstractModelElements) {
-
-    //String className = "";
-    ///System.out.println(graph.getEdgeSource(edge) + " --> " + graph.getEdgeTarget(edge));
-    //List<Tree> childList = treeNode.getChildrenAsList();
-//        for (Tree childTree : childList) {
-//            if (!childTree.isPhrasal() && TreeHelper.isNoun(childTree.value().toString())) {
-//                className += childTree.getLeaves().get(0);
-//            }
-//        }
-
-    //int index = TextParserHelper.generateIndex(abstractModelElements);
-    //return ElementBuilderUtil.associationElementBuilder();
-    // }
 }
