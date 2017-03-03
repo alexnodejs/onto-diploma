@@ -1,9 +1,7 @@
 import edu.stanford.nlp.trees.Tree;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.root.elements.AbstractModelElement;
-import org.jgrapht.DirectedGraph;
-import org.jgrapht.graph.DefaultDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
+
 
 import java.util.List;
 
@@ -29,5 +27,20 @@ public class GraphHelper {
         int index = TextParserHelper.generateIndex(abstractModelElements);
         return ElementBuilderUtil.classElementsBuilder(className, index);
     }
+
+    //public static Class getXMIRepresentationsEdge(Tree parent, Tree child, List<AbstractModelElement> abstractModelElements) {
+
+        //String className = "";
+        ///System.out.println(graph.getEdgeSource(edge) + " --> " + graph.getEdgeTarget(edge));
+        //List<Tree> childList = treeNode.getChildrenAsList();
+//        for (Tree childTree : childList) {
+//            if (!childTree.isPhrasal() && TreeHelper.isNoun(childTree.value().toString())) {
+//                className += childTree.getLeaves().get(0);
+//            }
+//        }
+
+        //int index = TextParserHelper.generateIndex(abstractModelElements);
+        //return ElementBuilderUtil.associationElementBuilder();
+   // }
 
 }

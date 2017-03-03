@@ -14,7 +14,6 @@ public class TextParserHelper {
         return index;
     }
 
-
     public static boolean isElementExist(List<AbstractModelElement> abstractModelElements,
                                          Class element) {
         if(!Arrays.asList(abstractModelElements).contains(element)) {

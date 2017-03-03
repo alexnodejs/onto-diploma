@@ -1,14 +1,14 @@
 import edu.stanford.nlp.ling.IndexedWord;
-import edu.stanford.nlp.ling.LabeledWord;
-import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.trees.Tree;
 import legacy.xmi.model.elements.ofGeneralization.*;
 import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.elements.ofmethod.Attribute;
 import legacy.xmi.model.elements.ofmethod.Operation;
-import legacy.xmi.model.root.elements.AbstractModelElement;
+import org.jgrapht.DirectedGraph;
+import org.jgrapht.graph.DefaultDirectedGraph;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,35 +16,24 @@ import java.util.List;
  */
 public class ElementBuilderUtil {
 
-    public static Class classElementsBuilder(String word, int index) {
+    public static Class classElementsBuilder(String word, int index)
+    {
         String className = (Character.toUpperCase(word.charAt(0))) + word.substring(1);
-        System.out.println("=== classElementsBuilder === " + className);
+        //System.out.println("=== classElementsBuilder === " + className);
         Class element = new Class(className + "_ClassID" + index, className);
-
 
         if (element == null) { return null; }
 
         return element;
     }
 
-
-//    public static Class classElementsBuilder(String word, int index) {
-//        String className = (Character.toUpperCase(word.charAt(0))) + word.substring(1);
-//        System.out.println("=== classElementsBuilder === " + className);
-//        Class element = new Class(className + "_ClassID" + index, className);
-//
-//        if (element == null) { return null; }
-//
-//        return element;
-//    }
-
-    public static Association associationElementBuilder(LabeledWord word,
-                                                 Class parent,
-                                                 Class child,
-                                                 int index) {
+    public static Association associationElementBuilder(String name,
+                                                        Class parent,
+                                                        Class child,
+                                                        int index) {
 
         System.out.println("== associationElementBuilder ===");
-        String assoc_name = word.word();
+        String assoc_name = name;
         Association association = null;
 
         //1
@@ -65,10 +54,6 @@ public class ElementBuilderUtil {
                                                         int index) {
 
         System.out.println("== associationElementBuilder ===");
-        System.out.println("== associationElementBuilder parent ===" + parent);
-        System.out.println("== associationElementBuilder child ===" + child);
-        System.out.println("== associationElementBuilder parentEndName ===" + parentEndName);
-        System.out.println("== associationElementBuilder childEndName ===" + childEndName);
         String assoc_name = name;
         Association association = null;
 
@@ -111,16 +96,6 @@ public class ElementBuilderUtil {
 
 
     // Old
-    public static Class classElementsBuilder(IndexedWord word, int index) {
-        String className = (Character.toUpperCase(word.originalText().charAt(0))) + word.originalText().substring(1);
-        System.out.println("=== classElementsBuilder === " + className);
-        Class element = new Class(className + "_ClassID" + index, className);
-
-        if (element == null) { return null; }
-
-        return element;
-    }
-
     public static  Attribute attributeBuilder(IndexedWord word, Class classElement, int index) {
         String xmiID = word.word() + String.valueOf(index);
         Attribute attribute = new Attribute(xmiID, word.word());
@@ -171,5 +146,6 @@ public class ElementBuilderUtil {
 
         return association;
     }
+
 
 }

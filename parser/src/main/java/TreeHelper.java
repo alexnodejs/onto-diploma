@@ -1,45 +1,65 @@
+import classes.CustomData;
 import config.Constants;
 import edu.stanford.nlp.trees.Tree;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by svitlanamoiseyenko on 2/28/17.
  */
 public class TreeHelper {
 
-    public static boolean isNP(Tree tree) {
+    public static boolean isNP(Tree tree)
+    {
         if (tree.value().toString().equals("NP")) {
             return true;
         }
         return false;
     }
 
-    public static boolean isVP(Tree tree) {
+    public static boolean isVP(Tree tree)
+    {
         if (tree.value().toString().equals("VP")) {
             return true;
         }
         return false;
     }
 
-    public static boolean isAdjective(String tag) {
+    public static boolean isAdjective(String tag)
+    {
         if(Arrays.asList(Constants.adjectiveSet).contains(tag)) {
             return true;
         }
         return false;
     }
 
-    public static boolean isNoun(String tag) {
+    public static boolean isNoun(String tag)
+    {
         if(Arrays.asList(Constants.nounSet).contains(tag)) {
             return true;
         }
         return false;
     }
 
+    public static boolean isMainVerb(String tag)
+    {
+        if(Arrays.asList(Constants.mainVerbSet).contains(tag)) {
+            return true;
+        }
+        return false;
+    }
 
-    public static boolean isHasPhrasesNP(Tree tree) {
+    public static boolean isHasJoinVerb(String tag)
+    {
+        if(Arrays.asList(Constants.joinVerbSet).contains(tag)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public static boolean isHasPhrasesNP(Tree tree)
+    {
         List<Tree> children = tree.getChildrenAsList();
         for (Tree child : children) {
             if(child.isPhrasal() && isNP(child)) {
@@ -49,7 +69,8 @@ public class TreeHelper {
         return false;
     }
 
-    public static boolean isHasPhrases(Tree tree) {
+    public static boolean isHasPhrases(Tree tree)
+    {
         List<Tree> children = tree.getChildrenAsList();
         for (Tree child : children) {
             if(child.isPhrasal()) {
@@ -59,7 +80,8 @@ public class TreeHelper {
         return false;
     }
 
-    public static void getNPTrees(Tree tree, List<Tree> nodesNP) {
+    public static void getNPTrees(Tree tree, List<Tree> nodesNP)
+    {
         List<Tree> subtrees = tree.getChildrenAsList();
         for (Tree subtree: subtrees) {
 
@@ -73,34 +95,42 @@ public class TreeHelper {
 
 
 
-    public static void getNPTreesWithoutVP(Tree tree, List<Tree> nodesNP, Tree root, Tree parentNodeNP) {
+    public static void getRelatedNP(Tree tree, List<CustomData> nodesNP, Tree root, Tree parentVP)
+    {
         List<Tree> subtrees = tree.getChildrenAsList();
         boolean flag = false;
-
-        for (Tree subtree: subtrees) {
-
-            //System.out.println("======subtree subtree: " + subtrees);
-            if(isNP(subtree) && !isHasPhrasesNP(subtree) && isHasConnection(subtree, root) == null) {
+        for (Tree subtree: subtrees)
+        {
+            if(isNP(subtree) && !isHasPhrasesNP(subtree) && isHasConnection(subtree, root) == null)
+            {
+                //System.out.println("GET parent: " + parentNodeNP);
                 System.out.println("GET subtree: " + subtree);
-                //List<Tree> path = root.pathNodeToNode(parentNodeNP, subtree);
-                //System.out.println("path: " + path);
-                nodesNP.add(subtree);
+                Tree path = getPathToNode(subtree, parentVP, root);
+                nodesNP.add(new CustomData(path, subtree));
             }
-            else  if (isNP(subtree) && !isHasPhrasesNP(subtree) && isHasConnection(subtree, root) != null) {
-                System.out.println("Additional GET subtree: " + subtree);
-                nodesNP.add(subtree);
+            else  if (isNP(subtree) && !isHasPhrasesNP(subtree) && isHasConnection(subtree, root) != null)
+            {
+                Tree path = getPathToNode(subtree, parentVP, root);
+                nodesNP.add(new CustomData(path, subtree));
+                //nodesNP.add(treeVP, subtree);
                 flag = true;
             }
-            if (flag == false) {
-                getNPTreesWithoutVP(subtree, nodesNP, root, parentNodeNP);
+            if (flag == false)
+            {
+                getRelatedNP(subtree, nodesNP, root, parentVP);
             }
+
+
         }
     }
 
-    public static Tree isHasConnection(Tree child, Tree root) {
-        //List<Tree> siblings = child.siblings(root);
-        Tree parent = child.parent(root);
-        List<Tree> siblings = parent.getChildrenAsList();
+
+
+    public static Tree isHasConnection(Tree child, Tree root)
+    {
+        List<Tree> siblings = child.siblings(root);
+        //Tree parent = child.parent(root);
+        //List<Tree> siblings = parent.getChildrenAsList();
 
         for (Tree sibling : siblings) {
 
@@ -112,7 +142,8 @@ public class TreeHelper {
         return null;
     }
 
-    public static void investigateAllConnectedNodes(Tree tree, Tree nodeNP,  Tree root, List<Tree> connectedNodesNP) {
+    public static void investigateAllConnectedNodes(Tree tree, Tree nodeNP,  Tree root, List<CustomData> connectedNodesNP)
+    {
 
         List<Tree> children = tree.getChildrenAsList();
         for (Tree child : children) {
@@ -122,10 +153,9 @@ public class TreeHelper {
                 Tree treeVP = TreeHelper.isHasConnection(child, tree);
                 if(treeVP != null) {
                     System.out.println("======treeVP: " + treeVP);
-                    List<Tree> connectedNodes = new ArrayList<Tree>();
-                    TreeHelper.getNPTreesWithoutVP(treeVP, connectedNodes, root, nodeNP);
-                    //System.out.println("Parent Node: " + child);
-                    //System.out.println("connected nodes: " + connectedNodes); //TODO: return node: path
+                    List<CustomData> connectedNodes = new ArrayList<CustomData>();
+                    TreeHelper.getRelatedNP(treeVP, connectedNodes, root, treeVP);
+
                     connectedNodesNP.addAll(connectedNodes);
                 }
             }
@@ -133,10 +163,35 @@ public class TreeHelper {
         }
     }
 
-    public static void connectNodeWithChilds(Tree parentNode, List<Tree> childs) {
+
+    public static Tree getPathToNode(Tree nodeNP,  Tree parentVP, Tree root)
+    {
+        List<Tree> paths = root.pathNodeToNode(parentVP, nodeNP);
+        System.out.println("PATH: " + paths);
+        return  getPathFromNodeToNode(paths, nodeNP);
 
     }
 
+    public static Tree getPathFromNodeToNode(List<Tree> fullPath, Tree nodeNP) {
 
 
+        Tree path = null;
+        for (Tree subtree : fullPath) {
+            if(isHasJoinVerb(subtree.value().toString()) && subtree.contains(nodeNP)) {
+                System.out.println("SUBTREE: " + subtree);
+                path = subtree;
+            }
+
+        }
+//        if (path == null) {
+//            for (Tree subtree : fullPath) {
+//                if(subtree.contains(nodeNP)) {
+//                    System.out.println("SUBTREE: " + subtree);
+//                    path = subtree;
+//                }
+//
+//            }
+//        }
+        return path;
+    }
 }

@@ -1,4 +1,4 @@
-import edu.stanford.nlp.graph.Graph;
+import classes.CustomData;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
@@ -7,6 +7,7 @@ import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.trees.TreePrint;
 import edu.stanford.nlp.util.CoreMap;
 
+import graphs.NPGraph;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.elements.ofGeneralization.Generalization;
 import legacy.xmi.model.elements.ofassociation.Association;
@@ -15,11 +16,7 @@ import legacy.xmi.model.root.elements.ModelItem;
 import legacy.xmi.root.elements.XMI;
 
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by svitlanamoiseyenko on 2/28/17.
@@ -27,10 +24,8 @@ import java.util.Properties;
 public class TextParser {
 
     private StanfordCoreNLP pipeline;
-    private PlazmaGraph plazmaGraph = new PlazmaGraph();
+    private NPGraph plazmaGraph = new NPGraph();
     private List<AbstractModelElement> abslist = new ArrayList<AbstractModelElement>();
-
-
 
 
     public XMI Processing(String filename)//File _file
@@ -49,7 +44,8 @@ public class TextParser {
         XMI xmiStructure = null;
 
         ParseDocument(document);
-        xmiStructure = buiildXMI(abslist);
+        //buildAbstractModelElementsList();
+        //xmiStructure = buiildXMI(abslist);
 
         return xmiStructure;
     }
@@ -66,7 +62,7 @@ public class TextParser {
             treePrint.printTree(tree);
 
             buildGraphNodesAndEdges(tree);
-            buildAbstractModelElementsList();
+
         }
     }
 
@@ -118,9 +114,9 @@ public class TextParser {
         {
              Tree parentNode = node;
              System.out.println("parentNode: " + parentNode);
-             List<Tree> connectedNodesNP = new ArrayList<Tree>();
-             TreeHelper.investigateAllConnectedNodes(tree, parentNode, tree, connectedNodesNP);
-             plazmaGraph.addEdges(parentNode, connectedNodesNP);
+             List<CustomData> connectedItems = new ArrayList<CustomData>();
+             TreeHelper.investigateAllConnectedNodes(tree, parentNode, tree, connectedItems);
+             plazmaGraph.addEdges(parentNode, connectedItems);
         }
 
         plazmaGraph.printGraph();

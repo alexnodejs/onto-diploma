@@ -1,29 +1,36 @@
+package graphs;
+
 import edu.stanford.nlp.trees.Tree;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import classes.CustomData;
+
+
 
 /**
  * Created by svitlanamoiseyenko on 2/28/17.
  */
-public class PlazmaGraph {
+public class NPGraph {
 
-
-    DirectedGraph<Tree, DefaultEdge> graph = new DefaultDirectedGraph<Tree, DefaultEdge>(DefaultEdge.class);
-
-    public PlazmaGraph()
+    //DirectedGraph<Tree, DefaultEdge> graph = new DefaultDirectedGraph<Tree, DefaultEdge>(DefaultEdge.class);
+    DirectedGraph<Tree, NPEdge> graph = new DefaultDirectedGraph<Tree, NPEdge>(NPEdge.class);
+    public NPGraph()
     {
-    } // ensure non-instantiability.
+    }
 
+    //    public  void printGraph() {
+    //        for(DefaultEdge e : graph.edgeSet()){
+    //            System.out.println(graph.getEdgeSource(e) + " --> " + graph.getEdgeTarget(e));
+    //        }
+    //    }
 
     public  void printGraph() {
-        for(DefaultEdge e : graph.edgeSet()){
-            System.out.println(graph.getEdgeSource(e) + " --> " + graph.getEdgeTarget(e));
+        System.out.println("===printGraph==" + graph.edgeSet());
+        for(NPEdge e : graph.edgeSet()){
+            System.out.println(graph.getEdgeSource(e) + " -->" + String.valueOf(e.path) + " -> "+ graph.getEdgeTarget(e));
         }
     }
 
@@ -47,19 +54,23 @@ public class PlazmaGraph {
         return null;
     }
 
-    public void addEdges(Tree parentNode, List<Tree> nodesNP)
+
+    public void addEdges(Tree parentNode, List<CustomData> nodes)
     {
         Tree graphNode1 = getNode(parentNode);
         if(graphNode1 == null) {return;}
 
-        for (Tree node: nodesNP)
+        int i = 0;
+        for (CustomData data: nodes)
         {
-            Tree graphNode2 = getNode(node);
+            Tree graphNode2 = getNode(data.node);
             if(graphNode2 != null) {
-                graph.addEdge(graphNode1, graphNode2);
+                graph.addEdge(graphNode1, graphNode2, new NPEdge(i, data.path));
             }
+            i ++;
         }
     }
+
 
     public List<Tree> getAllNodes()
     {
@@ -70,4 +81,6 @@ public class PlazmaGraph {
         }
         return nodes;
     }
+
+
 }
