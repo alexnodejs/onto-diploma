@@ -7,9 +7,7 @@ import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.trees.TreePrint;
 import edu.stanford.nlp.util.CoreMap;
 
-import graphs.NPGraph;
-import graphs.XMIGraph;
-import graphs.XMINode;
+import graphs.*;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.elements.ofGeneralization.Generalization;
 import legacy.xmi.model.elements.ofassociation.Association;
@@ -28,7 +26,8 @@ public class TextParser {
     private StanfordCoreNLP pipeline;
     private NPGraph npGraph = new NPGraph();
     private XMIGraph xmiGraph = new XMIGraph();
-    private List<AbstractModelElement> abslist = new ArrayList<AbstractModelElement>();
+    private XMIHelper xmiHelper = XMIHelper.getInstance();
+
 
 
     public XMI Processing(String filename)//File _file
@@ -48,7 +47,7 @@ public class TextParser {
 
         ParseDocument(document);
         //buildAbstractModelElementsList();
-        xmiStructure = buiildXMI(abslist);
+        xmiStructure = buiildXMI(xmiHelper.abstractModelElements);
 
         return xmiStructure;
     }
@@ -97,8 +96,8 @@ public class TextParser {
 
     private void buildNPGraph(Tree tree)
     {
-        List<Tree> nodesNP = buildGraphNodes(tree);
-        buildGraphEdges(nodesNP, tree);
+        buildGraphNodes(tree);
+        buildGraphEdges(tree);
     }
 
     private List<Tree> buildGraphNodes(Tree tree)
@@ -113,44 +112,48 @@ public class TextParser {
     //Take Node from graph
     //Find this node in Tree and check if has VP sibling
     //If yes - find all NP (does not have child phrases) and does not have VP sibling
-    private void buildGraphEdges(List<Tree> nodesNP, Tree tree)
+    private void buildGraphEdges(Tree tree)
     {
         System.out.println("buildGraphEdges: ");
-        for (Tree node: nodesNP)
+        List<NPNode> graphNodes = npGraph.getAllNodes();
+        for (NPNode node: graphNodes)
         {
-             Tree parentNode = node;
+             NPNode parentNode = node;
              System.out.println("parentNode: " + parentNode);
              List<CustomData> connectedItems = new ArrayList<CustomData>();
-             TreeHelper.investigateAllConnectedNodes(tree, parentNode, tree, connectedItems);
-            npGraph.addEdges(parentNode, connectedItems);
+             TreeHelper.investigateAllConnectedNodes(tree, parentNode.tree, tree, connectedItems);
+             npGraph.addEdges(parentNode, connectedItems);
         }
 
         npGraph.printGraph();
     }
 
     private void buildXMIGraph() {
-        List<Tree> graphNodes = npGraph.getAllNodes();
-        for (Tree node: graphNodes) {
+        List<NPNode> graphNodes = npGraph.getAllNodes();
+        for (NPNode node: graphNodes) {
             xmiGraph.addNode(XMIGraphHelper.getXMINode(node));
+        }
+        List<NPEdge> graphEdges = npGraph.getAllEdges();
+        for (NPEdge edge: graphEdges) {
+            xmiGraph.addEdge(XMIGraphHelper.getXMIEdge(edge));
+           // xmiGraph.addNode(XMIGraphHelper.getXMINode(node));
         }
         xmiGraph.printGraph();
     }
 
-//    private void buildAbstractModelElementsList() {
-//        List<Tree> graphNodes = plazmaGraph.getAllNodes();
-//        for (Tree node: graphNodes) {
-//            TextParserHelper.addElementToClass(GraphHelper.getXMIRepresentationsNode(node, abslist), abslist);
-//        }
-//    }
 
     private void buildAbstractModelElementsList() {
         List<XMINode> graphNodes = xmiGraph.getAllNodes();
         for (XMINode node: graphNodes) {
-            int index = XMIHelper.generateIndex(abslist);
-            Class element = XMIHelper.getClassElementFromNode(node, index);
-            XMIHelper.addElementToClass(element,abslist);
-            //return ElementBuilderUtil.classElementsBuilder(xmiNodeNode.name, index);
-            //TextParserHelper.addElementToClass(GraphHelper.getXMIRepresentationsNode(node, abslist), abslist);
+            Class element = xmiHelper.getClassElementFromNode(node);
+            xmiHelper.addElementToClass(element);
+        }
+        List<XMIEdge> graphEdges = xmiGraph.getAllEdges();
+        for (XMIEdge edge: graphEdges) {
+            String parentName = xmiGraph.getNode(edge.padentNodeId).name;
+            String childName = xmiGraph.getNode(edge.childNodeId).name;
+            Association association = xmiHelper.getAssociationElementFromEdge(edge, parentName, childName);
+            xmiHelper.addElementToClass(association);
         }
     }
 

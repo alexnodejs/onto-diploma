@@ -18,6 +18,9 @@ import java.util.jar.Attributes;
  */
 public class ElementBuilderUtil {
 
+
+
+
     public static  Attribute attributeBuilder(String name, int index) {
         String xmiID = name + String.valueOf(index);
         Attribute attribute = new Attribute(xmiID, name);

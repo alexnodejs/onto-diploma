@@ -35,6 +35,17 @@ public class XMIGraph {
         }
     }
 
+    public XMINode getNode(int id)
+    {
+        for(XMINode graphNode : graph.vertexSet())
+        {
+            if(graphNode.id == id) {
+                return graphNode;
+            }
+        }
+        return null;
+    }
+
 //    public Tree getNode(XMINode node)
 //    {
 //        for(XMINode graphNode : graph.vertexSet())
@@ -63,6 +74,27 @@ public class XMIGraph {
 //        }
 //    }
 
+    public void addEdge(XMIEdge edge) {
+
+        System.out.println("===edge==== " + edge.name);
+        if(edge == null) {
+            return;
+        }
+        XMINode xmiParentNode = getNode(edge.padentNodeId);
+        XMINode xmiChildNode = getNode(edge.childNodeId);
+        if(xmiParentNode == null) {return;}
+        if(xmiChildNode == null) {return;}
+
+        graph.addEdge(xmiParentNode, xmiChildNode, edge);
+    }
+
+
+    public List<XMIEdge> getAllEdges()
+    {
+        List<XMIEdge> edges = new ArrayList<XMIEdge>();
+        edges.addAll(graph.edgeSet());
+        return edges;
+    }
 
     public List<XMINode> getAllNodes()
     {

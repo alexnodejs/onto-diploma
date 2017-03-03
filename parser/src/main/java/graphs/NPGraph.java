@@ -16,7 +16,7 @@ import classes.CustomData;
 public class NPGraph {
 
     //DirectedGraph<Tree, DefaultEdge> graph = new DefaultDirectedGraph<Tree, DefaultEdge>(DefaultEdge.class);
-    DirectedGraph<Tree, NPEdge> graph = new DefaultDirectedGraph<Tree, NPEdge>(NPEdge.class);
+    DirectedGraph<NPNode, NPEdge> graph = new DefaultDirectedGraph<NPNode, NPEdge>(NPEdge.class);
     public NPGraph()
     {
     }
@@ -36,18 +36,20 @@ public class NPGraph {
 
     public void addNodes(List<Tree> nodesNP)
     {
-        for (Tree node: nodesNP)
+        int index = 0;
+        for (Tree tree: nodesNP)
         {
             //System.out.println("node: " + node);
-            graph.addVertex(node);
+            graph.addVertex(new NPNode(index, tree));
+            index ++;
         }
     }
 
-    public Tree getNode(Tree nodeNP)
+    public NPNode getNode(Tree nodeNP)
     {
-        for(Tree graphNode : graph.vertexSet())
+        for(NPNode graphNode : graph.vertexSet())
         {
-            if(graphNode.equals(nodeNP)) {
+            if(graphNode.tree.equals(nodeNP)) {
                 return graphNode;
             }
         }
@@ -55,27 +57,33 @@ public class NPGraph {
     }
 
 
-    public void addEdges(Tree parentNode, List<CustomData> nodes)
+    public void addEdges(NPNode parentNode, List<CustomData> nodes)
     {
-        Tree graphNode1 = getNode(parentNode);
-        if(graphNode1 == null) {return;}
+        //NPNode graphNode1 = parentNode;
+        if(parentNode == null) {return;}
 
         int i = 0;
         for (CustomData data: nodes)
         {
-            Tree graphNode2 = getNode(data.node);
+            NPNode graphNode2 = getNode(data.node);
             if(graphNode2 != null) {
-                graph.addEdge(graphNode1, graphNode2, new NPEdge(i, data.path));
+                graph.addEdge(parentNode, graphNode2, new NPEdge(i, data.path, parentNode.id, graphNode2.id));
             }
             i ++;
         }
     }
 
-
-    public List<Tree> getAllNodes()
+    public List<NPEdge> getAllEdges()
     {
-        List<Tree> nodes = new ArrayList<Tree>();
-        for(Tree node : graph.vertexSet()) {
+        List<NPEdge> edges = new ArrayList<NPEdge>();
+        edges.addAll(graph.edgeSet());
+        return edges;
+    }
+
+    public List<NPNode> getAllNodes()
+    {
+        List<NPNode> nodes = new ArrayList<NPNode>();
+        for(NPNode node : graph.vertexSet()) {
             //System.out.println("node: " + node);
             nodes.add(node);
         }

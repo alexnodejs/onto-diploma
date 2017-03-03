@@ -10,24 +10,6 @@ import java.util.List;
  */
 public class GraphHelper {
 
-    public static Class getXMIRepresentationsNode(Tree treeNode, List<AbstractModelElement> abstractModelElements) {
-
-        String className = "";
-        String attribute = "";
-        List<Tree> childList = treeNode.getChildrenAsList();
-        for (Tree childTree : childList) {
-             if (!childTree.isPhrasal() && TreeHelper.isNoun(childTree.value().toString())) {
-                 className += childTree.getLeaves().get(0);
-             }
-             if (!childTree.isPhrasal() && TreeHelper.isAdjective(childTree.value().toString())) {
-                attribute += childTree.getLeaves().get(0);
-            }
-        }
-
-        int index = XMIHelper.generateIndex(abstractModelElements);
-        return ElementBuilderUtil.classElementsBuilder(className, index);
-    }
-
     //public static Class getXMIRepresentationsEdge(Tree parent, Tree child, List<AbstractModelElement> abstractModelElements) {
 
         //String className = "";
