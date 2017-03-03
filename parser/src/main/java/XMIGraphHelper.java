@@ -1,3 +1,4 @@
+import edu.stanford.nlp.ling.LabeledWord;
 import edu.stanford.nlp.trees.Tree;
 import graphs.NPEdge;
 import graphs.NPNode;
@@ -45,18 +46,33 @@ public class XMIGraphHelper {
 
         List<Tree> childList = npEdge.path.getChildrenAsList();
         for (Tree childTree : childList) {
-            if (!childTree.isPhrasal() && TreeHelper.isNoun(childTree.value().toString())) {
+            List<LabeledWord> words = childTree.labeledYield();
+            System.out.println("===words==== " + words);
+            for (LabeledWord word : words) {
+
+                if(TreeHelper.isMainVerb(word.tag().toString())) {
+
+                    String name = word.word().toString();
+                    if (xmiEdge.name == null) {
+                        xmiEdge.name = name;
+                    } else {
+                        xmiEdge.name += name;
+                    }
+                }
+            }
+            /*if (!childTree.isPhrasal() && TreeHelper.isHasJoinVerb(childTree.value().toString())) {
+                System.out.println("===childTree leaves==== " + childTree.getLeaves());
                 String name = String.valueOf(childTree.getLeaves().get(0));
                 if (xmiEdge.name == null) {
                     xmiEdge.name = name;
                 } else {
                     xmiEdge.name += name;
                 }
-            }
+            }*/
         }
-        xmiEdge.name = "--------";
+        xmiEdge.name = xmiEdge.name == null ? "": xmiEdge.name;
         xmiEdge.type = "none";
-        xmiEdge.padentNodeId = npEdge.padentNodeId;
+        xmiEdge.padentNodeId = npEdge.parentNodeId;
         xmiEdge.childNodeId = npEdge.childNodeId;
         return xmiEdge;
     }

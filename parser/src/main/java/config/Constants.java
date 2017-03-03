@@ -8,8 +8,9 @@ public final class Constants {
 
   public static final String nounSet[] = new String[] {"NN", "NNP", "PRP", "NNS"};
   public static final String adjectiveSet[] = new String[] {"JJ"};
-  public static final String mainVerbSet[] = new String[] {"VBP", "VBN", "VBG"};
+  public static final String mainVerbSet[] = new String[] {"VBP", "VBN", "VBG", "IN", "TO"};
   public static final String joinVerbSet[] = new String[] {"ADJP", "PP", "SBAR"};
+  //public static final String joinVerbTag[] = new String[] {"IN", "TO"};
 }
 
 

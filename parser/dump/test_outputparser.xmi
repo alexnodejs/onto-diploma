@@ -30,7 +30,7 @@
                         <UML:Attribute xmi.id="small8" name="small" visibility="private" isSpecification="false" ownerScope="instance"/>
                     </UML:Classifier.feature>
                 </UML:Class>
-                <UML:Association xmi.id="--------_AssociationID9" name="--------" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Association xmi.id="in_AssociationID9" name="in" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Association.connection>
                         <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID09" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>
@@ -44,7 +44,7 @@
                         </UML:AssociationEnd>
                     </UML:Association.connection>
                 </UML:Association>
-                <UML:Association xmi.id="--------_AssociationID10" name="--------" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Association xmi.id="to_AssociationID10" name="to" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Association.connection>
                         <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID010" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>
@@ -58,7 +58,7 @@
                         </UML:AssociationEnd>
                     </UML:Association.connection>
                 </UML:Association>
-                <UML:Association xmi.id="--------_AssociationID11" name="--------" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Association xmi.id="with_AssociationID11" name="with" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Association.connection>
                         <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID011" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>
@@ -72,7 +72,7 @@
                         </UML:AssociationEnd>
                     </UML:Association.connection>
                 </UML:Association>
-                <UML:Association xmi.id="--------_AssociationID12" name="--------" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Association xmi.id="with_AssociationID12" name="with" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Association.connection>
                         <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID012" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>
@@ -86,7 +86,7 @@
                         </UML:AssociationEnd>
                     </UML:Association.connection>
                 </UML:Association>
-                <UML:Association xmi.id="--------_AssociationID13" name="--------" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Association xmi.id="with_AssociationID13" name="with" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Association.connection>
                         <UML:AssociationEnd xmi.id="_assocEndFor_Cats_ClassID013" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>
@@ -100,7 +100,7 @@
                         </UML:AssociationEnd>
                     </UML:Association.connection>
                 </UML:Association>
-                <UML:Association xmi.id="--------_AssociationID14" name="--------" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                <UML:Association xmi.id="tokilling_AssociationID14" name="tokilling" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Association.connection>
                         <UML:AssociationEnd xmi.id="_assocEndFor_Teeth_ClassID714" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                             <UML:AssociationEnd.participant>

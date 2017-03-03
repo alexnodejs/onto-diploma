@@ -8,14 +8,14 @@ import edu.stanford.nlp.trees.Tree;
  */
 public class NPEdge {
     public int id;
-    public  int padentNodeId;
+    public  int parentNodeId;
     public  int childNodeId;
     public Tree path;
 
-    public  NPEdge(int id, Tree path, int padentNodeId, int childNodeId) {
+    public  NPEdge(int id, Tree path, int parentNodeId, int childNodeId) {
         this.path = path;
         this.id = id;
-        this.padentNodeId = padentNodeId;
+        this.parentNodeId = parentNodeId;
         this.childNodeId = childNodeId;
     }
 }

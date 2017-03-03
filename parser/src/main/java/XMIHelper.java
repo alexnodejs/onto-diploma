@@ -51,7 +51,7 @@ public class XMIHelper {
     }
 
     public  Class getClassElementFromNode(XMINode xmiNodeNode) {
-        
+
         int index = generateIndex();
         Class element = ElementBuilderUtil.classElementsBuilder(xmiNodeNode.name, index);
         for(String attribute: xmiNodeNode.attributes) {
