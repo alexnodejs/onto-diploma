@@ -7,12 +7,13 @@ import java.util.List;
  */
 public class XMIEdge {
     public int id;
-    public int padentNodeId;
+    public int parentNodeId;
     public int childNodeId;
     public String name;
     public String type = "none";
     public String startName;
     public String endName;
+
 
     public XMIEdge(int id) {
         this.id = id;

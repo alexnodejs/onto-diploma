@@ -56,6 +56,7 @@ public class XMIHelper {
         Class element = ElementBuilderUtil.classElementsBuilder(xmiNodeNode.name, index);
         for(String attribute: xmiNodeNode.attributes) {
             Attribute attr = ElementBuilderUtil.attributeBuilder(attribute, index);
+            System.out.println("===npTreeAttributes==== " + attr._name);
             element.addAttribute(attr);
         }
 
@@ -67,7 +68,8 @@ public class XMIHelper {
         int index = generateIndex();
         Class parent = getClassElement(parentName, SearchType.CLASS_NAME);
         Class child = getClassElement(childName, SearchType.CLASS_NAME);
-        Association association = ElementBuilderUtil.associationElementBuilder(xmiEdge.name,parent, child, index);
+        System.out.println("===xmiEdge name==== " + xmiEdge.name);
+        Association association = ElementBuilderUtil.associationElementBuilder(xmiEdge.name, parent, child, index);
 
         return association;
     }

@@ -1,7 +1,5 @@
 package graphs;
 
-import classes.CustomData;
-import edu.stanford.nlp.trees.Tree;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 
@@ -17,7 +15,7 @@ public class XMIGraph {
 
     public  void printGraph() {
         for(XMIEdge e : graph.edgeSet()){
-            System.out.println("XMI: " + graph.getEdgeSource(e) + " -->" + String.valueOf(e.name) + " -> "+ graph.getEdgeTarget(e));
+            System.out.println("XMI: " + graph.getEdgeSource(e).name + " -->" + String.valueOf(e.name) + " -> "+ graph.getEdgeTarget(e).name);
         }
     }
 
@@ -58,13 +56,13 @@ public class XMIGraph {
 //    }
 
 
-//    public void addEdges(Tree parentNode, List<CustomData> nodes)
+//    public void addEdges(Tree parentNode, List<NodeTreeData> nodes)
 //    {
 //        Tree graphNode1 = getNode(parentNode);
 //        if(graphNode1 == null) {return;}
 //
 //        int i = 0;
-//        for (CustomData data: nodes)
+//        for (NodeTreeData data: nodes)
 //        {
 //            Tree graphNode2 = getNode(data.node);
 //            if(graphNode2 != null) {
@@ -80,7 +78,7 @@ public class XMIGraph {
         if(edge == null) {
             return;
         }
-        XMINode xmiParentNode = getNode(edge.padentNodeId);
+        XMINode xmiParentNode = getNode(edge.parentNodeId);
         XMINode xmiChildNode = getNode(edge.childNodeId);
         if(xmiParentNode == null) {return;}
         if(xmiChildNode == null) {return;}

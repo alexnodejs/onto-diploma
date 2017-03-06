@@ -1,4 +1,4 @@
-import classes.CustomData;
+import classes.NodeTreeData;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
@@ -120,7 +120,7 @@ public class TextParser {
         {
              NPNode parentNode = node;
              System.out.println("parentNode: " + parentNode);
-             List<CustomData> connectedItems = new ArrayList<CustomData>();
+             List<NodeTreeData> connectedItems = new ArrayList<NodeTreeData>();
              TreeHelper.investigateAllConnectedNodes(tree, parentNode.tree, tree, connectedItems);
              npGraph.addEdges(parentNode, connectedItems);
         }
@@ -150,7 +150,7 @@ public class TextParser {
         }
         List<XMIEdge> graphEdges = xmiGraph.getAllEdges();
         for (XMIEdge edge: graphEdges) {
-            String parentName = xmiGraph.getNode(edge.padentNodeId).name;
+            String parentName = xmiGraph.getNode(edge.parentNodeId).name;
             String childName = xmiGraph.getNode(edge.childNodeId).name;
             Association association = xmiHelper.getAssociationElementFromEdge(edge, parentName, childName);
             xmiHelper.addElementToClass(association);

@@ -6,7 +6,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 
 import java.util.ArrayList;
 import java.util.List;
-import classes.CustomData;
+import classes.NodeTreeData;
 
 
 
@@ -30,7 +30,10 @@ public class NPGraph {
     public  void printGraph() {
         System.out.println("===printGraph==" + graph.edgeSet());
         for(NPEdge e : graph.edgeSet()){
-            System.out.println(graph.getEdgeSource(e) + " -->" + String.valueOf(e.path) + " -> "+ graph.getEdgeTarget(e));
+            System.out.println(String.valueOf(
+                    graph.getEdgeSource(e).tree) +
+                    " -->" + String.valueOf(e.path) +
+                    " -> "+ String.valueOf(graph.getEdgeTarget(e).tree));
         }
     }
 
@@ -57,13 +60,13 @@ public class NPGraph {
     }
 
 
-    public void addEdges(NPNode parentNode, List<CustomData> nodes)
+    public void addEdges(NPNode parentNode, List<NodeTreeData> nodes)
     {
         //NPNode graphNode1 = parentNode;
         if(parentNode == null) {return;}
 
         int i = 0;
-        for (CustomData data: nodes)
+        for (NodeTreeData data: nodes)
         {
             NPNode graphNode2 = getNode(data.node);
             if(graphNode2 != null) {
