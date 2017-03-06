@@ -177,7 +177,8 @@ public class TreeHelper {
         }
     }
 
-    public static List<Tree> getIncludedVP(Tree parentVP) {
+    public static List<Tree> getIncludedVP(Tree parentVP)
+    {
         List<Tree> vps = new ArrayList<Tree>();
         List<Tree> children = parentVP.getChildrenAsList();
         for(Tree child : children) {
@@ -186,7 +187,6 @@ public class TreeHelper {
             }
         }
         return vps;
-
     }
 
 
@@ -215,7 +215,8 @@ public class TreeHelper {
         return path;
     }
 
-    public static Tree getPathFromNodeToNode(List<Tree> fullPath, Tree nodeNP) {
+    public static Tree getPathFromNodeToNode(List<Tree> fullPath, Tree nodeNP)
+    {
 
         Tree path = null;
         for (Tree subtree : fullPath) {

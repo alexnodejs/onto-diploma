@@ -2,10 +2,7 @@ package legacy.xmi.model.elements.ofclass;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import legacy.xmi.model.elements.ofassociation.AssociationParticipant;
 import legacy.xmi.model.elements.ofmethod.Attribute;
 import legacy.xmi.model.elements.ofmethod.Classifier;
 import legacy.xmi.model.elements.ofmethod.Operation;
@@ -78,40 +75,4 @@ public class Class extends AbstractModelElement {
 		_classifier.addOperation(operation);
 	}
 
-	public Class getClassAttributeByName(String attrName) {
-		if (_classifier == null) {
-			return null;
-		}
-		else if (_classifier._attribute == null) {
-			return null;
-		}
-		else if (_classifier._attribute._name == null) {
-			return null;
-		}
-		else if (_classifier._attribute._name.toLowerCase().equals(attrName)) {
-			return this;
-		}
-		return null;
-	}
-
-	public Class getClassOperationByName(String operationName) {
-		System.out.println(" getClassElement _classifier ");
-		//System.out.println(" getClassElement _classifier " + String.valueOf(_classifier));
-		//System.out.println(" getClassElement _classifier._operation " + String.valueOf(_classifier._operation));
-		//System.out.println(" getClassElement _classifier._operation._name " + String.valueOf(_classifier._operation._name));
-
-		if (_classifier == null) {
-			return null;
-		}
-		else if (_classifier._operation == null) {
-			return null;
-		}
-		else if (_classifier._operation._name == null) {
-			return null;
-		}
-		else if (_classifier._operation._name.toLowerCase().equals(operationName)) {
-			return this;
-		}
-		return null;
-	}
 }

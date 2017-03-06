@@ -80,21 +80,8 @@ public class XMIHelper {
             if (element instanceof Class) {
                 switch (searchType) {
 
-                    case CLASS_ATTRIBUTE:
-                        if (((Class)element).getClassAttributeByName(name.toLowerCase()) != null) {
-                            return  (Class) element;
-                        }
-                        break;
-
                     case CLASS_NAME:
                         if (element._model_name.toLowerCase().equals(name.toLowerCase())) {
-                            return  (Class) element;
-                        }
-
-                        break;
-
-                    case CLASS_OPERATION:
-                        if (((Class)element).getClassOperationByName(name.toLowerCase()) != null) {
                             return  (Class) element;
                         }
                         break;
