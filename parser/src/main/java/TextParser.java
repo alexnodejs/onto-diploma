@@ -137,7 +137,6 @@ public class TextParser {
         List<NPEdge> graphEdges = npGraph.getAllEdges();
         for (NPEdge edge: graphEdges) {
             xmiGraph.addEdge(XMIGraphHelper.getXMIEdge(edge));
-           // xmiGraph.addNode(XMIGraphHelper.getXMINode(node));
         }
         xmiGraph.printGraph();
     }
@@ -153,8 +152,8 @@ public class TextParser {
         for (XMIEdge edge: graphEdges) {
             String parentName = xmiGraph.getNode(edge.parentNodeId).name;
             String childName = xmiGraph.getNode(edge.childNodeId).name;
-            Association association = xmiHelper.getAssociationElementFromEdge(edge, parentName, childName);
-            xmiHelper.addElementToClass(association);
+                AbstractModelElement abstractModelElement = xmiHelper.getConnectionElement(edge, parentName, childName);
+                xmiHelper.addElementToClass(abstractModelElement);
         }
     }
 

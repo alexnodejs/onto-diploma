@@ -2,6 +2,7 @@ import edu.stanford.nlp.trees.Tree;
 import graphs.ConnectionType;
 import graphs.XMIEdge;
 import graphs.XMINode;
+import legacy.xmi.model.elements.ofGeneralization.Generalization;
 import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.elements.ofmethod.Attribute;
@@ -64,23 +65,32 @@ public class XMIHelper {
         return element;
     }
 
-    public Association getAssociationElementFromEdge(XMIEdge xmiEdge, String parentName, String childName) {
-
+    //Decorator
+    public AbstractModelElement getConnectionElement(XMIEdge xmiEdge, String parentName, String childName)
+    {
         int index = generateIndex();
         Class parent = getClassElement(parentName, SearchType.CLASS_NAME);
         Class child = getClassElement(childName, SearchType.CLASS_NAME);
         System.out.println("===xmiEdge name==== " + xmiEdge.name);
 
         Association association;
-        if(xmiEdge.connectionType == ConnectionType.AGGREGATION) {
-           association = ElementBuilderUtil
-                   .aggregationElementBuilder("", parent, child, xmiEdge.name, "", index);
-        } else {
-           association = ElementBuilderUtil.associationElementBuilder(xmiEdge.name, parent, child, index);
-        }
+        if(xmiEdge.connectionType == ConnectionType.GENERALIZATION) {
 
-        return association;
+            Generalization generalization;
+            generalization = ElementBuilderUtil.genearlizationElementBuilder(parent, child, index);
+            return generalization;
+        } else if(xmiEdge.connectionType == ConnectionType.AGGREGATION) {
+
+            association = ElementBuilderUtil
+                    .aggregationElementBuilder("", parent, child, xmiEdge.name, "", index);
+            return association;
+        } else  {
+
+            association = ElementBuilderUtil.associationElementBuilder(xmiEdge.name, parent, child, index);
+            return association;
+        }
     }
+
 
 
 

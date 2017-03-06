@@ -232,7 +232,6 @@ public class TreeHelper {
 
     public static Tree getPathFromNodeToNode(List<Tree> fullPath, Tree nodeNP)
     {
-
         Tree path = null;
         for (Tree subtree : fullPath) {
             if(isHasJoinVerb(subtree.value().toString()) && subtree.contains(nodeNP)) {
