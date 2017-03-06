@@ -22,7 +22,7 @@ public class GraphHelper {
 //        }
 
         //int index = TextParserHelper.generateIndex(abstractModelElements);
-        //return ElementBuilderUtil.associationElementBuilder();
+        //return utils.ElementBuilderUtil.associationElementBuilder();
    // }
 
 }

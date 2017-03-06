@@ -1,3 +1,5 @@
+package utils;
+
 import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.trees.Tree;
 import graphs.XMINode;

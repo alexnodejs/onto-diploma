@@ -1,4 +1,5 @@
-import edu.stanford.nlp.trees.Tree;
+package utils;
+
 import graphs.ConnectionType;
 import graphs.XMIEdge;
 import graphs.XMINode;
@@ -69,8 +70,8 @@ public class XMIHelper {
     public AbstractModelElement getConnectionElement(XMIEdge xmiEdge, String parentName, String childName)
     {
         int index = generateIndex();
-        Class parent = getClassElement(parentName, SearchType.CLASS_NAME);
-        Class child = getClassElement(childName, SearchType.CLASS_NAME);
+        Class parent = getClassElement(parentName);
+        Class child = getClassElement(childName);
         System.out.println("===xmiEdge name==== " + xmiEdge.name);
 
         Association association;
@@ -92,23 +93,33 @@ public class XMIHelper {
     }
 
 
-
-
-    public Class getClassElement(String name, SearchType searchType)
+    public Class getClassElement(String name)
     {
         for (AbstractModelElement element: abstractModelElements) {
             if (element instanceof Class) {
-                switch (searchType) {
-
-                    case CLASS_NAME:
-                        if (element._model_name.toLowerCase().equals(name.toLowerCase())) {
+                if (element._model_name.toLowerCase().equals(name.toLowerCase())) {
                             return  (Class) element;
-                        }
-                        break;
                 }
             }
         }
         return  null;
     }
+
+//    public Class getClassElement(String name, SearchType searchType)
+//    {
+//        for (AbstractModelElement element: abstractModelElements) {
+//            if (element instanceof Class) {
+//                switch (searchType) {
+//
+//                    case SearchType.CLASS_NAME:
+//                        if (element._model_name.toLowerCase().equals(name.toLowerCase())) {
+//                            return  (Class) element;
+//                        }
+//                        break;
+//                }
+//            }
+//        }
+//        return  null;
+//    }
 
 }

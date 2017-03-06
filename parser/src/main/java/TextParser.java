@@ -15,6 +15,8 @@ import legacy.xmi.model.root.elements.AbstractModelElement;
 import legacy.xmi.model.root.elements.ModelItem;
 import legacy.xmi.root.elements.XMI;
 import utils.TreeHelper;
+import utils.XMIGraphHelper;
+import utils.XMIHelper;
 
 
 import java.util.*;
