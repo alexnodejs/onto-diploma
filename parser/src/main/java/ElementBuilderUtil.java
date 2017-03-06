@@ -64,7 +64,7 @@ public class ElementBuilderUtil {
 
         System.out.println("== associationElementBuilder ===");
         String assoc_name = name;
-        Association association = null;
+        Association association;
 
         //1
         association = new Association(assoc_name + "_AssociationID" + index,
@@ -74,7 +74,7 @@ public class ElementBuilderUtil {
                 "aggregate",
                 "none",
                 parentEndName,
-                "",
+                childEndName,  //""
                 index);
 
         return association;

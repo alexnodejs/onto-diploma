@@ -10,6 +10,9 @@ public final class Constants {
   public static final String adjectiveSet[] = new String[] {"JJ", "CD", "RB"};
   public static final String verbSet[] = new String[] {"VBP", "VBN", "VBG", "IN", "TO", "VBZ", "ADVP"};
   public static final String joinVerbSet[] = new String[] {"ADJP", "PP", "SBAR"};
+
+  public static final String aggregationSet[] = new String[] {"IN"};
+  public static final String generalizationSet[] = new String[] {"TO"};
   //public static final String joinVerbTag[] = new String[] {"IN", "TO"};
 }
 

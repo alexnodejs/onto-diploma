@@ -1,9 +1,7 @@
 import edu.stanford.nlp.ling.LabeledWord;
 import edu.stanford.nlp.trees.Tree;
-import graphs.NPEdge;
-import graphs.NPNode;
-import graphs.XMIEdge;
-import graphs.XMINode;
+import graphs.*;
+import utils.TreeHelper;
 
 import java.util.List;
 
@@ -36,6 +34,7 @@ public class XMIGraphHelper {
         return xmiNode;
     }
 
+
     public static XMIEdge getXMIEdge(NPEdge npEdge)
     {
         XMIEdge xmiEdge = new XMIEdge(npEdge.id);
@@ -44,19 +43,20 @@ public class XMIGraphHelper {
 
         if(npEdge.path != null) {
 
-
             List<Tree> childList = npEdge.path.getChildrenAsList();
             for (Tree childTree : childList) {
-                System.out.println("===childTree isLeaf==== " + childTree.isLeaf());
-                System.out.println("===childTree isPhrasal==== " + childTree.isPhrasal());
+
                 if (childTree.isLeaf()) {
+
                     xmiEdge.name =  String.valueOf(childTree.getLeaves().get(0));
+                    xmiEdge.setType(childTree.value().toString(),"");
 
                 } else {
                     List<LabeledWord> words = childTree.labeledYield();
                     System.out.println("===words==== " + words);
 
                     for (LabeledWord word : words) {
+
                         if (TreeHelper.isVerb(word.tag().toString())) {
                             String name = word.word().toString();
                             if (xmiEdge.name == null) {
@@ -74,15 +74,19 @@ public class XMIGraphHelper {
                                 xmiEdge.name += " " + name;
                             }
                         }
+
+                        xmiEdge.setType(word.tag().toString(), word.word().toString());
                     }
                 }
             }
         }
 
-        xmiEdge.name = xmiEdge.name == null ? "": xmiEdge.name;
-        xmiEdge.type = "none";
-        xmiEdge.parentNodeId = npEdge.parentNodeId;
-        xmiEdge.childNodeId = npEdge.childNodeId;
+        xmiEdge.name = xmiEdge.name == null ? "" : xmiEdge.name;
+        xmiEdge.seNodesIDS(npEdge.parentNodeId, npEdge.childNodeId);
+
         return xmiEdge;
     }
+
+
+
 }

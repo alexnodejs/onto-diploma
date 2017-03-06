@@ -1,4 +1,5 @@
 import edu.stanford.nlp.trees.Tree;
+import graphs.ConnectionType;
 import graphs.XMIEdge;
 import graphs.XMINode;
 import legacy.xmi.model.elements.ofassociation.Association;
@@ -69,10 +70,19 @@ public class XMIHelper {
         Class parent = getClassElement(parentName, SearchType.CLASS_NAME);
         Class child = getClassElement(childName, SearchType.CLASS_NAME);
         System.out.println("===xmiEdge name==== " + xmiEdge.name);
-        Association association = ElementBuilderUtil.associationElementBuilder(xmiEdge.name, parent, child, index);
+
+        Association association;
+        if(xmiEdge.connectionType == ConnectionType.AGGREGATION) {
+           association = ElementBuilderUtil
+                   .aggregationElementBuilder("", parent, child, xmiEdge.name, "", index);
+        } else {
+           association = ElementBuilderUtil.associationElementBuilder(xmiEdge.name, parent, child, index);
+        }
 
         return association;
     }
+
+
 
     public Class getClassElement(String name, SearchType searchType)
     {

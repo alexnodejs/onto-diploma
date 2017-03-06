@@ -17,15 +17,8 @@ public class NPGraph {
 
     //DirectedGraph<Tree, DefaultEdge> graph = new DefaultDirectedGraph<Tree, DefaultEdge>(DefaultEdge.class);
     DirectedGraph<NPNode, NPEdge> graph = new DefaultDirectedGraph<NPNode, NPEdge>(NPEdge.class);
-    public NPGraph()
-    {
+    public NPGraph() {
     }
-
-    //    public  void printGraph() {
-    //        for(DefaultEdge e : graph.edgeSet()){
-    //            System.out.println(graph.getEdgeSource(e) + " --> " + graph.getEdgeTarget(e));
-    //        }
-    //    }
 
     public  void printGraph() {
         System.out.println("===printGraph==" + graph.edgeSet());

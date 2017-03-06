@@ -1,3 +1,5 @@
+package utils;
+
 import classes.NodeTreeData;
 import config.Constants;
 import edu.stanford.nlp.trees.Tree;
@@ -24,6 +26,23 @@ public class TreeHelper {
         }
         return false;
     }
+
+    public static boolean isAggregation(String tag)
+    {
+        if(Arrays.asList(Constants.aggregationSet).contains(tag)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isGeneralization(String tag)
+    {
+        if(Arrays.asList(Constants.generalizationSet).contains(tag)) {
+            return true;
+        }
+        return false;
+    }
+
 
     public static boolean isAdjective(String tag)
     {
@@ -103,13 +122,11 @@ public class TreeHelper {
         {
             if(isNP(subtree) && !isHasPhrasesNP(subtree) && isHasConnection(subtree, root) == null)
             {
-                System.out.println("GET subtree: " + subtree);
                 Tree path = getPathToNode(subtree, parentVP, root);
                 nodesNP.add(new NodeTreeData(path, subtree));
             }
             else  if (isNP(subtree) && !isHasPhrasesNP(subtree) && isHasConnection(subtree, root) != null)
             {
-                System.out.println("GET subtree isHasConnection: " + subtree);
                 Tree path = getPathToNode(subtree, parentVP, root);
                 nodesNP.add(new NodeTreeData(path, subtree));
                 flag = true;
@@ -152,7 +169,7 @@ public class TreeHelper {
                 if(treeVP != null) {
 
 //                    List<NodeTreeData> connectedNodes = new ArrayList<NodeTreeData>();
-//                    TreeHelper.getRelatedNP(treeVP, connectedNodes, root, treeVP);
+//                    utils.TreeHelper.getRelatedNP(treeVP, connectedNodes, root, treeVP);
 //                    connectedNodesNP.addAll(connectedNodes);
 //                    System.out.println("======treeVP isLeaf: " + treeVP.isLeaf());
 
@@ -202,11 +219,9 @@ public class TreeHelper {
         System.out.println("path: " + path);
           if(path == null) {
 
-              System.out.println("pathDescriptor path == null : " + path);
               path = pathDescriptor;
           } else if (pathDescriptor != null) {
 
-              System.out.println("pathDescriptor path else: " + path);
               Tree complexTree = path.deepCopy();
               complexTree.insertDtr(pathDescriptor, 0);
               return complexTree;
@@ -221,7 +236,7 @@ public class TreeHelper {
         Tree path = null;
         for (Tree subtree : fullPath) {
             if(isHasJoinVerb(subtree.value().toString()) && subtree.contains(nodeNP)) {
-                System.out.println("SUBTREE: " + subtree);
+                System.out.println("PATH FROM NODE TO NODE: " + subtree);
                 return subtree;
             }
         }

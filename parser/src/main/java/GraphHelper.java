@@ -16,7 +16,7 @@ public class GraphHelper {
         ///System.out.println(graph.getEdgeSource(edge) + " --> " + graph.getEdgeTarget(edge));
         //List<Tree> childList = treeNode.getChildrenAsList();
 //        for (Tree childTree : childList) {
-//            if (!childTree.isPhrasal() && TreeHelper.isNoun(childTree.value().toString())) {
+//            if (!childTree.isPhrasal() && utils.TreeHelper.isNoun(childTree.value().toString())) {
 //                className += childTree.getLeaves().get(0);
 //            }
 //        }
