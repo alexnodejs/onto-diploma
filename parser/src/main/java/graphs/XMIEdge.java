@@ -11,31 +11,31 @@ public class XMIEdge {
     public int childNodeId;
     public String name;
 
-    public ConnectionType connectionType;
+    public XMIRelationType XMIRelationType;
     public String startName;
     public String endName;
 
 
     public XMIEdge(int id) {
         this.id = id;
-        this.connectionType = connectionType.ASSOCIATION;
+        this.XMIRelationType = XMIRelationType.ASSOCIATION;
         this.startName = "";
         this.endName = "";
     }
 
     public void setType(String tag, String word) {
 
-        if (this.connectionType != ConnectionType.ASSOCIATION) {
+        if (this.XMIRelationType != XMIRelationType.ASSOCIATION) {
             return;
         }
 
         if (BaseTreeUtil.isAggregation(tag)) {
             //this.startName = word;
-            this.connectionType = ConnectionType.AGGREGATION;
+            this.XMIRelationType = XMIRelationType.AGGREGATION;
         } else if (BaseTreeUtil.isGeneralization(tag)) {
-            this.connectionType = ConnectionType.GENERALIZATION;
+            this.XMIRelationType = XMIRelationType.GENERALIZATION;
         } else {
-            this.connectionType = ConnectionType.ASSOCIATION;
+            this.XMIRelationType = XMIRelationType.ASSOCIATION;
         }
     }
 

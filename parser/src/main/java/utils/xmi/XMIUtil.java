@@ -1,6 +1,6 @@
 package utils.xmi;
 
-import graphs.ConnectionType;
+import graphs.XMIRelationType;
 import graphs.XMIEdge;
 import graphs.XMINode;
 import legacy.xmi.model.elements.ofGeneralization.Generalization;
@@ -76,12 +76,12 @@ public class XMIUtil {
         System.out.println("===xmiEdge name==== " + xmiEdge.name);
 
         Association association;
-        if(xmiEdge.connectionType == ConnectionType.GENERALIZATION) {
+        if(xmiEdge.XMIRelationType == XMIRelationType.GENERALIZATION) {
 
             Generalization generalization;
             generalization = ElementBuilderUtil.genearlizationElementBuilder(parent, child, index);
             return generalization;
-        } else if(xmiEdge.connectionType == ConnectionType.AGGREGATION) {
+        } else if(xmiEdge.XMIRelationType == XMIRelationType.AGGREGATION) {
 
             association = ElementBuilderUtil
                     .aggregationElementBuilder("", parent, child, xmiEdge.name, "", index);
