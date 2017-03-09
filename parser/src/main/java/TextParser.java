@@ -14,9 +14,8 @@ import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.root.elements.AbstractModelElement;
 import legacy.xmi.model.root.elements.ModelItem;
 import legacy.xmi.root.elements.XMI;
-import utils.TreeHelper;
-import utils.XMIGraphHelper;
-import utils.XMIHelper;
+import utils.xmi.XMIGraphUtil;
+import utils.xmi.XMIUtil;
 
 
 import java.util.*;
@@ -29,7 +28,8 @@ public class TextParser {
     private StanfordCoreNLP pipeline;
     private NPGraph npGraph = new NPGraph();
     private XMIGraph xmiGraph = new XMIGraph();
-    private XMIHelper xmiHelper = XMIHelper.getInstance();
+    private XMIUtil xmiHelper = XMIUtil.getInstance();
+    private TreeManager treeManager = TreeManager.getInstance();
 
 
 
@@ -106,7 +106,7 @@ public class TextParser {
     private List<Tree> buildGraphNodes(Tree tree)
     {
         List<Tree> nodesNP = new ArrayList<Tree>();
-        TreeHelper.getNPTrees(tree, nodesNP);
+        treeManager.getNPTrees(tree, nodesNP);
         npGraph.addNodes(nodesNP);
 
         return nodesNP;
@@ -122,9 +122,8 @@ public class TextParser {
         for (NPNode node: graphNodes)
         {
              NPNode parentNode = node;
-             System.out.println("parentNode: " + parentNode);
              List<NodeTreeData> connectedItems = new ArrayList<NodeTreeData>();
-             TreeHelper.investigateAllConnectedNodes(tree, parentNode.tree, tree, connectedItems);
+             treeManager.getRelatedNP(tree, parentNode.tree, tree, connectedItems);
              npGraph.addEdges(parentNode, connectedItems);
         }
 
@@ -134,11 +133,11 @@ public class TextParser {
     private void buildXMIGraph() {
         List<NPNode> graphNodes = npGraph.getAllNodes();
         for (NPNode node: graphNodes) {
-            xmiGraph.addNode(XMIGraphHelper.getXMINode(node));
+            xmiGraph.addNode(XMIGraphUtil.getXMINode(node));
         }
         List<NPEdge> graphEdges = npGraph.getAllEdges();
         for (NPEdge edge: graphEdges) {
-            xmiGraph.addEdge(XMIGraphHelper.getXMIEdge(edge));
+            xmiGraph.addEdge(XMIGraphUtil.getXMIEdge(edge));
         }
         xmiGraph.printGraph();
     }

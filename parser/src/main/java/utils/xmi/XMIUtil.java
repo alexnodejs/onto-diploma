@@ -1,4 +1,4 @@
-package utils;
+package utils.xmi;
 
 import graphs.ConnectionType;
 import graphs.XMIEdge;
@@ -8,6 +8,7 @@ import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.elements.ofclass.Class;
 import legacy.xmi.model.elements.ofmethod.Attribute;
 import legacy.xmi.model.root.elements.AbstractModelElement;
+import utils.ElementBuilderUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,14 +17,14 @@ import java.util.List;
 /**
  * Created by svitlanamoiseyenko on 3/3/17.
  */
-public class XMIHelper {
+public class XMIUtil {
 
     public List<AbstractModelElement> abstractModelElements = new ArrayList<AbstractModelElement>();
 
-    private static XMIHelper instance;
-    public static synchronized XMIHelper getInstance() {
+    private static XMIUtil instance;
+    public static synchronized XMIUtil getInstance() {
         if (instance == null) {
-            instance = new XMIHelper();
+            instance = new XMIUtil();
         }
         return instance;
     }
@@ -104,22 +105,5 @@ public class XMIHelper {
         }
         return  null;
     }
-
-//    public Class getClassElement(String name, SearchType searchType)
-//    {
-//        for (AbstractModelElement element: abstractModelElements) {
-//            if (element instanceof Class) {
-//                switch (searchType) {
-//
-//                    case SearchType.CLASS_NAME:
-//                        if (element._model_name.toLowerCase().equals(name.toLowerCase())) {
-//                            return  (Class) element;
-//                        }
-//                        break;
-//                }
-//            }
-//        }
-//        return  null;
-//    }
 
 }

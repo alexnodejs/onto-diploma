@@ -44,37 +44,7 @@ public class XMIGraph {
         return null;
     }
 
-//    public Tree getNode(XMINode node)
-//    {
-//        for(XMINode graphNode : graph.vertexSet())
-//        {
-//            if(graphNode.equals(node)) {
-//                return graphNode;
-//            }
-//        }
-//        return null;
-//    }
-
-
-//    public void addEdges(Tree parentNode, List<NodeTreeData> nodes)
-//    {
-//        Tree graphNode1 = getNode(parentNode);
-//        if(graphNode1 == null) {return;}
-//
-//        int i = 0;
-//        for (NodeTreeData data: nodes)
-//        {
-//            Tree graphNode2 = getNode(data.node);
-//            if(graphNode2 != null) {
-//                graph.addEdge(graphNode1, graphNode2, new NPEdge(i, data.path));
-//            }
-//            i ++;
-//        }
-//    }
-
     public void addEdge(XMIEdge edge) {
-
-        System.out.println("===edge==== " + edge.name);
         if(edge == null) {
             return;
         }

@@ -1,9 +1,7 @@
 package graphs;
 
-import java.util.List;
-import classes.NodeTreeData;
+import utils.tree.BaseTreeUtil;
 
-import utils.TreeHelper;
 /**
  * Created by svitlanamoiseyenko on 3/3/17.
  */
@@ -31,11 +29,10 @@ public class XMIEdge {
             return;
         }
 
-        System.out.println("===setType==== " + this.name);
-        if (TreeHelper.isAggregation(tag)) {
+        if (BaseTreeUtil.isAggregation(tag)) {
             //this.startName = word;
             this.connectionType = ConnectionType.AGGREGATION;
-        } else if (TreeHelper.isGeneralization(tag)) {
+        } else if (BaseTreeUtil.isGeneralization(tag)) {
             this.connectionType = ConnectionType.GENERALIZATION;
         } else {
             this.connectionType = ConnectionType.ASSOCIATION;

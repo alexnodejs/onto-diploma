@@ -1,16 +1,16 @@
-package utils;
+package utils.xmi;
 
 import edu.stanford.nlp.ling.LabeledWord;
 import edu.stanford.nlp.trees.Tree;
 import graphs.*;
-import utils.TreeHelper;
+import utils.tree.BaseTreeUtil;
 
 import java.util.List;
 
 /**
  * Created by svitlanamoiseyenko on 3/3/17.
  */
-public class XMIGraphHelper {
+public class XMIGraphUtil {
 
     public static XMINode getXMINode(NPNode npNode)
     {
@@ -19,7 +19,7 @@ public class XMIGraphHelper {
         List<Tree> childList = treeNode.getChildrenAsList();
         for (Tree childTree : childList)
         {
-            if (!childTree.isPhrasal() && TreeHelper.isNoun(childTree.value().toString())) {
+            if (!childTree.isPhrasal() && BaseTreeUtil.isNoun(childTree.value().toString())) {
                 String name = String.valueOf(childTree.getLeaves().get(0));
                 if (xmiNode.name == null) {
                     xmiNode.name = (Character.toUpperCase(name.charAt(0))) + name.substring(1);
@@ -28,7 +28,7 @@ public class XMIGraphHelper {
                 }
             }
 
-            if (!childTree.isPhrasal() && TreeHelper.isAdjective(childTree.value().toString())) {
+            if (!childTree.isPhrasal() && BaseTreeUtil.isAdjective(childTree.value().toString())) {
                 xmiNode.attributes.add(String.valueOf(childTree.getLeaves().get(0)));
             }
         }
@@ -59,7 +59,7 @@ public class XMIGraphHelper {
 
                     for (LabeledWord word : words) {
 
-                        if (TreeHelper.isVerb(word.tag().toString())) {
+                        if (BaseTreeUtil.isVerb(word.tag().toString())) {
                             String name = word.word().toString();
                             if (xmiEdge.name == null) {
                                 xmiEdge.name = name;
@@ -68,7 +68,7 @@ public class XMIGraphHelper {
                             }
                         }
 
-                        if (!childTree.isPhrasal() && TreeHelper.isAdjective(childTree.value().toString())) {
+                        if (!childTree.isPhrasal() && BaseTreeUtil.isAdjective(childTree.value().toString())) {
                             String name = word.word().toString();
                             if (xmiEdge.name == null) {
                                 xmiEdge.name = name;

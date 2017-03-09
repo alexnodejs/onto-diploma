@@ -14,7 +14,6 @@ public class XMINode {
     public XMINode(int id) {
         this.id = id;
         attributes = new ArrayList<String>();
-        //this.name = name;
     }
 
 }

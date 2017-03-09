@@ -2,9 +2,6 @@ package graphs;
 
 import edu.stanford.nlp.trees.Tree;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by svitlanamoiseyenko on 3/3/17.
  */

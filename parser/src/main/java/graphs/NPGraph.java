@@ -14,14 +14,12 @@ import classes.NodeTreeData;
  * Created by svitlanamoiseyenko on 2/28/17.
  */
 public class NPGraph {
-
-    //DirectedGraph<Tree, DefaultEdge> graph = new DefaultDirectedGraph<Tree, DefaultEdge>(DefaultEdge.class);
     DirectedGraph<NPNode, NPEdge> graph = new DefaultDirectedGraph<NPNode, NPEdge>(NPEdge.class);
+
     public NPGraph() {
     }
 
     public  void printGraph() {
-        System.out.println("===printGraph==" + graph.edgeSet());
         for(NPEdge e : graph.edgeSet()){
             System.out.println(String.valueOf(
                     graph.getEdgeSource(e).tree) +
@@ -41,11 +39,11 @@ public class NPGraph {
         }
     }
 
-    public NPNode getNode(Tree nodeNP)
+    public NPNode getNode(Tree tree)
     {
         for(NPNode graphNode : graph.vertexSet())
         {
-            if(graphNode.tree.equals(nodeNP)) {
+            if(graphNode.tree.equals(tree)) {
                 return graphNode;
             }
         }
@@ -55,7 +53,6 @@ public class NPGraph {
 
     public void addEdges(NPNode parentNode, List<NodeTreeData> nodes)
     {
-        //NPNode graphNode1 = parentNode;
         if(parentNode == null) {return;}
 
         int i = 0;
