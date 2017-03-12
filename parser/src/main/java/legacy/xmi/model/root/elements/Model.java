@@ -1,5 +1,7 @@
 package legacy.xmi.model.root.elements;
 
+import legacy.TypeAttributesEnum;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class Model extends AbstractModelElement  {
 	private ModelItem _modelItem;
 	
 	public Model(ModelItem _xmi_modelItem) {		
-		set_AbstractModelElement("UML_model_1", "NewModelUML", false,false,false,false);
+		set_AbstractModelElement(TypeAttributesEnum.TYPE_MODEL.getTypeValue(),"UML_model_1", "NewModelUML", false,false,false,false);
 		_modelItem=_xmi_modelItem;//new ModelItem();
 	}
 

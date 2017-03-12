@@ -7,6 +7,9 @@ import legacy.xmi.root.elements.Visibility;
 import javax.xml.bind.annotation.XmlAttribute;
 
 public class AbstractModelElement implements Serializable{
+	@XmlAttribute (name="xmi:type")
+	public String _xmi_type;
+
 	@XmlAttribute (name="xmi.id")
 	public String _model_id;
 	@XmlAttribute (name="name")
@@ -21,7 +24,8 @@ public class AbstractModelElement implements Serializable{
 	public boolean _isAbstract;
 	
 	
-	public void set_AbstractModelElement(String _model_id,String _model_name,boolean _isSpecification,boolean _isRoot,boolean _isLeaf,boolean _isAbstract) {
+	public void set_AbstractModelElement(String xmi_type, String _model_id,String _model_name,boolean _isSpecification,boolean _isRoot,boolean _isLeaf,boolean _isAbstract) {
+		this._xmi_type = xmi_type;
 		this._model_id = _model_id;
 		this._model_name = _model_name;
 		this._isSpecification = _isSpecification;

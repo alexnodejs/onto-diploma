@@ -3,6 +3,7 @@ package legacy.xmi.model.elements.ofclass;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+import legacy.TypeAttributesEnum;
 import legacy.xmi.model.elements.ofmethod.Attribute;
 import legacy.xmi.model.elements.ofmethod.Classifier;
 import legacy.xmi.model.elements.ofmethod.Operation;
@@ -27,7 +28,7 @@ public class Class extends AbstractModelElement {
 
 	public Class() {
 
-		set_AbstractModelElement("id_1", "Class1", false, false, false, false);
+		set_AbstractModelElement(TypeAttributesEnum.TYPE_CLASS.getTypeValue(),"id_1", "Class1", false, false, false, false);
 		this.visibility = Visibility.PUBLIC.getName();
 		this.isActive = false;
 	}
@@ -49,14 +50,14 @@ public class Class extends AbstractModelElement {
 		this._generalizableElementGeneralization = new ClassGeneralizableElementGeneralization(_gen_idref);
 
 
-		set_AbstractModelElement(_clssID, _className, _isSpecification, _isRoot, _isLeaf, _isAbstract);
+		set_AbstractModelElement(TypeAttributesEnum.TYPE_CLASS.getTypeValue(), _clssID, _className, _isSpecification, _isRoot, _isLeaf, _isAbstract);
 		this.visibility = visibility.getName();
 		this.isActive = isActive;
 	}
 
 	public Class(String _clssID, String _className) {
 		this._generalizableElementGeneralization = null;
-		set_AbstractModelElement(_clssID, _className, false, false, false, false);
+		set_AbstractModelElement(TypeAttributesEnum.TYPE_CLASS.getTypeValue(), _clssID, _className, false, false, false, false);
 		this.visibility = Visibility.PUBLIC.getName();
 		this.isActive = false;
 	}
