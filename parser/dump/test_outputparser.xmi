@@ -14,18 +14,34 @@
                 <UML:Class visibility="public" isActive="false" xmi.id="Anatomy_ClassID2" name="Anatomy" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
                 <UML:Class visibility="public" isActive="false" xmi.id="Fields_ClassID3" name="Fields" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="other3" name="other" visibility="private" isSpecification="false" ownerScope="instance"/>
+                        <UML:Attribute xmi.id="other3" name="other" visibility="private" isSpecification="false" ownerScope="instance">
+                            <UML:StructuralFeature.type>
+<UML:DataType href="http://argouml.org/profiles/uml14/default-uml14.xmi#-84-17--56-5-43645a83:11466542d86:-8000:000000000000087E"/>
+                            </UML:StructuralFeature.type>
+                        </UML:Attribute>
                     </UML:Classifier.feature>
                 </UML:Class>
                 <UML:Class visibility="public" isActive="false" xmi.id="Body_ClassID4" name="Body" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="strong4" name="strong" visibility="private" isSpecification="false" ownerScope="instance"/>
-                        <UML:Attribute xmi.id="flexible4" name="flexible" visibility="private" isSpecification="false" ownerScope="instance"/>
+                        <UML:Attribute xmi.id="strong4" name="strong" visibility="private" isSpecification="false" ownerScope="instance">
+                            <UML:StructuralFeature.type>
+<UML:DataType href="http://argouml.org/profiles/uml14/default-uml14.xmi#-84-17--56-5-43645a83:11466542d86:-8000:000000000000087E"/>
+                            </UML:StructuralFeature.type>
+                        </UML:Attribute>
+                        <UML:Attribute xmi.id="flexible4" name="flexible" visibility="private" isSpecification="false" ownerScope="instance">
+                            <UML:StructuralFeature.type>
+<UML:DataType href="http://argouml.org/profiles/uml14/default-uml14.xmi#-84-17--56-5-43645a83:11466542d86:-8000:000000000000087E"/>
+                            </UML:StructuralFeature.type>
+                        </UML:Attribute>
                     </UML:Classifier.feature>
                 </UML:Class>
                 <UML:Class visibility="public" isActive="false" xmi.id="Reflexes_ClassID5" name="Reflexes" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="quick5" name="quick" visibility="private" isSpecification="false" ownerScope="instance"/>
+                        <UML:Attribute xmi.id="quick5" name="quick" visibility="private" isSpecification="false" ownerScope="instance">
+                            <UML:StructuralFeature.type>
+<UML:DataType href="http://argouml.org/profiles/uml14/default-uml14.xmi#-84-17--56-5-43645a83:11466542d86:-8000:000000000000087E"/>
+                            </UML:StructuralFeature.type>
+                        </UML:Attribute>
                     </UML:Classifier.feature>
                 </UML:Class>
                 <UML:Class visibility="public" isActive="false" xmi.id="Claws_ClassID6" name="Claws" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
@@ -36,7 +52,11 @@
                 </UML:Class>
                 <UML:Class visibility="public" isActive="false" xmi.id="Prey_ClassID8" name="Prey" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
                     <UML:Classifier.feature>
-                        <UML:Attribute xmi.id="small8" name="small" visibility="private" isSpecification="false" ownerScope="instance"/>
+                        <UML:Attribute xmi.id="small8" name="small" visibility="private" isSpecification="false" ownerScope="instance">
+                            <UML:StructuralFeature.type>
+<UML:DataType href="http://argouml.org/profiles/uml14/default-uml14.xmi#-84-17--56-5-43645a83:11466542d86:-8000:000000000000087E"/>
+                            </UML:StructuralFeature.type>
+                        </UML:Attribute>
                     </UML:Classifier.feature>
                 </UML:Class>
                 <UML:Association xmi.id="_AssociationID9" name="" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">

@@ -1,4 +1,7 @@
-package legacy.xmi.model.elements.ofmethod;
+package legacy.xmi.model.elements.ofattribute;
+
+import legacy.xmi.model.elements.ofattribute.Attribute;
+import legacy.xmi.model.elements.ofmethod.Operation;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;

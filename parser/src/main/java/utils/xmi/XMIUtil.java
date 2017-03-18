@@ -6,7 +6,7 @@ import graphs.XMINode;
 import legacy.xmi.model.elements.ofGeneralization.Generalization;
 import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.elements.ofclass.Class;
-import legacy.xmi.model.elements.ofmethod.Attribute;
+import legacy.xmi.model.elements.ofattribute.Attribute;
 import legacy.xmi.model.root.elements.AbstractModelElement;
 import utils.ElementBuilderUtil;
 

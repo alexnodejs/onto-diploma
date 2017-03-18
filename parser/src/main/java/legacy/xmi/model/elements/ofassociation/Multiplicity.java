@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 public class Multiplicity {
+
 	@XmlElement(name="Multiplicity.range", namespace="org.omg.xmi.namespace.UML")
 	private MultiplicityRange _multiplicityRange;
 	

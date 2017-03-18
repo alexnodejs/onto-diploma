@@ -3,8 +3,8 @@ package legacy.xmi.model.elements.ofclass;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import legacy.xmi.model.elements.ofmethod.Attribute;
-import legacy.xmi.model.elements.ofmethod.Classifier;
+import legacy.xmi.model.elements.ofattribute.Attribute;
+import legacy.xmi.model.elements.ofattribute.Classifier;
 import legacy.xmi.model.elements.ofmethod.Operation;
 import legacy.xmi.model.root.elements.AbstractModelElement;
 import legacy.xmi.root.elements.Visibility;

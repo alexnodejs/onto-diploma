@@ -1,19 +1,12 @@
 package utils;
 
 import edu.stanford.nlp.ling.IndexedWord;
-import edu.stanford.nlp.trees.Tree;
-import graphs.XMINode;
 import legacy.xmi.model.elements.ofGeneralization.*;
 import legacy.xmi.model.elements.ofassociation.Association;
+import legacy.xmi.model.elements.ofattribute.AttributeType;
 import legacy.xmi.model.elements.ofclass.Class;
-import legacy.xmi.model.elements.ofmethod.Attribute;
+import legacy.xmi.model.elements.ofattribute.Attribute;
 import legacy.xmi.model.elements.ofmethod.Operation;
-import org.jgrapht.DirectedGraph;
-import org.jgrapht.graph.DefaultDirectedGraph;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.jar.Attributes;
 
 /**
  * Created by svitlanamoiseyenko on 2/21/17.
@@ -22,10 +15,11 @@ public class ElementBuilderUtil {
 
 
 
-
     public static  Attribute attributeBuilder(String name, int index) {
         String xmiID = name + String.valueOf(index);
-        Attribute attribute = new Attribute(xmiID, name);
+        //TODO: can get byTag
+        // Integer CD
+        Attribute attribute = new Attribute(xmiID, name, AttributeType.DT_UML_STRING);
         return attribute;
     }
 
@@ -109,7 +103,7 @@ public class ElementBuilderUtil {
     // Old
     public static  Attribute attributeBuilder(IndexedWord word, Class classElement, int index) {
         String xmiID = word.word() + String.valueOf(index);
-        Attribute attribute = new Attribute(xmiID, word.word());
+        Attribute attribute = new Attribute(xmiID, word.word(), AttributeType.DT_UML_STRING);
         return attribute;
     }
 
