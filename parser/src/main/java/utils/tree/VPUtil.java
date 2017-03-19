@@ -69,7 +69,16 @@ public class VPUtil extends BaseTreeUtil {
                 if (tree == null) {
                     tree = child;
                 } else {
-                    tree.insertDtr(child, 0);
+                    //tree.insertDtr(child, 0);
+                    tree.addChild(child);
+                }
+            }
+            // For negative questions
+            if (isAdjective(child.value().toString())) {
+                if (tree == null) {
+                    tree = child;
+                } else {
+                    tree.addChild(child);
                 }
             }
         }
