@@ -2,6 +2,7 @@ package utils.xmi;
 
 import edu.stanford.nlp.ling.LabeledWord;
 import edu.stanford.nlp.trees.Tree;
+import enums.MultiplicityRangeType;
 import graphs.*;
 import utils.tree.BaseTreeUtil;
 
@@ -26,7 +27,13 @@ public class XMIGraphUtil {
                 } else {
                     xmiNode.name += " " + (Character.toUpperCase(name.charAt(0))) + name.substring(1);
                 }
+
+                if (BaseTreeUtil.isPluralNoun(childTree.value().toString())) {
+                    xmiNode.range = MultiplicityRangeType.OneToMany;
+                }
             }
+
+
 
             if (!childTree.isPhrasal() && BaseTreeUtil.isAdjective(childTree.value().toString())) {
                 xmiNode.attributes.add(String.valueOf(childTree.getLeaves().get(0)));

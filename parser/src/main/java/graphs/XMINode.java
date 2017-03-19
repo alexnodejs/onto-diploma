@@ -1,5 +1,7 @@
 package graphs;
 
+import enums.MultiplicityRangeType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
 public class XMINode {
     public  int id;
     public String name;
+    public MultiplicityRangeType range = MultiplicityRangeType.OneToOne;
     public List<String> attributes;
 
     public XMINode(int id) {

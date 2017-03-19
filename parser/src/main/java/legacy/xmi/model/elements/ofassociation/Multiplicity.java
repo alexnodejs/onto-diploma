@@ -1,6 +1,6 @@
 package legacy.xmi.model.elements.ofassociation;
 
-import java.io.Serializable;
+import enums.MultiplicityRangeType;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -13,10 +13,9 @@ public class Multiplicity {
 	@XmlAttribute (name="xmi.id")
 	private String _multiplicity_id;
 
-	public Multiplicity() {
-		
-		this._multiplicityRange = new MultiplicityRange();
-		this._multiplicity_id = "mult1";
+	public Multiplicity(String id, MultiplicityRangeType range) {
+		this._multiplicityRange = new MultiplicityRange(id, range);
+		this._multiplicity_id = "multiplicity_" + id;
 	}
 	
 	

@@ -48,11 +48,27 @@ public class BaseTreeUtil {
     }
 
     public static boolean isNoun(String tag) {
-        if (Arrays.asList(Constants.nounSet).contains(tag)) {
+        if (Arrays.asList(Constants.singleNounSet).contains(tag) ||
+                Arrays.asList(Constants.pluralNounSet).contains(tag)) {
             return true;
         }
         return false;
     }
+
+    public static boolean isSingleNoun(String tag) {
+        if (Arrays.asList(Constants.singleNounSet).contains(tag)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isPluralNoun(String tag) {
+        if (Arrays.asList(Constants.pluralNounSet).contains(tag)) {
+            return true;
+        }
+        return false;
+    }
+
 
     public static boolean isVerb(String tag) {
         if (Arrays.asList(Constants.verbSet).contains(tag)) {

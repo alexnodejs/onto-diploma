@@ -1,6 +1,7 @@
 package utils;
 
 import edu.stanford.nlp.ling.IndexedWord;
+import enums.MultiplicityRangeType;
 import legacy.xmi.model.elements.ofGeneralization.*;
 import legacy.xmi.model.elements.ofassociation.Association;
 import legacy.xmi.model.elements.ofattribute.AttributeType;
@@ -14,11 +15,8 @@ import legacy.xmi.model.elements.ofmethod.Operation;
 public class ElementBuilderUtil {
 
 
-
     public static  Attribute attributeBuilder(String name, int index) {
         String xmiID = name + String.valueOf(index);
-        //TODO: can get byTag
-        // Integer CD
         Attribute attribute = new Attribute(xmiID, name, AttributeType.DT_UML_STRING);
         return attribute;
     }
@@ -35,6 +33,8 @@ public class ElementBuilderUtil {
     public static Association associationElementBuilder(String name,
                                                         Class parent,
                                                         Class child,
+                                                        MultiplicityRangeType parentRangeType,
+                                                        MultiplicityRangeType childRangeType,
                                                         int index) {
 
         System.out.println("== associationElementBuilder ===");
@@ -46,6 +46,8 @@ public class ElementBuilderUtil {
                 assoc_name,
                 parent._model_id,
                 child._model_id,
+                parentRangeType,
+                childRangeType,
                 index);
 
         return association;
@@ -56,7 +58,11 @@ public class ElementBuilderUtil {
                                                         Class child,
                                                         String parentEndName,
                                                         String childEndName,
+                                                        MultiplicityRangeType parentRangeType,
+                                                        MultiplicityRangeType childRangeType,
                                                         int index) {
+
+
 
         System.out.println("== associationElementBuilder ===");
         String assoc_name = name;
@@ -70,7 +76,9 @@ public class ElementBuilderUtil {
                 "aggregate",
                 "none",
                 parentEndName,
-                childEndName,  //""
+                childEndName,
+                parentRangeType,
+                childRangeType,
                 index);
 
         return association;
@@ -79,6 +87,8 @@ public class ElementBuilderUtil {
     public static Association compositionElementBuilder(String name,
                                                         Class parent,
                                                         Class child,
+                                                        MultiplicityRangeType parentRangeType,
+                                                        MultiplicityRangeType childRangeType,
                                                         int index) {
 
         System.out.println("== associationElementBuilder ===");
@@ -94,32 +104,19 @@ public class ElementBuilderUtil {
                 "none",
                 "",
                 "",
+                parentRangeType,
+                childRangeType,
                 index);
 
         return association;
     }
 
-
-    // Old
-    public static  Attribute attributeBuilder(IndexedWord word, Class classElement, int index) {
-        String xmiID = word.word() + String.valueOf(index);
-        Attribute attribute = new Attribute(xmiID, word.word(), AttributeType.DT_UML_STRING);
-        return attribute;
-    }
-
-    public static Operation operationBuilder(IndexedWord word, Class classElement, int index) {
-        String xmiID = word.word() + String.valueOf(index);
-        Operation operation = new Operation(xmiID, word.word());
-        return operation;
-    }
-
-
     public static Generalization genearlizationElementBuilder (
-                                              Class child_class,
-                                              Class parent_class,
-                                              int index)
+            Class child_class,
+            Class parent_class,
+            int index)
     {
-       Generalization generalizationModel = new Generalization
+        Generalization generalizationModel = new Generalization
                 (new GeneralizationChild(
                         new GeneralizationChildClass(child_class._model_id)),
                         new GeneralizationParent(
@@ -132,25 +129,13 @@ public class ElementBuilderUtil {
         return  generalizationModel;
     }
 
-    public Association associationElementBuilder(IndexedWord word,
-                                           Class parent,
-                                           Class child,
-                                           int index)
-    {
 
-        System.out.println("== associationElementBuilder ===");
-        String assoc_name = word.originalText();
-        Association association = null;
-
-        //1
-        association = new Association(assoc_name + "_AssociationID" + index,
-                assoc_name,
-                parent._model_id,
-                child._model_id,
-                index);
-
-        return association;
+   /*
+    public static Operation operationBuilder(IndexedWord word, Class classElement, int index) {
+        String xmiID = word.word() + String.valueOf(index);
+        Operation operation = new Operation(xmiID, word.word());
+        return operation;
     }
-
+   */
 
 }

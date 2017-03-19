@@ -1,10 +1,9 @@
 package legacy.xmi.model.elements.ofassociation;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+import enums.MultiplicityRangeType;
 import legacy.xmi.model.root.elements.AbstractModelElement;
 import legacy.xmi.root.elements.Visibility;
 
@@ -40,12 +39,14 @@ public class AssociationEnd extends AbstractModelElement {
                           String _aggregation,
                           String _targetScope,
                           String _changeability,
-                          String _participantID) {
+                          String _participantID,
+                          MultiplicityRangeType _rangeType) {
         //super();
 
+        System.out.print("AssociationEnd 1");
         this._associationParticipant = new AssociationParticipant(new AssociationParticipantClass(_participantID));
         this._assocEnd_id = _assocEnd_id;
-        //this._associationMultiplicity=new AssociationEndMultiplicity();
+        this._associationMultiplicity = new AssociationEndMultiplicity(_assocEnd_id, _rangeType);
         this._visibility = _visibility.getName();
         this._isSpecification = _isSpecification;
         this._isNavigable = _isNavigable;
@@ -64,12 +65,12 @@ public class AssociationEnd extends AbstractModelElement {
                           String _targetScope,
                           String _changeability,
                           String _participantID,
-                          String _name) {
+                          String _name,
+                          MultiplicityRangeType _rangeType) {
         //super();
-
         this._associationParticipant = new AssociationParticipant(new AssociationParticipantClass(_participantID));
         this._assocEnd_id = _assocEnd_id;
-        //this._associationMultiplicity=new AssociationEndMultiplicity();
+        this._associationMultiplicity = new AssociationEndMultiplicity(_assocEnd_id, _rangeType);
         this._visibility = _visibility.getName();
         this._isSpecification = _isSpecification;
         this._isNavigable = _isNavigable;

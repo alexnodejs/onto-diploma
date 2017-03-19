@@ -11,8 +11,7 @@ public class AssociationParticipant {
     @XmlElement(name = "Class", namespace = "org.omg.xmi.namespace.UML")
     private AssociationParticipantClass _associationClassParticipant;
 
-    public AssociationParticipant(
-            AssociationParticipantClass _associationClassParticipant) {
+    public AssociationParticipant(AssociationParticipantClass _associationClassParticipant) {
         //super();
         this._associationClassParticipant = _associationClassParticipant;
     }

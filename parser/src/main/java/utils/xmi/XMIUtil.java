@@ -68,11 +68,11 @@ public class XMIUtil {
     }
 
     //Decorator
-    public AbstractModelElement getConnectionElement(XMIEdge xmiEdge, String parentName, String childName)
+    public AbstractModelElement getConnectionElement(XMIEdge xmiEdge,  XMINode parentNode, XMINode childNode)
     {
         int index = generateIndex();
-        Class parent = getClassElement(parentName);
-        Class child = getClassElement(childName);
+        Class parent = getClassElement(parentNode.name);
+        Class child = getClassElement(childNode.name);
         System.out.println("===xmiEdge name==== " + xmiEdge.name);
 
         Association association;
@@ -84,11 +84,11 @@ public class XMIUtil {
         } else if(xmiEdge.XMIRelationType == XMIRelationType.AGGREGATION) {
 
             association = ElementBuilderUtil
-                    .aggregationElementBuilder("", parent, child, xmiEdge.name, "", index);
+                    .aggregationElementBuilder("", parent, child, xmiEdge.name, "", parentNode.range, childNode.range, index);
             return association;
         } else  {
 
-            association = ElementBuilderUtil.associationElementBuilder(xmiEdge.name, parent, child, index);
+            association = ElementBuilderUtil.associationElementBuilder(xmiEdge.name, parent, child, parentNode.range, childNode.range, index);
             return association;
         }
     }
