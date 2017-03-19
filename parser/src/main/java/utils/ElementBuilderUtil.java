@@ -1,5 +1,6 @@
 package utils;
 
+import com.sun.tools.javac.code.TypeAnnotations;
 import edu.stanford.nlp.ling.IndexedWord;
 import enums.MultiplicityRangeType;
 import legacy.xmi.model.elements.ofGeneralization.*;
@@ -15,9 +16,20 @@ import legacy.xmi.model.elements.ofmethod.Operation;
 public class ElementBuilderUtil {
 
 
+
+    private static String getAttributeType(String name) {
+
+        String attributeType = AttributeType.DT_UML_STRING;
+        if(Util.isInteger(name)) {
+            attributeType = AttributeType.DT_UML_INTEGER;
+        }
+
+        return  attributeType;
+    }
+
     public static  Attribute attributeBuilder(String name, int index) {
         String xmiID = name + String.valueOf(index);
-        Attribute attribute = new Attribute(xmiID, name, AttributeType.DT_UML_STRING);
+        Attribute attribute = new Attribute(xmiID, name, getAttributeType(name));
         return attribute;
     }
 

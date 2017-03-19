@@ -14,7 +14,7 @@
                     <UML:Classifier.feature>
                         <UML:Attribute xmi.id="2605" name="260" visibility="private" isSpecification="false" ownerScope="instance">
                             <UML:StructuralFeature.type>
-<UML:DataType href="http://argouml.org/profiles/uml14/default-uml14.xmi#-84-17--56-5-43645a83:11466542d86:-8000:000000000000087E"/>
+<UML:DataType href="http://argouml.org/profiles/uml14/default-uml14.xmi#-84-17--56-5-43645a83:11466542d86:-8000:000000000000087C"/>
                             </UML:StructuralFeature.type>
                         </UML:Attribute>
                         <UML:Attribute xmi.id="known5" name="known" visibility="private" isSpecification="false" ownerScope="instance">
