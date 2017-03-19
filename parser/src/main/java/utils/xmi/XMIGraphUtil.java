@@ -84,6 +84,16 @@ public class XMIGraphUtil {
                             }
                         }
 
+                        // For punct and cong
+                        if (!childTree.isPhrasal() && BaseTreeUtil.isConj(childTree.value().toString())) {
+                            String name = word.word().toString();
+                            if (xmiEdge.name == null) {
+                                xmiEdge.name = name;
+                            } else {
+                                xmiEdge.name += " " + name;
+                            }
+                        }
+
                         xmiEdge.setType(word.tag().toString(), word.word().toString());
                     }
                 }

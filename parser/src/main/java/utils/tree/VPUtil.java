@@ -28,15 +28,23 @@ public class VPUtil extends BaseTreeUtil {
         System.out.println("PATH: " + paths);
 
         Tree pathDescriptor = getDescriptor(parentVP);
+        Tree joinedVPTree = joinedVPTree(parentVP);
+
         Tree path = getPathFromNodeToNode(paths, nodeNP);
+        System.out.println("joinedVPTree: " + joinedVPTree);
         System.out.println("pathDescriptor: " + pathDescriptor);
         System.out.println("path: " + path);
 
         if(path == null) {
-            path = pathDescriptor;
+            path = joinedVPTree != null ? joinedVPTree : pathDescriptor;
+
         } else if (pathDescriptor != null) {
             Tree complexTree = path.deepCopy();
             complexTree.insertDtr(pathDescriptor, 0);
+            return complexTree;
+        } else if (joinedVPTree != null) {
+            Tree complexTree = path.deepCopy();
+            complexTree.insertDtr(joinedVPTree, 0);
             return complexTree;
         }
 
@@ -55,21 +63,83 @@ public class VPUtil extends BaseTreeUtil {
         return path;
     }
 
+
+
+    private static boolean hasConjVP(Tree parentVP) {
+
+        Tree copyParentVP = parentVP.deepCopy();
+        List<Tree> paths = copyParentVP.getChildrenAsList();
+        for (Tree child : paths) {
+
+            if(BaseTreeUtil.isConj(child.value().toString())) {
+                System.out.println("hasJoinedVP: " + child);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Tree joinedVPTree(Tree parentVP) {
+
+        Tree tree = null;
+        if(!hasConjVP(parentVP)){
+            return tree;
+        }
+
+        Tree copyParentVP = parentVP.deepCopy();
+
+
+        List<Tree> paths = copyParentVP.getChildrenAsList();
+        for (Tree childPath : paths) {
+
+            if (isVP(childPath)) {
+                System.out.println("isVerb buildConjVP: " + childPath);
+                if (tree == null) {
+                    tree = childPath;
+                } else {
+                    tree.addChild(childPath);
+                }
+//                List<Tree> childrenAsList = childPath.getChildrenAsList();
+//                for (Tree child : childrenAsList) {
+//                    if (isVerb(child.value().toString())) {
+//                        System.out.println("isVerb buildConjVP: " + child);
+//                        if (tree == null) {
+//                            tree = child;
+//                        } else {
+//                            tree.addChild(child);
+//                        }
+//                    }
+//                }
+            }
+            if(isConj(childPath.value().toString())) {
+                if (tree == null) {
+                    tree = childPath;
+                } else {
+                    tree.addChild(childPath);
+                }
+            }
+        }
+        return tree;
+    }
+
     private static Tree getDescriptor(Tree parentVP)
     {
         Tree tree = null;
         Tree copyParentVP = parentVP.deepCopy();
+
         if (isVP(copyParentVP.firstChild())) {
-            copyParentVP = copyParentVP.firstChild();
+            System.out.println("copyParentVP: " + copyParentVP);
+                copyParentVP = copyParentVP.firstChild();
         }
+
 
         List<Tree> paths = copyParentVP.getChildrenAsList();
         for (Tree child : paths) {
+            System.out.println("child: " + child);
             if (isVerb(child.value().toString())) {
                 if (tree == null) {
                     tree = child;
                 } else {
-                    //tree.insertDtr(child, 0);
                     tree.addChild(child);
                 }
             }
@@ -84,4 +154,35 @@ public class VPUtil extends BaseTreeUtil {
         }
         return tree;
     }
+
+//    private static Tree getDescriptor(Tree parentVP)
+//    {
+//        Tree tree = null;
+//        Tree copyParentVP = parentVP.deepCopy();
+//        if (isVP(copyParentVP.firstChild())) {
+//            copyParentVP = copyParentVP.firstChild();
+//        }
+//
+//        List<Tree> paths = copyParentVP.getChildrenAsList();
+//        for (Tree child : paths) {
+//            System.out.println("child: " + child);
+//            if (isVerb(child.value().toString())) {
+//                if (tree == null) {
+//                    tree = child;
+//                } else {
+//                    //tree.insertDtr(child, 0);
+//                    tree.addChild(child);
+//                }
+//            }
+//            // For negative questions
+//            if (isAdjective(child.value().toString())) {
+//                if (tree == null) {
+//                    tree = child;
+//                } else {
+//                    tree.addChild(child);
+//                }
+//            }
+//        }
+//        return tree;
+//    }
 }

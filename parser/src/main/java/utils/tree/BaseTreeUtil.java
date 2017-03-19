@@ -77,6 +77,13 @@ public class BaseTreeUtil {
         return false;
     }
 
+    public static  boolean isConj(String tag) {
+        if (Arrays.asList(Constants.conjVerbSet).contains(tag)) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean isHasJoinVerb(String tag) {
         if (Arrays.asList(Constants.joinVerbSet).contains(tag)) {
             return true;
@@ -136,20 +143,20 @@ public class BaseTreeUtil {
                 Tree treeVP = isHasRelation(child, tree);
                 if (treeVP != null) {
 
-                    if (isVP(treeVP.firstChild())) {
-                        List<Tree> parentVPS = VPUtil.getIncludedVP(treeVP);
-                        for (Tree vpTree : parentVPS) {
-                            System.out.println("======vpTree: " + vpTree);
-                            List<NodeTreeData> connectedNodes = new ArrayList<NodeTreeData>();
-                            NPUtil.getNPwithPath(vpTree, connectedNodes, root, vpTree);
-                            connectedNodesNP.addAll(connectedNodes);
-                        }
-
-                    } else {
+//                    if (isVP(treeVP.firstChild())) {
+//                        List<Tree> parentVPS = VPUtil.getIncludedVP(treeVP);
+//                        for (Tree vpTree : parentVPS) {
+//                            System.out.println("======vpTree: " + vpTree);
+//                            List<NodeTreeData> connectedNodes = new ArrayList<NodeTreeData>();
+//                            NPUtil.getNPwithPath(vpTree, connectedNodes, root, vpTree);
+//                            connectedNodesNP.addAll(connectedNodes);
+//                        }
+//
+//                    } else {
                         List<NodeTreeData> connectedNodes = new ArrayList<NodeTreeData>();
                         NPUtil.getNPwithPath(treeVP, connectedNodes, root, treeVP);
                         connectedNodesNP.addAll(connectedNodes);
-                    }
+ //                   }
 
                 }
             }
