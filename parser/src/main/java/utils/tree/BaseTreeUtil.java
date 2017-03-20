@@ -26,8 +26,8 @@ public class BaseTreeUtil {
     }
 
     public static boolean isAggregation(String tag, String word) {
-        //if (Arrays.asList(Constants.aggregationSet).contains(tag) && !Arrays.asList(Constants.generalizationSetWords).contains(word)) {
-        if (Arrays.asList(Constants.aggregationSet).contains(tag)) {
+        if (Arrays.asList(Constants.aggregationSet).contains(tag) && !Arrays.asList(Constants.generalizationSetWords).contains(word)) {
+        //if (Arrays.asList(Constants.aggregationSet).contains(tag)) {
 
                 return true;
         }
@@ -35,9 +35,9 @@ public class BaseTreeUtil {
     }
 
     public static boolean isGeneralization(String tag, String word) {
-//        if (Arrays.asList(Constants.generalizationSet).contains(tag) &&
-//            Arrays.asList(Constants.generalizationSetWords).contains(word)) {
-        if (Arrays.asList(Constants.generalizationSet).contains(tag)) {
+        if (Arrays.asList(Constants.generalizationSet).contains(tag) &&
+            Arrays.asList(Constants.generalizationSetWords).contains(word)) {
+       // if (Arrays.asList(Constants.generalizationSet).contains(tag)) {
             return true;
         }
         return false;
