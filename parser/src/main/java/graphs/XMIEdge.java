@@ -29,10 +29,10 @@ public class XMIEdge {
             return;
         }
 
-        if (BaseTreeUtil.isAggregation(tag)) {
+        if (BaseTreeUtil.isAggregation(tag, word)) {
             //this.startName = word;
             this.XMIRelationType = XMIRelationType.AGGREGATION;
-        } else if (BaseTreeUtil.isGeneralization(tag)) {
+        } else if (BaseTreeUtil.isGeneralization(tag, word)) {
             this.XMIRelationType = XMIRelationType.GENERALIZATION;
         } else {
             this.XMIRelationType = XMIRelationType.ASSOCIATION;

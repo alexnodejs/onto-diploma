@@ -16,8 +16,10 @@ public final class Constants {
 
   public static final String aggregationSet[] = new String[] {"IN"};
   public static final String generalizationSet[] = new String[] {"TO"};
+  //public static final String aggregationSet[] = new String[] {"IN"}; //with
+  //public static final String generalizationSet[] = new String[] {"IN"}; // of
 
-
+  public static final String generalizationSetWords[] = new String[] {"of"};
 }
 
 

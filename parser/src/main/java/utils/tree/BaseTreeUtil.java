@@ -25,14 +25,18 @@ public class BaseTreeUtil {
         return false;
     }
 
-    public static boolean isAggregation(String tag) {
+    public static boolean isAggregation(String tag, String word) {
+        //if (Arrays.asList(Constants.aggregationSet).contains(tag) && !Arrays.asList(Constants.generalizationSetWords).contains(word)) {
         if (Arrays.asList(Constants.aggregationSet).contains(tag)) {
-            return true;
+
+                return true;
         }
         return false;
     }
 
-    public static boolean isGeneralization(String tag) {
+    public static boolean isGeneralization(String tag, String word) {
+//        if (Arrays.asList(Constants.generalizationSet).contains(tag) &&
+//            Arrays.asList(Constants.generalizationSetWords).contains(word)) {
         if (Arrays.asList(Constants.generalizationSet).contains(tag)) {
             return true;
         }
@@ -113,11 +117,14 @@ public class BaseTreeUtil {
 
     protected static Tree isHasRelation(Tree child, Tree root)
     {
+        //System.out.println("======NP child: " + child);
         List<Tree> siblings = child.siblings(root);
         //Tree parent = child.parent(root);
         //List<Tree> siblings = parent.getChildrenAsList();
 
+        //System.out.println("======siblings: " + siblings);
         for (Tree sibling : siblings) {
+
             if(isVP(sibling)) {
                 return sibling;
             }
@@ -138,30 +145,36 @@ public class BaseTreeUtil {
     public static void getRelatedNP(Tree tree, Tree nodeNP, Tree root, List<NodeTreeData> connectedNodesNP) {
         List<Tree> children = tree.getChildrenAsList();
         for (Tree child : children) {
-            if (child.equals(nodeNP)) {
 
+            if (child.equals(nodeNP)) {
+                //System.out.println("======getRelatedNP: " + child);
                 Tree treeVP = isHasRelation(child, tree);
+
+                //System.out.println("======treeVP: " + treeVP);
                 if (treeVP != null) {
 
-//                    if (isVP(treeVP.firstChild())) {
-//                        List<Tree> parentVPS = VPUtil.getIncludedVP(treeVP);
-//                        for (Tree vpTree : parentVPS) {
-//                            System.out.println("======vpTree: " + vpTree);
-//                            List<NodeTreeData> connectedNodes = new ArrayList<NodeTreeData>();
-//                            NPUtil.getNPwithPath(vpTree, connectedNodes, root, vpTree);
-//                            connectedNodesNP.addAll(connectedNodes);
-//                        }
-//
-//                    } else {
+
+                    if (!VPUtil.hasConjVP(treeVP) && isVP(treeVP.firstChild())) {//
+                        System.out.println("======treeVP: " + treeVP);
+                        List<Tree> parentVPS = VPUtil.getIncludedVP(treeVP);
+                        for (Tree vpTree : parentVPS) {
+                            List<NodeTreeData> connectedNodes = new ArrayList<NodeTreeData>();
+                            NPUtil.getNPwithPath(vpTree, connectedNodes, root, vpTree);
+                            connectedNodesNP.addAll(connectedNodes);
+                        }
+
+                    } else {
                         List<NodeTreeData> connectedNodes = new ArrayList<NodeTreeData>();
                         NPUtil.getNPwithPath(treeVP, connectedNodes, root, treeVP);
                         connectedNodesNP.addAll(connectedNodes);
- //                   }
+                   }
 
                 }
             }
             getRelatedNP(child, nodeNP, root, connectedNodesNP);
         }
     }
+
+
 
 }
