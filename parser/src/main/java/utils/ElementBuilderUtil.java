@@ -15,8 +15,6 @@ import legacy.xmi.model.elements.ofmethod.Operation;
  */
 public class ElementBuilderUtil {
 
-
-
     private static String getAttributeType(String name) {
 
         String attributeType = AttributeType.DT_UML_STRING;
