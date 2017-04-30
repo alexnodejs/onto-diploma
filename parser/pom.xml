@@ -21,9 +21,14 @@
 		<dependency>
     		<groupId>edu.stanford.nlp</groupId>
     		<artifactId>stanford-parser</artifactId>
-    		<version>3.2.0</version>
+    		<version>3.7.0</version>
     		<scope>compile</scope> 
     		<classifier>models</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.jgrapht</groupId>
+			<artifactId>jgrapht-core</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 </project>

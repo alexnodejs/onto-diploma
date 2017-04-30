@@ -7,6 +7,7 @@ import legacy.xmi.root.elements.Visibility;
 import javax.xml.bind.annotation.XmlAttribute;
 
 public class AbstractModelElement implements Serializable{
+
 	@XmlAttribute (name="xmi.id")
 	public String _model_id;
 	@XmlAttribute (name="name")

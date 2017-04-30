@@ -1,0 +1,1 @@
+One specific kind of an AtomicAction is a Decision.

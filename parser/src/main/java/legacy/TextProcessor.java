@@ -245,7 +245,7 @@ public class TextProcessor {
 
 			}
 		}
-		if ((flag)&&(classobj1!=null))
+	/*	if ((flag)&&(classobj1!=null))
 		{
             System.out.println("RETURN ASSOC: NOT_ADD: flag&&classobj1 "+_assoc_name);
 			_association= new Association(_assoc_name+"_AssociationID"+i, _assoc_name, "", classobj1._model_id,i);
@@ -271,7 +271,8 @@ public class TextProcessor {
 		    _absME.add(_association);
 		//System.out.println("Return Assoc ret else "+_association._model_name);
 		return null;
-			}
+			}*/
+	   return null;
 	}
 	public static void ClassSearch(SemanticGraph dep,IndexedWord word,List<AbstractModelElement> classes)
 	{

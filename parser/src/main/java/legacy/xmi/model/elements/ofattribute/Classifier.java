@@ -1,24 +1,30 @@
-package legacy.xmi.model.elements.ofmethod;
+package legacy.xmi.model.elements.ofattribute;
+
+import legacy.xmi.model.elements.ofattribute.Attribute;
+import legacy.xmi.model.elements.ofmethod.Operation;
 
 import javax.xml.bind.annotation.XmlElement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by svitlanamoiseyenko on 2/21/17.
  */
 public class Classifier {
 
-    //TODO list of attr and methods
-    @XmlElement(name="Attribute", namespace="org.omg.xmi.namespace.UML")
-    public Attribute _attribute;
 
     @XmlElement(name="Operation", namespace="org.omg.xmi.namespace.UML")
     public Operation _operation;
 
+    @XmlElement(name="Attribute", namespace="org.omg.xmi.namespace.UML")
+    public List<Attribute> attributes;
+
     public Classifier() {
+        attributes = new ArrayList<Attribute>();
     }
 
     public void addAttribute(Attribute attribute) {
-        this._attribute = attribute;
+        this.attributes.add(attribute);
     }
 
     public void addOperation(Operation operation) {

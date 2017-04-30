@@ -1,0 +1,1 @@
+ A Decision like an AtomicAction applies a change on the Environment.
