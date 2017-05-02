@@ -69,8 +69,6 @@ public class TextParser {
             buildNPGraph(tree);
             buildXMIGraph();
             buildAbstractModelElementsList();
-
-
         }
     }
 

@@ -94,16 +94,20 @@ public class XMIUtil {
     }
 
 
-    public Class getClassElement(String name)
-    {
+    public Class getClassElement(String name) {
+
         for (AbstractModelElement element: abstractModelElements) {
             if (element instanceof Class) {
-                if (element._model_name.toLowerCase().equals(name.toLowerCase())) {
-                            return  (Class) element;
+                if (element._model_name != null &&
+                    name != null &&
+                    element._model_name.toLowerCase().equals(name.toLowerCase())) {
+
+                    return (Class) element;
                 }
             }
         }
-        return  null;
+
+        return null;
     }
 
 }
