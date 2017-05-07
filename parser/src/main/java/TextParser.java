@@ -143,17 +143,21 @@ public class TextParser {
 
     private void buildAbstractModelElementsList() {
         List<XMINode> graphNodes = xmiGraph.getAllNodes();
+
         for (XMINode node: graphNodes) {
             Class element = xmiHelper.getClassElementFromNode(node);
             xmiHelper.addElementToClass(element);
         }
+
         List<XMIEdge> graphEdges = xmiGraph.getAllEdges();
+
         for (XMIEdge edge: graphEdges) {
             XMINode parentNode = xmiGraph.getNode(edge.parentNodeId);
             XMINode childNode = xmiGraph.getNode(edge.childNodeId);
 
-                AbstractModelElement abstractModelElement = xmiHelper.getConnectionElement(edge, parentNode, childNode);
-                xmiHelper.addElementToClass(abstractModelElement);
+            AbstractModelElement abstractModelElement = xmiHelper
+                    .getConnectionElement(edge, parentNode, childNode);
+            xmiHelper.addElementToClass(abstractModelElement);
         }
     }
 

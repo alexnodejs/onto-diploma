@@ -34,7 +34,6 @@ public class XMIGraphUtil {
             }
 
 
-
             if (!childTree.isPhrasal() && BaseTreeUtil.isAdjective(childTree.value().toString())) {
                 xmiNode.attributes.add(String.valueOf(childTree.getLeaves().get(0)));
             }

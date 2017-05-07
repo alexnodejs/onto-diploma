@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XMI xmlns:UML="org.omg.xmi.namespace.UML" xmi.version="1.2">
+    <XMI.header>
+        <XMI.metamodel xmi.name="UML" xmi.version="1.4"/>
+    </XMI.header>
+    <XMI.content>
+        <UML:Model xmi.id="UML_model_1" name="NewModelUML" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+            <UML:Namespace.ownedElement>
+                <UML:Class visibility="public" isActive="false" xmi.id="Horse_ClassID0" name="Horse" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Classifier.feature>
+                        <UML:Attribute xmi.id="little0" name="little" visibility="private" isSpecification="false" ownerScope="instance">
+                            <UML:StructuralFeature.type>
+<UML:DataType href="http://argouml.org/profiles/uml14/default-uml14.xmi#-84-17--56-5-43645a83:11466542d86:-8000:000000000000087E"/>
+                            </UML:StructuralFeature.type>
+                        </UML:Attribute>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class visibility="public" isActive="false" xmi.id="It_ClassID2" name="It" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:GeneralizableElement.generalization>
+                        <UML:Generalization xmi.idref="genItYear13"/>
+                    </UML:GeneralizableElement.generalization>
+                </UML:Class>
+                <UML:Class visibility="public" isActive="false" xmi.id="Farmhouse_ClassID3" name="Farmhouse" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Woods_ClassID4" name="Woods" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Lake_ClassID5" name="Lake" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Classifier.feature>
+                        <UML:Attribute xmi.id="frozen5" name="frozen" visibility="private" isSpecification="false" ownerScope="instance">
+                            <UML:StructuralFeature.type>
+<UML:DataType href="http://argouml.org/profiles/uml14/default-uml14.xmi#-84-17--56-5-43645a83:11466542d86:-8000:000000000000087E"/>
+                            </UML:StructuralFeature.type>
+                        </UML:Attribute>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class visibility="public" isActive="false" xmi.id="Evening_ClassID6" name="Evening" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="Year_ClassID7" name="Year" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Association xmi.id="_AssociationID8" name="" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Horse_ClassID08" visibility="public" isNavigable="true" ordering="unordered" aggregation="aggregate" targetScope="instance" changeability="changeable" name="think queer To stop without near Between of" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_Horse_ClassID08">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_Horse_ClassID08" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Horse_ClassID0"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_It_ClassID28" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" name="" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_It_ClassID28">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_It_ClassID28" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="It_ClassID2"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Association xmi.id="_AssociationID9" name="" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_It_ClassID29" visibility="public" isNavigable="true" ordering="unordered" aggregation="aggregate" targetScope="instance" changeability="changeable" name="without near Between queer" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_It_ClassID29">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_It_ClassID29" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="It_ClassID2"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Farmhouse_ClassID39" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" name="" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_Farmhouse_ClassID39">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_Farmhouse_ClassID39" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Farmhouse_ClassID3"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Association xmi.id="_AssociationID10" name="" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_It_ClassID210" visibility="public" isNavigable="true" ordering="unordered" aggregation="aggregate" targetScope="instance" changeability="changeable" name="without near Between queer" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_It_ClassID210">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_It_ClassID210" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="It_ClassID2"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Woods_ClassID410" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" name="" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_Woods_ClassID410">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_Woods_ClassID410" lower="1" upper="-1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Woods_ClassID4"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Association xmi.id="_AssociationID11" name="" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_It_ClassID211" visibility="public" isNavigable="true" ordering="unordered" aggregation="aggregate" targetScope="instance" changeability="changeable" name="without near Between queer" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_It_ClassID211">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_It_ClassID211" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="It_ClassID2"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Lake_ClassID511" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" name="" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_Lake_ClassID511">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_Lake_ClassID511" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Lake_ClassID5"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Association xmi.id="queer_AssociationID12" name="queer" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_It_ClassID212" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_It_ClassID212">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_It_ClassID212" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="It_ClassID2"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Evening_ClassID612" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_Evening_ClassID612">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_Evening_ClassID612" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Evening_ClassID6"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Generalization xmi.id="genItYear13" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Generalization.child>
+                        <UML:Class xmi.idref="It_ClassID2"/>
+                    </UML:Generalization.child>
+                    <UML:Generalization.parent>
+                        <UML:Class xmi.idref="Year_ClassID7"/>
+                    </UML:Generalization.parent>
+                </UML:Generalization>
+            </UML:Namespace.ownedElement>
+        </UML:Model>
+    </XMI.content>
+</XMI>
