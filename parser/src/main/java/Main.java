@@ -18,7 +18,7 @@ public class Main {
 
         TextParser textParser = new TextParser();
         XMI xmi = textParser.Processing("poem.txt"); //14
-        XMI_output.WriteToXMIFile(Constants.resourcesDir + "test_outputparser" + ".xmi", xmi);
+        XMI_output.WriteToXMIFile(Constants.resourcesDir + "outputparser" + ".xmi", xmi);
     }
 
 
