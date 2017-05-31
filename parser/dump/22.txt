@@ -1,1 +1,1 @@
-A Strategy is a subclass of a Plan.
+A Clock is a TemporalInstrument to generate the instances of a TemporalMeasure.

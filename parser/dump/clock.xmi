@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XMI xmlns:UML="org.omg.xmi.namespace.UML" xmi.version="1.2">
+    <XMI.header>
+        <XMI.metamodel xmi.name="UML" xmi.version="1.4"/>
+    </XMI.header>
+    <XMI.content>
+        <UML:Model xmi.id="UML_model_1" name="NewModelUML" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+            <UML:Namespace.ownedElement>
+                <UML:Class visibility="public" isActive="false" xmi.id="Clock_ClassID0" name="Clock" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:GeneralizableElement.generalization>
+                        <UML:Generalization xmi.idref="genClockTemporalMeasure5"/>
+                    </UML:GeneralizableElement.generalization>
+                </UML:Class>
+                <UML:Class visibility="public" isActive="false" xmi.id="TemporalInstrument_ClassID2" name="TemporalInstrument" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Class visibility="public" isActive="false" xmi.id="TemporalMeasure_ClassID3" name="TemporalMeasure" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+                <UML:Association xmi.id="is_AssociationID4" name="is" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_Clock_ClassID04" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_Clock_ClassID04">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_Clock_ClassID04" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="Clock_ClassID0"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id="_assocEndFor_TemporalInstrument_ClassID24" visibility="public" isNavigable="true" ordering="unordered" aggregation="none" targetScope="instance" changeability="changeable" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                            <UML:AssociationEnd.multiplicity>
+<UML:Multiplicity xmi.id="multiplicity__assocEndFor_TemporalInstrument_ClassID24">
+    <UML:Multiplicity.range>
+        <UML:MultiplicityRange xmi.id="range__assocEndFor_TemporalInstrument_ClassID24" lower="1" upper="1"/>
+    </UML:Multiplicity.range>
+</UML:Multiplicity>
+                            </UML:AssociationEnd.multiplicity>
+                            <UML:AssociationEnd.participant>
+<UML:Class xmi.idref="TemporalInstrument_ClassID2"/>
+                            </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                    </UML:Association.connection>
+                </UML:Association>
+                <UML:Generalization xmi.id="genClockTemporalMeasure5" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+                    <UML:Generalization.child>
+                        <UML:Class xmi.idref="Clock_ClassID0"/>
+                    </UML:Generalization.child>
+                    <UML:Generalization.parent>
+                        <UML:Class xmi.idref="TemporalMeasure_ClassID3"/>
+                    </UML:Generalization.parent>
+                </UML:Generalization>
+            </UML:Namespace.ownedElement>
+        </UML:Model>
+    </XMI.content>
+</XMI>

@@ -59,6 +59,13 @@ public class BaseTreeUtil {
         return false;
     }
 
+    public static boolean isInstance(String word) {
+        if (Arrays.asList(Constants.instanceMeaning).contains(word)) {
+                return true;
+        }
+        return false;
+    }
+
     public static boolean isSingleNoun(String tag) {
         if (Arrays.asList(Constants.singleNounSet).contains(tag)) {
             return true;

@@ -131,7 +131,9 @@ public class TextParser {
     private void buildXMIGraph() {
         List<NPNode> graphNodes = npGraph.getAllNodes();
         for (NPNode node: graphNodes) {
-            xmiGraph.addNode(XMIGraphUtil.getXMINode(node));
+            if (XMIGraphUtil.getXMINode(node) != null) {
+                xmiGraph.addNode(XMIGraphUtil.getXMINode(node));
+            }
         }
         List<NPEdge> graphEdges = npGraph.getAllEdges();
         for (NPEdge edge: graphEdges) {

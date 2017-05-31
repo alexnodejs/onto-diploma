@@ -34,7 +34,8 @@ public class XMIEdge {
             this.XMIRelationType = XMIRelationType.AGGREGATION;
         } else if (BaseTreeUtil.isGeneralization(tag, word)) {
             this.XMIRelationType = XMIRelationType.GENERALIZATION;
-        } else {
+        }
+        else {
             this.XMIRelationType = XMIRelationType.ASSOCIATION;
         }
     }

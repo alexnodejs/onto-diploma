@@ -20,8 +20,14 @@ public class XMIGraphUtil {
         List<Tree> childList = treeNode.getChildrenAsList();
         for (Tree childTree : childList)
         {
+            System.out.print("----1------");
             if (!childTree.isPhrasal() && BaseTreeUtil.isNoun(childTree.value().toString())) {
                 String name = String.valueOf(childTree.getLeaves().get(0));
+
+                if ( BaseTreeUtil.isInstance(name)) {
+                    return null;
+                }
+
                 if (xmiNode.name == null) {
                     xmiNode.name = (Character.toUpperCase(name.charAt(0))) + name.substring(1);
                 } else {

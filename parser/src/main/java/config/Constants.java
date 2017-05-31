@@ -20,6 +20,7 @@ public final class Constants {
   public static final String generalizationSet[] = new String[] {"IN"}; // of
 
   public static final String generalizationSetWords[] = new String[] {"of"};
+  public static final String instanceMeaning[] = new String[] {"instance", "instances"};
 }
 
 
